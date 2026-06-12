@@ -1,0 +1,47 @@
+services:
+  nextjs:
+    build: .
+    container_name: aman-nextjs
+    restart: unless-stopped
+    env_file:
+      - .env.local
+    environment:
+      - NODE_ENV=production
+    volumes:
+      # Persist admin-edited content (lib/content.ts writes to /app/content).
+      - aman-content:/app/content
+    networks:
+      - traefik
+
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://127.0.0.1:3000/robots.txt"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik"
+
+      # HTTPS router (serves the app)
+      - "traefik.http.routers.aman.rule=Host(`aman.mehdify.com`)"
+      - "traefik.http.routers.aman.entrypoints=websecure"
+      - "traefik.http.routers.aman.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.aman.service=aman"
+      - "traefik.http.services.aman.loadbalancer.server.port=3000"
+
+      # HTTP router → permanent redirect to HTTPS
+      - "traefik.http.routers.aman-web.rule=Host(`aman.mehdify.com`)"
+      - "traefik.http.routers.aman-web.entrypoints=web"
+      - "traefik.http.routers.aman-web.middlewares=aman-https-redirect"
+      - "traefik.http.middlewares.aman-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.middlewares.aman-https-redirect.redirectscheme.permanent=true"
+
+volumes:
+  aman-content:
+
+networks:
+  traefik:
+    external: true
+    name: traefik

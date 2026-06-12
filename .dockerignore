@@ -1,0 +1,24 @@
+# Build artifacts & deps (rebuilt inside the image)
+node_modules
+.next
+out
+build
+
+# VCS & editor
+.git
+.gitignore
+.vscode
+
+# Local env & secrets (provided at runtime via env_file)
+.env*
+
+# Docker
+Dockerfile
+.dockerignore
+docker-compose.yml
+
+# Logs & misc
+*.log
+npm-debug.log*
+.DS_Store
+README.md
