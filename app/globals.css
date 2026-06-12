@@ -1,26 +1,336 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* Content sources for Tailwind v4 PostCSS scanner */
+@source "../app";
+@source "../components";
+@source "../sections";
+@source "../hooks";
+@source "../data";
+@source "../config";
+
+/* ─── DESIGN TOKENS (@theme) ────────────────────────────────────── */
+
+@theme {
+  /* Brand colors — become bg-aman-*, text-aman-*, border-aman-* utilities */
+  --color-aman-white:       #FFFFFF;
+  --color-aman-cream:       #FAF8F5;
+  --color-aman-cream-dark:  #F2EDE6;
+  --color-aman-sand:        #E8DDD0;
+  --color-aman-stone-100:   #D4C9BB;
+  --color-aman-stone-200:   #C4B5A0;
+  --color-aman-stone-300:   #A89880;
+  --color-aman-stone-400:   #8B7B64;
+  --color-aman-stone-500:   #6E5F4A;
+  --color-aman-gold:        #C9A96E;
+  --color-aman-gold-dark:   #B8943F;
+  --color-aman-charcoal:    #1A1917;
+  --color-aman-text:        #2D2B29;
+  --color-aman-text-muted:  #6B6560;
+  --color-aman-text-light:  #9B9490;
+  --color-aman-border:      #E8E2DA;
+  --color-aman-border-dark: #D4C9BB;
+
+  /* Fonts — become font-sans / font-serif utilities */
+  --font-sans:  var(--font-inter), 'Inter', system-ui, -apple-system, sans-serif;
+  --font-serif: var(--font-playfair), 'Playfair Display', Georgia, 'Times New Roman', serif;
+
+  /* Easing — referenced via var() in transitions/animations */
+  --ease-in-expo:     cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-out-expo:    cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-expo: cubic-bezier(0.87, 0, 0.13, 1);
+  --ease-spring:      cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Shadows — referenced via var() in components */
+  --shadow-soft: 0 2px 20px 0 rgb(26 25 23 / 0.06);
+  --shadow-card: 0 4px 30px 0 rgb(26 25 23 / 0.10);
+  --shadow-hover: 0 8px 40px 0 rgb(26 25 23 / 0.15);
+  --shadow-gold:  0 4px 20px 0 rgb(201 169 110 / 0.25);
+
+  /* Radius — become rounded-* utilities */
+  --radius-sm:  0.25rem;
+  --radius-md:  0.5rem;
+  --radius-lg:  0.75rem;
+  --radius-xl:  1rem;
+  --radius-2xl: 1.5rem;
+
+  /* Registered animations — become animate-* utilities */
+  --animate-fade-in-up:    fadeInUp 0.8s var(--ease-out-expo) both;
+  --animate-fade-in:       fadeIn 0.6s ease both;
+  --animate-scale-in:      scaleIn 0.5s var(--ease-out-expo) both;
+  --animate-slide-in-left: slideInLeft 0.6s var(--ease-out-expo) both;
+  --animate-shimmer:       shimmer 2s linear infinite;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* ─── KEYFRAMES ─────────────────────────────────────────────────── */
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes shimmer {
+  from { background-position: -200% 0; }
+  to   { background-position:  200% 0; }
+}
+
+/* ─── BASE LAYER ────────────────────────────────────────────────── */
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: auto; /* Lenis handles smooth scroll */
+  }
+
+  body {
+    background-color: var(--color-aman-white);
+    color: var(--color-aman-text);
+    font-size: 1rem;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* Lenis smooth scroll overrides */
+  html.lenis,
+  html.lenis body { height: auto; }
+
+  .lenis.lenis-smooth                      { scroll-behavior: auto !important; }
+  .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+  .lenis.lenis-stopped                     { overflow: hidden; }
+  .lenis.lenis-smooth iframe               { pointer-events: none; }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--color-aman-charcoal);
+  }
+
+  h1 { font-size: clamp(2.75rem, 6vw, 5rem); }
+  h2 { font-size: clamp(2rem, 4vw, 3.25rem); }
+  h3 { font-size: clamp(1.5rem, 2.5vw, 2rem); }
+  h4 { font-size: clamp(1.125rem, 1.8vw, 1.5rem); }
+
+  p {
+    color: var(--color-aman-text-muted);
+    line-height: 1.75;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  ::selection {
+    background-color: var(--color-aman-gold);
+    color: var(--color-aman-white);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-aman-gold);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  ::-webkit-scrollbar             { width: 6px; }
+  ::-webkit-scrollbar-track       { background: var(--color-aman-cream); }
+  ::-webkit-scrollbar-thumb       { background: var(--color-aman-stone-200); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--color-aman-stone-300); }
+
+  input, textarea, select {
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    color: var(--color-aman-text);
+  }
+
+  input::placeholder,
+  textarea::placeholder { color: var(--color-aman-text-light); }
+}
+
+/* ─── CUSTOM UTILITIES (@utility) ───────────────────────────────── */
+/* Single-purpose utilities that participate in Tailwind's cascade  */
+/* and work with responsive / state variants (md:, hover:, etc.)   */
+
+@utility container-aman {
+  width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
+  padding-inline: clamp(1.25rem, 5vw, 5rem);
+}
+
+@utility section-padding {
+  padding-block: clamp(4rem, 8vw, 7rem);
+}
+
+@utility section-padding-sm {
+  padding-block: clamp(2.5rem, 5vw, 4rem);
+}
+
+@utility gold-line {
+  display: block;
+  width: 3rem;
+  height: 2px;
+  background: linear-gradient(90deg, var(--color-aman-gold), var(--color-aman-gold-dark));
+  border-radius: 1px;
+}
+
+@utility hero-overlay {
+  background: linear-gradient(
+    135deg,
+    rgb(26 25 23 / 0.75) 0%,
+    rgb(26 25 23 / 0.45) 50%,
+    rgb(26 25 23 / 0.15) 100%
+  );
+}
+
+@utility lightbox-backdrop {
+  background: rgb(26 25 23 / 0.95);
+  backdrop-filter: blur(8px);
+}
+
+/* ─── COMPONENT LAYER (@layer components) ───────────────────────── */
+/* Multi-rule, stateful components — always emitted, lower cascade  */
+/* priority than utilities so Tailwind classes can still override.  */
+
+@layer components {
+  /* Navigation link with animated underline */
+  .nav-link {
+    position: relative;
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-aman-text);
+    transition: color 0.2s ease;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--color-aman-gold);
+      transition: width 0.3s var(--ease-out-expo);
+    }
+
+    &:hover,
+    &.active {
+      color: var(--color-aman-gold);
+
+      &::after { width: 100%; }
+    }
+  }
+
+  /* Header glass effect on scroll — toggled via JS */
+  .header-scrolled {
+    background: rgb(255 255 255 / 0.97);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--color-aman-border);
+    box-shadow: 0 1px 20px rgb(26 25 23 / 0.05);
+  }
+
+  /* Gallery card with image zoom on hover */
+  .gallery-item {
+    overflow: hidden;
+    cursor: pointer;
+
+    & img {
+      transition: transform 0.6s var(--ease-out-expo);
+      will-change: transform;
+    }
+
+    &:hover img { transform: scale(1.04); }
+  }
+
+  /* Cookie consent banner — slides in via .visible class */
+  .cookie-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    background: var(--color-aman-charcoal);
+    color: var(--color-aman-white);
+    padding: 1.25rem 1.5rem;
+    transform: translateY(100%);
+    transition: transform 0.5s var(--ease-out-expo);
+
+    &.visible { transform: translateY(0); }
+  }
+
+  /* Scroll-triggered text reveal — activated via .is-visible */
+  .reveal-text {
+    overflow: hidden;
+
+    & span {
+      display: block;
+      transform: translateY(100%);
+      transition: transform 0.8s var(--ease-out-expo);
+    }
+
+    &.is-visible span { transform: translateY(0); }
+  }
+
+  /* Scroll-triggered fade-up — activated via .is-visible */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(32px);
+    transition:
+      opacity   0.8s var(--ease-out-expo),
+      transform 0.8s var(--ease-out-expo);
+
+    &.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Page transition helpers */
+  .page-transition-enter {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  .page-transition-enter-active {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.4s ease, transform 0.4s ease;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ─── REDUCED MOTION ────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  html { scroll-behavior: auto; }
+}
+
+/* ─── PRINT ─────────────────────────────────────────────────────── */
+
+@media print {
+  .no-print { display: none !important; }
 }
