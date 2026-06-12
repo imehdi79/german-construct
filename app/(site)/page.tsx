@@ -8,7 +8,7 @@ import { GalerieSection } from '@/sections/GalerieSection'
 import { TestimonialsSection } from '@/sections/TestimonialsSection'
 import { KontaktCtaSection } from '@/sections/KontaktCtaSection'
 import { siteConfig } from '@/config/site'
-import { getSiteContent, getFormSchemas } from '@/lib/content'
+import { getSiteContent, getFormSchemas, getPlannerCards } from '@/lib/content'
 
 export const metadata: Metadata = {
   title: `${siteConfig.name} – ${siteConfig.tagline}`,
@@ -81,7 +81,11 @@ const jsonLd = {
 }
 
 export default async function HomePage() {
-  const [site, formSchemas] = await Promise.all([getSiteContent(), getFormSchemas()])
+  const [site, formSchemas, plannerCards] = await Promise.all([
+    getSiteContent(),
+    getFormSchemas(),
+    getPlannerCards(),
+  ])
 
   return (
     <>
@@ -90,7 +94,7 @@ export default async function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <HeroSection hero={site.hero} />
-      <ProjektplanerSection schemas={formSchemas} />
+      <ProjektplanerSection schemas={formSchemas} cards={plannerCards} />
       <LeistungenSection />
       <WarumAmanSection />
       <StatistikSection stats={site.stats} />

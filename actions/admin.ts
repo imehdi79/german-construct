@@ -14,6 +14,8 @@ import {
   saveJobs,
   saveGallery,
   saveFormSchemas,
+  savePlannerCards,
+  resetContent,
   type FullContent,
 } from '@/lib/content'
 
@@ -63,6 +65,7 @@ export async function publishContentAction(
       saveJobs(content.jobs),
       saveGallery(content.gallery),
       saveFormSchemas(content.formSchemas),
+      savePlannerCards(content.plannerCards),
     ])
   } catch (err) {
     console.error('Publish failed:', err)
@@ -79,5 +82,34 @@ export async function publishContentAction(
   return {
     success: true,
     message: 'Änderungen gespeichert und veröffentlicht. Die Website ist aktualisiert.',
+  }
+}
+
+// ─── Hard reset (restore the original default content) ───────────────────────
+
+export interface ResetResult extends ActionResult {
+  content?: FullContent
+}
+
+export async function resetContentAction(): Promise<ResetResult> {
+  if (!(await isAuthenticated())) {
+    return { success: false, message: 'Nicht autorisiert. Bitte erneut anmelden.' }
+  }
+
+  try {
+    const content = await resetContent()
+    // Republish so the public site reflects the restored defaults immediately.
+    revalidatePath('/', 'layout')
+    return {
+      success: true,
+      message: 'Alle Inhalte wurden auf die Standardwerte zurückgesetzt.',
+      content,
+    }
+  } catch (err) {
+    console.error('Reset failed:', err)
+    return {
+      success: false,
+      message: 'Zurücksetzen fehlgeschlagen. Bitte versuchen Sie es erneut.',
+    }
   }
 }

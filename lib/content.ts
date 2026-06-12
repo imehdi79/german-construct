@@ -4,8 +4,9 @@ import { services as seedServices } from '@/data/services'
 import { jobs as seedJobs } from '@/data/jobs'
 import { galleryItems as seedGallery } from '@/data/gallery'
 import { formSchemas as seedFormSchemas } from '@/components/Form-Builder/schemas'
+import { plannerCards as seedPlannerCards } from '@/data/plannerCards'
 import { siteConfig } from '@/config/site'
-import type { Service, Job, GalleryItem } from '@/types'
+import type { Service, Job, GalleryItem, PlannerCard } from '@/types'
 import type { Step } from '@/components/Form-Builder/types'
 
 /**
@@ -77,6 +78,12 @@ export type FormSchemasContent = Record<string, Step[]>
 
 export const defaultFormSchemas: FormSchemasContent = seedFormSchemas
 
+// ─── Editable project-planner cards ──────────────────────────────────────────
+// The selectable cards shown in the planner. Each card's `id` is the key of its
+// matching form schema, so cards and schemas are kept in sync by the admin.
+
+export const defaultPlannerCards: PlannerCard[] = seedPlannerCards
+
 // ─── Low-level JSON helpers ──────────────────────────────────────────────────
 
 async function readJson<T>(file: string, fallback: T): Promise<T> {
@@ -105,6 +112,8 @@ export const getJobs = () => readJson<Job[]>('jobs.json', seedJobs)
 export const getGallery = () => readJson<GalleryItem[]>('gallery.json', seedGallery)
 export const getFormSchemas = () =>
   readJson<FormSchemasContent>('form-schemas.json', defaultFormSchemas)
+export const getPlannerCards = () =>
+  readJson<PlannerCard[]>('planner-cards.json', defaultPlannerCards)
 
 // ─── Writers (used by admin server actions) ──────────────────────────────────
 
@@ -114,6 +123,8 @@ export const saveJobs = (data: Job[]) => writeJson('jobs.json', data)
 export const saveGallery = (data: GalleryItem[]) => writeJson('gallery.json', data)
 export const saveFormSchemas = (data: FormSchemasContent) =>
   writeJson('form-schemas.json', data)
+export const savePlannerCards = (data: PlannerCard[]) =>
+  writeJson('planner-cards.json', data)
 
 // ─── Aggregate read for the admin editor ─────────────────────────────────────
 
@@ -123,15 +134,45 @@ export interface FullContent {
   jobs: Job[]
   gallery: GalleryItem[]
   formSchemas: FormSchemasContent
+  plannerCards: PlannerCard[]
 }
 
 export async function getAllContent(): Promise<FullContent> {
-  const [site, services, jobs, gallery, formSchemas] = await Promise.all([
+  const [site, services, jobs, gallery, formSchemas, plannerCards] = await Promise.all([
     getSiteContent(),
     getServices(),
     getJobs(),
     getGallery(),
     getFormSchemas(),
+    getPlannerCards(),
   ])
-  return { site, services, jobs, gallery, formSchemas }
+  return { site, services, jobs, gallery, formSchemas, plannerCards }
+}
+
+// ─── Hard reset to the in-repo defaults ──────────────────────────────────────
+
+/** The pristine default content shipped with the repo (ignores saved JSON). */
+export function getDefaultContent(): FullContent {
+  return {
+    site: defaultSiteContent,
+    services: seedServices,
+    jobs: seedJobs,
+    gallery: seedGallery,
+    formSchemas: defaultFormSchemas,
+    plannerCards: defaultPlannerCards,
+  }
+}
+
+/** Overwrite every content file with the defaults and return them. */
+export async function resetContent(): Promise<FullContent> {
+  const defaults = getDefaultContent()
+  await Promise.all([
+    saveSiteContent(defaults.site),
+    saveServices(defaults.services),
+    saveJobs(defaults.jobs),
+    saveGallery(defaults.gallery),
+    saveFormSchemas(defaults.formSchemas),
+    savePlannerCards(defaults.plannerCards),
+  ])
+  return defaults
 }

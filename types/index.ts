@@ -79,6 +79,19 @@ export interface ProjectCard {
   color: string
 }
 
+/**
+ * A selectable card in the project planner. Its `id` doubles as the key of the
+ * matching multi-step form schema (see `FormSchemasContent`), so cards and form
+ * schemas are added/removed together. `icon` is a Lucide icon name resolved via
+ * `lib/plannerIcons`.
+ */
+export interface PlannerCard {
+  id: string
+  title: string
+  description: string
+  icon: string
+}
+
 // ─── Form Types ───────────────────────────────────────────────────────────────
 
 export interface ContactFormData {

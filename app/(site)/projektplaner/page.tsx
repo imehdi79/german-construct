@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { SectionTitle } from '@/components/ui/SectionTitle'
 import { ProjektplanerSection } from '@/sections/ProjektplanerSection'
 import { createMetadata } from '@/lib/metadata'
-import { getFormSchemas } from '@/lib/content'
+import { getFormSchemas, getPlannerCards } from '@/lib/content'
 
 export const metadata: Metadata = createMetadata({
   title: 'Projektplaner',
@@ -13,7 +13,10 @@ export const metadata: Metadata = createMetadata({
 })
 
 export default async function ProjektplanerPage() {
-  const formSchemas = await getFormSchemas()
+  const [formSchemas, plannerCards] = await Promise.all([
+    getFormSchemas(),
+    getPlannerCards(),
+  ])
 
   return (
     <>
@@ -35,7 +38,7 @@ export default async function ProjektplanerPage() {
 
       {/* Reuse the home section – it works standalone too */}
       <div className="bg-aman-cream">
-        <ProjektplanerSection schemas={formSchemas} />
+        <ProjektplanerSection schemas={formSchemas} cards={plannerCards} />
       </div>
 
       {/* Info Strip */}

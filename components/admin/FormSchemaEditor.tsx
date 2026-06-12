@@ -478,18 +478,24 @@ function StepEditor({
 
 export function FormSchemaEditor({
   schemas,
+  labels,
   onChange,
 }: {
   schemas: FormSchemasContent
+  /** Optional display names per schema key (e.g. the planner card titles). */
+  labels?: Record<string, string>
   onChange: (mutator: (draft: FormSchemasContent) => void) => void
 }) {
   const keys = Object.keys(schemas)
   const [active, setActive] = useState(keys[0] ?? '')
-  const steps = schemas[active] ?? []
+  // Fall back to the first schema if the active key was removed (card deleted).
+  const activeKey = keys.includes(active) ? active : keys[0] ?? ''
+  const steps = schemas[activeKey] ?? []
+  const labelFor = (key: string) => labels?.[key] ?? key
 
   // Scope a mutation to the active schema array.
   const mutateSteps = (fn: (steps: Step[]) => void) =>
-    onChange((draft) => fn(draft[active]))
+    onChange((draft) => fn(draft[activeKey]))
 
   return (
     <div className="max-w-3xl space-y-5">
@@ -502,19 +508,19 @@ export function FormSchemaEditor({
             onClick={() => setActive(key)}
             className={cn(
               'px-3.5 py-2 rounded-xl text-sm font-medium transition-all border',
-              active === key
+              activeKey === key
                 ? 'bg-aman-charcoal text-white border-aman-charcoal'
                 : 'bg-white text-gray-600 border-gray-200 hover:border-aman-gold',
             )}
           >
-            {key}
+            {labelFor(key)}
             <span className="ml-2 text-xs opacity-60">{schemas[key]?.length ?? 0}</span>
           </button>
         ))}
       </div>
 
       <p className="text-xs text-gray-500 leading-relaxed">
-        Bearbeiten Sie die Schritte und Felder des Formulars „{active}“. Änderungen
+        Bearbeiten Sie die Schritte und Felder des Formulars „{labelFor(activeKey)}“. Änderungen
         werden erst mit „Speichern&nbsp;&amp;&nbsp;Veröffentlichen“ übernommen.
       </p>
 

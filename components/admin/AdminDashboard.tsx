@@ -4,17 +4,25 @@ import { useState, useTransition } from 'react'
 import Link from 'next/link'
 import {
   LayoutDashboard, Globe, Wrench, Briefcase, Images, ClipboardList,
-  LogOut, Menu, X, ChevronRight, Plus, Trash2, Save,
-  CheckCircle2, AlertCircle, ExternalLink,
+  LayoutGrid, LogOut, Menu, X, ChevronRight, Plus, Trash2, Save,
+  CheckCircle2, AlertCircle, AlertTriangle, RotateCcw, ExternalLink,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { siteConfig } from '@/config/site'
-import { logoutAction, publishContentAction, type ActionResult } from '@/actions/admin'
-import type { FullContent } from '@/lib/content'
+import {
+  logoutAction,
+  publishContentAction,
+  resetContentAction,
+  type ActionResult,
+} from '@/actions/admin'
+import type { FullContent, FormSchemasContent } from '@/lib/content'
 import type { Service, Job, GalleryItem } from '@/types'
+import { DEFAULT_PLANNER_ICON } from '@/lib/plannerIcons'
 import { FormSchemaEditor } from './FormSchemaEditor'
+import { PlannerCardsEditor } from './PlannerCardsEditor'
 
-type SectionId = 'dashboard' | 'site' | 'services' | 'jobs' | 'gallery' | 'forms'
+type SectionId =
+  | 'dashboard' | 'site' | 'services' | 'jobs' | 'gallery' | 'planner' | 'forms'
 
 const navItems: { id: SectionId; icon: typeof LayoutDashboard; label: string }[] = [
   { id: 'dashboard', icon: LayoutDashboard, label: 'Übersicht' },
@@ -22,6 +30,7 @@ const navItems: { id: SectionId; icon: typeof LayoutDashboard; label: string }[]
   { id: 'services', icon: Wrench, label: 'Leistungen' },
   { id: 'jobs', icon: Briefcase, label: 'Stellenangebote' },
   { id: 'gallery', icon: Images, label: 'Galerie' },
+  { id: 'planner', icon: LayoutGrid, label: 'Projektplaner-Karten' },
   { id: 'forms', icon: ClipboardList, label: 'Projektplaner-Formulare' },
 ]
 
@@ -98,6 +107,7 @@ export function AdminDashboard({ initialContent }: { initialContent: FullContent
   const [dirty, setDirty] = useState(false)
   const [result, setResult] = useState<ActionResult | null>(null)
   const [publishing, startPublish] = useTransition()
+  const [resetting, startReset] = useTransition()
 
   // generic immutable updater
   const update = (fn: (draft: FullContent) => FullContent) => {
@@ -114,7 +124,41 @@ export function AdminDashboard({ initialContent }: { initialContent: FullContent
     })
   }
 
-  const { site, services, jobs, gallery } = content
+  // Hard reset: restore the original default content and refresh the editor state.
+  const reset = () => {
+    startReset(async () => {
+      const res = await resetContentAction()
+      setResult(res)
+      if (res.success && res.content) {
+        setContent(res.content)
+        setDirty(false)
+      }
+    })
+  }
+
+  // Add a planner card together with its (empty) form schema, keyed by the same id.
+  const addPlannerCard = () =>
+    update((d) => {
+      const id = `karte-${Date.now()}`
+      d.plannerCards.push({
+        id,
+        title: 'Neue Karte',
+        description: 'Kurze Beschreibung dieses Projekttyps.',
+        icon: DEFAULT_PLANNER_ICON,
+      })
+      d.formSchemas[id] = newSchema()
+      return d
+    })
+
+  // Remove a planner card and its matching form schema.
+  const removePlannerCard = (i: number) =>
+    update((d) => {
+      const [removed] = d.plannerCards.splice(i, 1)
+      if (removed) delete d.formSchemas[removed.id]
+      return d
+    })
+
+  const { site, services, jobs, gallery, plannerCards } = content
 
   return (
     <div className="flex h-screen bg-gray-50 overflow-hidden">
@@ -239,7 +283,13 @@ export function AdminDashboard({ initialContent }: { initialContent: FullContent
         {/* Content */}
         <main className="flex-1 overflow-y-auto p-4 md:p-6">
           {section === 'dashboard' && (
-            <Dashboard content={content} onGo={setSection} dirty={dirty} />
+            <Dashboard
+              content={content}
+              onGo={setSection}
+              dirty={dirty}
+              onReset={reset}
+              resetting={resetting}
+            />
           )}
 
           {section === 'site' && (
@@ -388,9 +438,19 @@ export function AdminDashboard({ initialContent }: { initialContent: FullContent
             </div>
           )}
 
+          {section === 'planner' && (
+            <PlannerCardsEditor
+              cards={plannerCards}
+              onChange={(mutator) => update((d) => { mutator(d.plannerCards); return d })}
+              onAdd={addPlannerCard}
+              onRemove={removePlannerCard}
+            />
+          )}
+
           {section === 'forms' && (
             <FormSchemaEditor
               schemas={content.formSchemas}
+              labels={Object.fromEntries(plannerCards.map((c) => [c.id, c.title]))}
               onChange={(mutator) => update((d) => { mutator(d.formSchemas); return d })}
             />
           )}
@@ -422,13 +482,19 @@ function AddButton({ label, onClick }: { label: string; onClick: () => void }) {
   )
 }
 
-function Dashboard({ content, onGo, dirty }: {
-  content: FullContent; onGo: (s: SectionId) => void; dirty: boolean
+function Dashboard({ content, onGo, dirty, onReset, resetting }: {
+  content: FullContent
+  onGo: (s: SectionId) => void
+  dirty: boolean
+  onReset: () => void
+  resetting: boolean
 }) {
+  const [confirmReset, setConfirmReset] = useState(false)
   const cards = [
     { id: 'services' as const, label: 'Leistungen', count: content.services.length, icon: Wrench },
     { id: 'jobs' as const, label: 'Stellenangebote', count: content.jobs.length, icon: Briefcase },
     { id: 'gallery' as const, label: 'Galerie-Bilder', count: content.gallery.length, icon: Images },
+    { id: 'planner' as const, label: 'Projektplaner-Karten', count: content.plannerCards.length, icon: LayoutGrid },
     { id: 'forms' as const, label: 'Projektplaner-Formulare', count: Object.keys(content.formSchemas).length, icon: ClipboardList },
   ]
   return (
@@ -461,6 +527,62 @@ function Dashboard({ content, onGo, dirty }: {
           werden Ihre Änderungen gespeichert und die öffentliche Website neu generiert
           (SEO-freundlich, ohne Neustart) – ähnlich wie bei einem Klick auf „Veröffentlichen“ in WordPress.
         </p>
+      </div>
+
+      {/* Danger zone – hard reset to the original defaults */}
+      <div className="bg-red-50/60 border border-red-200 rounded-2xl p-5">
+        <div className="flex items-start gap-3">
+          <span className="inline-flex p-2 rounded-xl bg-red-100 text-red-600 shrink-0">
+            <AlertTriangle size={18} />
+          </span>
+          <div className="min-w-0 flex-1">
+            <p className="text-sm font-semibold text-red-700">Inhalte zurücksetzen</p>
+            <p className="text-xs text-red-600/80 leading-relaxed mt-0.5">
+              Setzt <span className="font-medium">alle</span> Inhalte (Website-Texte,
+              Leistungen, Stellen, Galerie, Projektplaner-Karten und -Formulare) auf die
+              ursprünglichen Standardwerte zurück. Ihre gespeicherten Änderungen gehen
+              dabei unwiderruflich verloren und die Website wird sofort neu veröffentlicht.
+            </p>
+
+            {!confirmReset ? (
+              <button
+                type="button"
+                onClick={() => setConfirmReset(true)}
+                className="mt-3 inline-flex items-center gap-2 text-sm font-medium text-red-600 border border-red-300 bg-white hover:bg-red-50 px-4 py-2 rounded-xl transition-colors"
+              >
+                <RotateCcw size={15} />
+                Auf Standardwerte zurücksetzen
+              </button>
+            ) : (
+              <div className="mt-3 flex flex-wrap items-center gap-2">
+                <span className="text-xs font-medium text-red-700">
+                  Sind Sie sicher? Dies kann nicht rückgängig gemacht werden.
+                </span>
+                <button
+                  type="button"
+                  onClick={() => { onReset(); setConfirmReset(false) }}
+                  disabled={resetting}
+                  className="inline-flex items-center gap-2 text-sm font-semibold text-white bg-red-600 hover:bg-red-700 px-4 py-2 rounded-xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {resetting ? (
+                    <span className="inline-block w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  ) : (
+                    <RotateCcw size={15} />
+                  )}
+                  {resetting ? 'Wird zurückgesetzt…' : 'Ja, alles zurücksetzen'}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setConfirmReset(false)}
+                  disabled={resetting}
+                  className="text-sm font-medium text-gray-600 hover:text-gray-800 px-3 py-2 rounded-xl hover:bg-gray-100 transition-colors disabled:opacity-50"
+                >
+                  Abbrechen
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   )
@@ -505,4 +627,16 @@ function newGalleryItem(): GalleryItem {
     height: 1000,
     description: '',
   }
+}
+
+// A minimal one-step, one-field form schema for a freshly added planner card.
+function newSchema(): FormSchemasContent[string] {
+  const uid = () => `fb-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 6)}`
+  return [
+    {
+      id: uid(),
+      title: 'Schritt 1',
+      fields: [{ id: uid(), type: 'text', label: 'Neues Feld', required: false }],
+    },
+  ]
 }

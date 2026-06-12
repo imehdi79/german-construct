@@ -49,7 +49,7 @@ const itemVariants: Variants = {
 
 export function HeroSection({
   hero = defaultHero,
-  trustIndicators = defaultTrustIndicators,
+  trustIndicators = [],
 }: {
   hero?: HeroContent
   trustIndicators?: string[]

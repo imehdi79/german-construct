@@ -2,81 +2,29 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import {
-  Layers,
-  Hammer,
-  Grid3X3,
-  PencilRuler,
-  Flame,
-  Gem,
-  ArrowRight,
-  type LucideIcon,
-} from 'lucide-react'
+import { ClipboardList, CheckCircle2, ArrowLeft, ArrowUp } from 'lucide-react'
 import { SectionTitle } from '@/components/ui/SectionTitle'
 import { FormBuilder } from '@/components/Form-Builder/FormBuilder'
 import { formSchemas } from '@/components/Form-Builder/schemas'
 import type { Step } from '@/components/Form-Builder/types'
 import { submitPlannerInquiry } from '@/actions/contact'
+import { plannerCards as defaultCards } from '@/data/plannerCards'
+import { resolvePlannerIcon } from '@/lib/plannerIcons'
+import type { PlannerCard } from '@/types'
 import { cn } from '@/lib/utils'
-
-type ProjektTyp = keyof typeof formSchemas
-
-interface PlannerCard {
-  id: ProjektTyp
-  title: string
-  description: string
-  icon: LucideIcon
-}
-
-// Cards mirror the six form-builder schemas 1:1 (id === schema key).
-const cards: PlannerCard[] = [
-  {
-    id: 'Bodenarbeiten',
-    title: 'Bodenarbeiten',
-    description: 'Neuer Bodenbelag – Fliesen, Vinyl, Laminat & mehr, fachgerecht verlegt.',
-    icon: Layers,
-  },
-  {
-    id: 'Estricharbeiten',
-    title: 'Estricharbeiten',
-    description: 'Ebene, tragfähige Estriche als perfekte Basis für Ihren Bodenbelag.',
-    icon: Hammer,
-  },
-  {
-    id: 'Fliesenarbeiten',
-    title: 'Fliesenarbeiten',
-    description: 'Hochwertige Fliesen für Bad, Küche, Wohnraum und Außenbereiche.',
-    icon: Grid3X3,
-  },
-  {
-    id: 'Fugenarbeiten',
-    title: 'Fugenarbeiten',
-    description: 'Präzise Verfugung für wasserdichte und ästhetische Fugenbilder.',
-    icon: PencilRuler,
-  },
-  {
-    id: 'Fußbodenheizung',
-    title: 'Fußbodenheizung',
-    description: 'Elektrische oder wasserführende Fußbodenheizung – effizient eingebaut.',
-    icon: Flame,
-  },
-  {
-    id: 'Natursteinarbeiten',
-    title: 'Natursteinarbeiten',
-    description: 'Edle Natursteine – Marmor, Granit, Travertin – fachgerecht verarbeitet.',
-    icon: Gem,
-  },
-]
 
 export function ProjektplanerSection({
   schemas,
+  cards = defaultCards,
 }: {
   /** Editable schemas from the content store; falls back to the in-repo defaults. */
   schemas?: Record<string, Step[]>
+  /** Editable planner cards from the content store; falls back to the defaults. */
+  cards?: PlannerCard[]
 }) {
-  const [selectedCard, setSelectedCard] = useState<ProjektTyp | null>(null)
+  const [selectedCard, setSelectedCard] = useState<string | null>(null)
 
-  const schemaFor = (id: ProjektTyp): Step[] => schemas?.[id] ?? formSchemas[id]
+  const schemaFor = (id: string): Step[] => schemas?.[id] ?? formSchemas[id as keyof typeof formSchemas] ?? []
   const selected = cards.find((c) => c.id === selectedCard)
 
   return (
@@ -98,7 +46,7 @@ export function ProjektplanerSection({
 
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-10">
               {cards.map((card, index) => {
-                const Icon = card.icon
+                const Icon = resolvePlannerIcon(card.icon)
                 const active = selectedCard === card.id
                 return (
                   <motion.button
@@ -159,25 +107,70 @@ export function ProjektplanerSection({
           </div>
 
           {/* Form panel */}
-          <div className="lg:sticky lg:top-28">
+          <div className="lg:sticky lg:top-32">
             <AnimatePresence mode="wait">
               {!selected ? (
                 <motion.div
                   key="placeholder"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0 }}
-                  className="flex flex-col items-center justify-center text-center p-12 rounded-2xl border-2 border-dashed border-aman-border min-h-[400px]"
+                  transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                  className="relative overflow-hidden flex flex-col items-center justify-center text-center px-8 py-14 rounded-2xl border border-aman-border bg-gradient-to-br from-white to-aman-sand/40 shadow-card min-h-[400px]"
                 >
-                  <div className="w-16 h-16 rounded-full bg-aman-sand flex items-center justify-center mb-4">
-                    <ArrowRight size={24} className="text-aman-stone-400 -rotate-45" />
-                  </div>
-                  <p className="text-aman-text-muted font-medium">
-                    Wählen Sie links Ihren Projekttyp aus
+                  {/* Soft decorative glow – gives the panel depth instead of an empty frame */}
+                  <div
+                    className="pointer-events-none absolute -top-20 -right-16 w-56 h-56 rounded-full bg-aman-gold/10 blur-3xl"
+                    aria-hidden="true"
+                  />
+                  <div
+                    className="pointer-events-none absolute -bottom-24 -left-16 w-60 h-60 rounded-full bg-aman-gold/[0.06] blur-3xl"
+                    aria-hidden="true"
+                  />
+
+                  {/* Icon badge with a gentle directional hint toward the cards */}
+                  <motion.div
+                    initial={{ scale: 0.85, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ delay: 0.1, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                    className="relative mb-6"
+                  >
+                    <div className="w-20 h-20 rounded-2xl bg-aman-charcoal flex items-center justify-center shadow-card">
+                      <ClipboardList size={32} className="text-aman-gold" />
+                    </div>
+                    <motion.span
+                      animate={{ y: [0, -4, 0] }}
+                      transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}
+                      className="absolute -bottom-2 -right-2 w-8 h-8 rounded-full bg-aman-gold flex items-center justify-center shadow-md ring-4 ring-white"
+                    >
+                      <ArrowUp size={15} className="text-white lg:hidden" />
+                      <ArrowLeft size={15} className="text-white hidden lg:block" />
+                    </motion.span>
+                  </motion.div>
+
+                  <h3 className="relative font-serif text-xl text-aman-charcoal mb-2">
+                    Wählen Sie Ihr Projektvorhaben
+                  </h3>
+                  <p className="relative text-sm text-aman-text-muted max-w-xs leading-relaxed">
+                    Tippen Sie auf eine Karte und erhalten Sie Schritt für Schritt Ihr
+                    unverbindliches Angebot.
                   </p>
-                  <p className="text-sm text-aman-text-light mt-2">
-                    und erhalten Sie Ihr unverbindliches Angebot
-                  </p>
+
+                  <ul className="relative mt-8 space-y-3 text-left">
+                    {[
+                      'Antwort innerhalb von 24 Stunden',
+                      '100 % kostenlos & unverbindlich',
+                      'Jedes Angebot wird geprüft',
+                    ].map((benefit) => (
+                      <li
+                        key={benefit}
+                        className="flex items-center gap-2.5 text-sm text-aman-charcoal/80"
+                      >
+                        <CheckCircle2 size={16} className="text-aman-gold shrink-0" />
+                        {benefit}
+                      </li>
+                    ))}
+                  </ul>
                 </motion.div>
               ) : (
                 <motion.div
@@ -192,7 +185,7 @@ export function ProjektplanerSection({
                     schema={schemaFor(selected.id)}
                     onClose={() => setSelectedCard(null)}
                     onSubmit={(values) =>
-                      submitPlannerInquiry({ projektTyp: selected.id, values })
+                      submitPlannerInquiry({ projektTyp: selected.title, values })
                     }
                   />
                 </motion.div>
