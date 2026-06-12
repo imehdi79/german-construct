@@ -40,3 +40,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# content store (runtime "database"; seeded from in-repo defaults)
+/content/*.json
