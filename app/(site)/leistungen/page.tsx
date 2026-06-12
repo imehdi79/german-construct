@@ -3,38 +3,32 @@ import Link from 'next/link'
 import { ArrowRight, CheckCircle } from 'lucide-react'
 import { SectionTitle } from '@/components/ui/SectionTitle'
 import { Button } from '@/components/ui/Button'
-import { getServices } from '@/lib/content'
-import { services as seedServices } from '@/data/services'
+import { getServices, getSiteContent } from '@/lib/content'
 import { createMetadata } from '@/lib/metadata'
 
-export const metadata: Metadata = createMetadata({
-  title: 'Leistungen',
-  description:
-    'Unsere Leistungen: Fliesenarbeiten, Natursteinarbeiten, Estricharbeiten, Verfugungen, Sanierungen und Terrassengestaltung in Frankfurt und Umgebung.',
-  path: '/leistungen',
-})
-
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'ItemList',
-  name: 'Leistungen Fliesen-Naturstein AMAN',
-  itemListElement: seedServices.map((service, index) => ({
-    '@type': 'ListItem',
-    position: index + 1,
-    item: {
-      '@type': 'Service',
-      name: service.title,
-      description: service.description,
-      provider: {
-        '@type': 'LocalBusiness',
-        name: 'Fliesen-Naturstein AMAN',
-      },
-    },
-  })),
+export async function generateMetadata(): Promise<Metadata> {
+  return createMetadata({ pageKey: 'leistungen', path: '/leistungen' })
 }
 
 export default async function LeistungenPage() {
-  const services = await getServices()
+  const [services, site] = await Promise.all([getServices(), getSiteContent()])
+  const copy = site.pages.leistungen
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: `Leistungen ${site.brand.name}`,
+    itemListElement: services.map((service, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      item: {
+        '@type': 'Service',
+        name: service.title,
+        description: service.description,
+        provider: { '@type': 'LocalBusiness', name: site.brand.name },
+      },
+    })),
+  }
 
   return (
     <>
@@ -49,12 +43,12 @@ export default async function LeistungenPage() {
           <nav aria-label="Brotkrümel" className="flex items-center gap-2 text-sm text-aman-text-muted mb-5">
             <Link href="/" className="hover:text-aman-gold transition-colors">Startseite</Link>
             <span>/</span>
-            <span className="text-aman-charcoal">Leistungen</span>
+            <span className="text-aman-charcoal">{copy.breadcrumb}</span>
           </nav>
           <SectionTitle
-            eyebrow="Unsere Expertise"
-            title="Alles aus einer Hand"
-            subtitle="Von der Untergrundvorbereitung bis zur finalen Verfugung – wir bieten das gesamte Spektrum des Fliesen- und Natursteinhandwerks."
+            eyebrow={copy.eyebrow}
+            title={copy.title}
+            subtitle={copy.subtitle}
           />
         </div>
       </div>
@@ -101,7 +95,7 @@ export default async function LeistungenPage() {
               <div>
                 <span className="text-xs font-medium uppercase tracking-[0.2em] text-aman-gold flex items-center gap-2 mb-4">
                   <span className="gold-line" aria-hidden="true" />
-                  Leistung 0{index + 1}
+                  {copy.itemLabelPrefix} 0{index + 1}
                 </span>
 
                 <h2
@@ -135,7 +129,7 @@ export default async function LeistungenPage() {
                   size="md"
                   icon={<ArrowRight size={15} />}
                 >
-                  Jetzt anfragen
+                  {copy.serviceCtaLabel}
                 </Button>
               </div>
             </article>
@@ -147,13 +141,13 @@ export default async function LeistungenPage() {
       <section className="section-padding-sm bg-aman-cream border-t border-aman-border">
         <div className="container-aman text-center">
           <h2 className="font-serif text-aman-charcoal mb-4" style={{ fontSize: 'clamp(1.5rem, 2.5vw, 2rem)' }}>
-            Ihr Projekt ist nicht dabei?
+            {copy.bottomTitle}
           </h2>
           <p className="text-aman-text-muted mb-7 max-w-xl mx-auto">
-            Sprechen Sie uns an – wir finden gemeinsam die passende Lösung für Ihr individuelles Vorhaben.
+            {copy.bottomSubtitle}
           </p>
           <Button href="/kontakt" variant="primary" size="lg" icon={<ArrowRight size={16} />}>
-            Individuelle Anfrage stellen
+            {copy.bottomCtaLabel}
           </Button>
         </div>
       </section>

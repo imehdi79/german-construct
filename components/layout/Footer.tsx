@@ -1,10 +1,23 @@
 import Link from 'next/link'
 import { Phone, Smartphone, Mail, MapPin, Clock } from 'lucide-react'
 import { siteConfig } from '@/config/site'
-import { footerLinks } from '@/config/navigation'
 import { Logo } from './Logo'
+import { defaultFooter } from '@/data/sections'
+import type { SiteContent } from '@/lib/content'
 
-export function Footer() {
+export function Footer({
+  footer = defaultFooter,
+  contact = siteConfig.contact,
+  openingHours = siteConfig.openingHours,
+  social = siteConfig.social,
+  brandName = siteConfig.name,
+}: {
+  footer?: SiteContent['footer']
+  contact?: SiteContent['contact']
+  openingHours?: SiteContent['openingHours']
+  social?: SiteContent['social']
+  brandName?: string
+}) {
   const currentYear = new Date().getFullYear()
 
   return (
@@ -17,13 +30,12 @@ export function Footer() {
             <Logo variant="light" className="mb-6" />
 
             <p className="text-sm leading-relaxed mb-6">
-              Ihr Fachbetrieb für Fliesen-, Platten- und Natursteinarbeiten in Frankfurt und
-              Umgebung. Frisch gegründeter Meisterbetrieb mit Qualität und Handwerkskunst zu fairen Festpreisen.
+              {footer.description}
             </p>
 
             <div className="flex items-center gap-3">
               <a
-                href={siteConfig.social.instagram}
+                href={social.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 rounded-full border border-white/20 hover:border-aman-gold hover:text-aman-gold transition-colors"
@@ -36,7 +48,7 @@ export function Footer() {
                 </svg>
               </a>
               <a
-                href={siteConfig.social.facebook}
+                href={social.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 rounded-full border border-white/20 hover:border-aman-gold hover:text-aman-gold transition-colors"
@@ -52,10 +64,10 @@ export function Footer() {
           {/* Services */}
           <div>
             <h3 className="text-white text-sm font-medium uppercase tracking-widest mb-5">
-              Leistungen
+              {footer.servicesTitle}
             </h3>
             <ul className="space-y-2.5">
-              {footerLinks.services.map((link) => (
+              {footer.serviceLinks.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
@@ -71,10 +83,10 @@ export function Footer() {
           {/* Company */}
           <div>
             <h3 className="text-white text-sm font-medium uppercase tracking-widest mb-5">
-              Unternehmen
+              {footer.companyTitle}
             </h3>
             <ul className="space-y-2.5">
-              {footerLinks.company.map((link) => (
+              {footer.companyLinks.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
@@ -90,48 +102,48 @@ export function Footer() {
           {/* Contact */}
           <div>
             <h3 className="text-white text-sm font-medium uppercase tracking-widest mb-5">
-              Kontakt
+              {footer.contactTitle}
             </h3>
             <address className="not-italic space-y-3">
               <div className="flex items-start gap-3 text-sm">
                 <MapPin size={14} className="shrink-0 mt-0.5 text-aman-gold" />
                 <span>
-                  {siteConfig.contact.address.street}
+                  {contact.address.street}
                   <br />
-                  {siteConfig.contact.address.zip} {siteConfig.contact.address.city}
+                  {contact.address.zip} {contact.address.city}
                 </span>
               </div>
 
               <a
-                href={`tel:${siteConfig.contact.phone.replace(/\s/g, '')}`}
+                href={`tel:${contact.phone.replace(/\s/g, '')}`}
                 className="flex items-center gap-3 text-sm hover:text-aman-gold transition-colors"
               >
                 <Phone size={14} className="shrink-0 text-aman-gold" />
-                {siteConfig.contact.phone}
+                {contact.phone}
               </a>
 
               <a
-                href={`tel:${siteConfig.contact.mobile.replace(/\s/g, '')}`}
+                href={`tel:${contact.mobile.replace(/\s/g, '')}`}
                 className="flex items-center gap-3 text-sm hover:text-aman-gold transition-colors"
               >
                 <Smartphone size={14} className="shrink-0 text-aman-gold" />
-                {siteConfig.contact.mobile}
+                {contact.mobile}
               </a>
 
               <a
-                href={`mailto:${siteConfig.contact.email}`}
+                href={`mailto:${contact.email}`}
                 className="flex items-center gap-3 text-sm hover:text-aman-gold transition-colors"
               >
                 <Mail size={14} className="shrink-0 text-aman-gold" />
-                {siteConfig.contact.email}
+                {contact.email}
               </a>
 
               <div className="flex items-start gap-3 text-sm pt-2 border-t border-white/10">
                 <Clock size={14} className="shrink-0 mt-0.5 text-aman-gold" />
                 <div className="space-y-1">
-                  <p>{siteConfig.openingHours.weekdays}</p>
-                  <p>{siteConfig.openingHours.saturday}</p>
-                  <p className="text-white/40">{siteConfig.openingHours.sunday}</p>
+                  <p>{openingHours.weekdays}</p>
+                  <p>{openingHours.saturday}</p>
+                  <p className="text-white/40">{openingHours.sunday}</p>
                 </div>
               </div>
             </address>
@@ -144,11 +156,11 @@ export function Footer() {
         <div className="container-aman py-5">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-white/40">
             <p>
-              © {currentYear} {siteConfig.name}. Alle Rechte vorbehalten.
+              © {currentYear} {brandName}. {footer.copyrightSuffix}
             </p>
 
             <nav aria-label="Rechtliche Links" className="flex items-center gap-5">
-              {footerLinks.legal.map((link) => (
+              {footer.legalLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}

@@ -9,18 +9,22 @@ import { formSchemas } from '@/components/Form-Builder/schemas'
 import type { Step } from '@/components/Form-Builder/types'
 import { submitPlannerInquiry } from '@/actions/contact'
 import { plannerCards as defaultCards } from '@/data/plannerCards'
+import { defaultSections } from '@/data/sections'
 import { resolvePlannerIcon } from '@/lib/plannerIcons'
-import type { PlannerCard } from '@/types'
+import type { PlannerCard, ProjektplanerCopy } from '@/types'
 import { cn } from '@/lib/utils'
 
 export function ProjektplanerSection({
   schemas,
   cards = defaultCards,
+  copy = defaultSections.projektplaner,
 }: {
   /** Editable schemas from the content store; falls back to the in-repo defaults. */
   schemas?: Record<string, Step[]>
   /** Editable planner cards from the content store; falls back to the defaults. */
   cards?: PlannerCard[]
+  /** Editable planner section copy. */
+  copy?: ProjektplanerCopy
 }) {
   const [selectedCard, setSelectedCard] = useState<string | null>(null)
 
@@ -38,9 +42,9 @@ export function ProjektplanerSection({
           {/* Header + cards */}
           <div>
             <SectionTitle
-              eyebrow="Ihr Projekt beginnt hier"
-              title="Was dürfen wir für Sie planen?"
-              subtitle="Wählen Sie Ihr Projektvorhaben und erhalten Sie innerhalb von 24 Stunden ein unverbindliches Angebot von uns."
+              eyebrow={copy.eyebrow}
+              title={copy.title}
+              subtitle={copy.subtitle}
               id="projektplaner-title"
             />
 
@@ -149,19 +153,14 @@ export function ProjektplanerSection({
                   </motion.div>
 
                   <h3 className="relative font-serif text-xl text-aman-charcoal mb-2">
-                    Wählen Sie Ihr Projektvorhaben
+                    {copy.emptyTitle}
                   </h3>
                   <p className="relative text-sm text-aman-text-muted max-w-xs leading-relaxed">
-                    Tippen Sie auf eine Karte und erhalten Sie Schritt für Schritt Ihr
-                    unverbindliches Angebot.
+                    {copy.emptySubtitle}
                   </p>
 
                   <ul className="relative mt-8 space-y-3 text-left">
-                    {[
-                      'Antwort innerhalb von 24 Stunden',
-                      '100 % kostenlos & unverbindlich',
-                      'Jedes Angebot wird geprüft',
-                    ].map((benefit) => (
+                    {copy.benefits.map((benefit) => (
                       <li
                         key={benefit}
                         className="flex items-center gap-2.5 text-sm text-aman-charcoal/80"

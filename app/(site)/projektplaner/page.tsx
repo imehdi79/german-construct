@@ -3,20 +3,19 @@ import Link from 'next/link'
 import { SectionTitle } from '@/components/ui/SectionTitle'
 import { ProjektplanerSection } from '@/sections/ProjektplanerSection'
 import { createMetadata } from '@/lib/metadata'
-import { getFormSchemas, getPlannerCards } from '@/lib/content'
+import { getFormSchemas, getPlannerCards, getSiteContent } from '@/lib/content'
 
-export const metadata: Metadata = createMetadata({
-  title: 'Projektplaner',
-  description:
-    'Planen Sie Ihr Fliesen- oder Natursteinprojekt online und erhalten Sie innerhalb von 24 Stunden ein kostenloses, unverbindliches Angebot.',
-  path: '/projektplaner',
-})
+export async function generateMetadata(): Promise<Metadata> {
+  return createMetadata({ pageKey: 'projektplaner', path: '/projektplaner' })
+}
 
 export default async function ProjektplanerPage() {
-  const [formSchemas, plannerCards] = await Promise.all([
+  const [formSchemas, plannerCards, site] = await Promise.all([
     getFormSchemas(),
     getPlannerCards(),
+    getSiteContent(),
   ])
+  const copy = site.pages.projektplaner
 
   return (
     <>
@@ -26,34 +25,34 @@ export default async function ProjektplanerPage() {
           <nav aria-label="Brotkrümel" className="flex items-center gap-2 text-sm text-aman-text-muted mb-5">
             <Link href="/" className="hover:text-aman-gold transition-colors">Startseite</Link>
             <span>/</span>
-            <span className="text-aman-charcoal">Projektplaner</span>
+            <span className="text-aman-charcoal">{copy.breadcrumb}</span>
           </nav>
           <SectionTitle
-            eyebrow="Ihr Projekt, unser Handwerk"
-            title="Kostenloses Angebot anfragen"
-            subtitle="Wählen Sie Ihr Projektvorhaben und schildern Sie uns kurz Ihre Anforderungen. Wir melden uns innerhalb von 24 Stunden mit einem unverbindlichen Angebot."
+            eyebrow={copy.eyebrow}
+            title={copy.title}
+            subtitle={copy.subtitle}
           />
         </div>
       </div>
 
       {/* Reuse the home section – it works standalone too */}
       <div className="bg-aman-cream">
-        <ProjektplanerSection schemas={formSchemas} cards={plannerCards} />
+        <ProjektplanerSection
+          schemas={formSchemas}
+          cards={plannerCards}
+          copy={site.sections.projektplaner}
+        />
       </div>
 
       {/* Info Strip */}
       <section className="bg-white border-t border-aman-border py-12">
         <div className="container-aman">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
-            {[
-              { number: '24h', label: 'Antwortzeit', desc: 'Wir melden uns innerhalb eines Werktages' },
-              { number: '100%', label: 'Kostenlos', desc: 'Unverbindliches Angebot ohne versteckte Kosten' },
-              { number: 'Meister', label: 'Geführt vom Fachmann', desc: 'Jedes Projekt wird vom Handwerksmeister begleitet' },
-            ].map((item) => (
+            {copy.infoStrip.map((item) => (
               <div key={item.label} className="flex flex-col items-center gap-2">
-                <span className="font-serif text-4xl text-aman-gold">{item.number}</span>
+                <span className="font-serif text-4xl text-aman-gold">{item.value}</span>
                 <p className="font-medium text-aman-charcoal">{item.label}</p>
-                <p className="text-sm text-aman-text-muted">{item.desc}</p>
+                <p className="text-sm text-aman-text-muted">{item.description}</p>
               </div>
             ))}
           </div>

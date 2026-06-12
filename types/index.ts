@@ -136,3 +136,236 @@ export interface AdminSection {
   icon: string
   description: string
 }
+
+// ─── Editable site-wide content (CMS) ─────────────────────────────────────────
+// Shared building blocks reused across the content tree. All text below is
+// editable from the admin; `icon` fields hold a Lucide name (see lib/icons).
+
+export interface LinkItem {
+  label: string
+  href: string
+}
+
+export interface SelectOption {
+  value: string
+  label: string
+}
+
+export interface IconCard {
+  icon: string
+  title: string
+  description: string
+}
+
+export interface BrandContent {
+  name: string
+  shortName: string
+  tagline: string
+  description: string
+}
+
+export interface NavContent {
+  items: LinkItem[]
+  callLabel: string
+  skipToContent: string
+}
+
+export interface HeroCopy {
+  eyebrow: string
+  titleLine1: string
+  titleAccent: string
+  subtitle: string
+  ctaPrimary: string
+  ctaSecondary: string
+  scrollLabel: string
+  trustIndicators: string[]
+}
+
+export interface IntroCopy {
+  eyebrow: string
+  title: string
+  subtitle: string
+  ctaLabel: string
+}
+
+export interface WarumAmanCopy {
+  eyebrow: string
+  title: string
+  subtitle: string
+  imageAlt: string
+  reasons: IconCard[]
+}
+
+export interface StatistikCopy {
+  eyebrow: string
+  title: string
+}
+
+export interface TestimonialsCopy {
+  eyebrow: string
+  title: string
+  subtitle: string
+  summary: {
+    ratingValue: string
+    ratingLabel: string
+    recommendValue: string
+    recommendLabel: string
+    countValue: string
+    countLabel: string
+  }
+}
+
+export interface ProjektplanerCopy {
+  eyebrow: string
+  title: string
+  subtitle: string
+  emptyTitle: string
+  emptySubtitle: string
+  benefits: string[]
+}
+
+export interface KontaktCtaCopy {
+  eyebrow: string
+  titleLine1: string
+  titleAccent: string
+  subtitle: string
+  ctaLabel: string
+}
+
+export interface SectionsContent {
+  warumAman: WarumAmanCopy
+  leistungenIntro: IntroCopy
+  galerieIntro: IntroCopy
+  galleryCategories: SelectOption[]
+  statistik: StatistikCopy
+  testimonials: TestimonialsCopy
+  projektplaner: ProjektplanerCopy
+  kontaktCta: KontaktCtaCopy
+}
+
+export interface FooterContent {
+  description: string
+  servicesTitle: string
+  companyTitle: string
+  contactTitle: string
+  copyrightSuffix: string
+  serviceLinks: LinkItem[]
+  companyLinks: LinkItem[]
+  legalLinks: LinkItem[]
+}
+
+// Inline consent text with a single embedded link (to the privacy page).
+export interface ConsentText {
+  prefix: string
+  linkText: string
+  suffix: string
+}
+
+export interface PageHeader {
+  breadcrumb: string
+  eyebrow: string
+  title: string
+  subtitle: string
+}
+
+export interface LeistungenPageCopy extends PageHeader {
+  itemLabelPrefix: string
+  serviceCtaLabel: string
+  bottomTitle: string
+  bottomSubtitle: string
+  bottomCtaLabel: string
+}
+
+export interface GaleriePageCopy extends PageHeader {
+  emptyText: string
+  ctaText: string
+  ctaLabel: string
+}
+
+export interface KontaktPageCopy extends PageHeader {
+  formHeading: string
+  sidebarHeading: string
+  betreffPlaceholder: string
+  betreffOptions: SelectOption[]
+  submitLabel: string
+  submittingLabel: string
+  successTitle: string
+  successText: string
+  successButton: string
+  consent: ConsentText
+  requiredNote: ConsentText
+  contactLabels: {
+    phone: string
+    mobile: string
+    email: string
+    address: string
+    hours: string
+  }
+  mapLinkLabel: string
+}
+
+export interface StellenangebotePageCopy extends PageHeader {
+  applyLabel: string
+  applyLabelLong: string
+  detailsShow: string
+  detailsHide: string
+  requirementsTitle: string
+  benefitsTitle: string
+  spontaneousTitle: string
+  spontaneousText: string
+  spontaneousCtaLabel: string
+  formEyebrow: string
+  formTitleFallback: string
+  positionLabel: string
+  positionPlaceholder: string
+  coverLetterLabel: string
+  coverLetterPlaceholder: string
+  coverLetterHint: string
+  submitLabel: string
+  submittingLabel: string
+  cancelLabel: string
+  successTitle: string
+  successText: string
+  consent: ConsentText
+}
+
+export interface ProjektplanerPageCopy extends PageHeader {
+  infoStrip: { value: string; label: string; description: string }[]
+}
+
+export interface PagesContent {
+  leistungen: LeistungenPageCopy
+  galerie: GaleriePageCopy
+  kontakt: KontaktPageCopy
+  stellenangebote: StellenangebotePageCopy
+  projektplaner: ProjektplanerPageCopy
+}
+
+export interface SeoContent {
+  keywords: string[]
+  perPage: Record<string, { title: string; description: string }>
+}
+
+// ─── Legal pages (Impressum, Datenschutz, AGB, Nutzungsbedingungen) ───────────
+
+export type LegalKey =
+  | 'impressum'
+  | 'datenschutz'
+  | 'agb'
+  | 'nutzungsbedingungen'
+
+export interface LegalBlock {
+  heading: string
+  /** Multi-paragraph plain text; blank lines separate paragraphs. */
+  body: string
+}
+
+export interface LegalPage {
+  metaTitle: string
+  metaDescription: string
+  title: string
+  breadcrumb: string
+  sections: LegalBlock[]
+}
+
+export type LegalContent = Record<LegalKey, LegalPage>

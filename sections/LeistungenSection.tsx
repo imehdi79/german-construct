@@ -13,7 +13,9 @@ import {
   ArrowRight,
 } from 'lucide-react'
 import { SectionTitle } from '@/components/ui/SectionTitle'
-import { services } from '@/data/services'
+import { services as defaultServices } from '@/data/services'
+import { defaultSections } from '@/data/sections'
+import type { Service, IntroCopy } from '@/types'
 import { cn } from '@/lib/utils'
 
 const iconMap = {
@@ -25,7 +27,13 @@ const iconMap = {
   sun: Sun,
 }
 
-export function LeistungenSection() {
+export function LeistungenSection({
+  services = defaultServices,
+  copy = defaultSections.leistungenIntro,
+}: {
+  services?: Service[]
+  copy?: IntroCopy
+}) {
   const ref = useRef<HTMLDivElement>(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 
@@ -38,16 +46,16 @@ export function LeistungenSection() {
       <div className="container-aman">
         <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-14">
           <SectionTitle
-            eyebrow="Unser Leistungsportfolio"
-            title="Alles aus einer Hand"
-            subtitle="Von der Planung bis zur Fertigstellung – wir decken das gesamte Spektrum des Fliesen- und Natursteinhandwerks ab."
+            eyebrow={copy.eyebrow}
+            title={copy.title}
+            subtitle={copy.subtitle}
             id="leistungen-title"
           />
           <Link
             href="/leistungen"
             className="group flex items-center gap-2 text-sm font-medium uppercase tracking-wider text-aman-gold hover:text-aman-gold-dark transition-colors shrink-0"
           >
-            Alle Leistungen
+            {copy.ctaLabel}
             <ArrowRight
               size={16}
               className="group-hover:translate-x-1 transition-transform"

@@ -2,23 +2,32 @@
 
 import { useState } from 'react'
 import Image from 'next/image'
-import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, ChevronLeft, ChevronRight, ZoomIn, ArrowRight } from 'lucide-react'
 import { SectionTitle } from '@/components/ui/SectionTitle'
 import { Button } from '@/components/ui/Button'
-import { galleryItems, galleryCategories } from '@/data/gallery'
-import type { GalleryCategory } from '@/types'
+import { galleryItems as defaultItems, galleryCategories as defaultCategories } from '@/data/gallery'
+import { defaultSections } from '@/data/sections'
+import type { GalleryCategory, GalleryItem, IntroCopy, SelectOption } from '@/types'
 import { cn } from '@/lib/utils'
 
-export function GalerieSection() {
+export function GalerieSection({
+  items = defaultItems,
+  categories = defaultCategories.map((c) => ({ value: c.value, label: c.label })),
+  copy = defaultSections.galerieIntro,
+}: {
+  items?: GalleryItem[]
+  categories?: SelectOption[]
+  copy?: IntroCopy
+}) {
   const [activeCategory, setActiveCategory] = useState<GalleryCategory>('alle')
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
 
+  const galleryCategories = categories
   const filtered =
     activeCategory === 'alle'
-      ? galleryItems.slice(0, 8)
-      : galleryItems.filter((item) => item.category === activeCategory).slice(0, 8)
+      ? items.slice(0, 8)
+      : items.filter((item) => item.category === activeCategory).slice(0, 8)
 
   const openLightbox = (index: number) => setLightboxIndex(index)
   const closeLightbox = () => setLightboxIndex(null)
@@ -37,13 +46,13 @@ export function GalerieSection() {
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
           <SectionTitle
-            eyebrow="Unsere Projekte"
-            title="Handwerkskunst in Bildern"
-            subtitle="Eine Auswahl unserer abgeschlossenen Projekte – Qualität, die man sehen kann."
+            eyebrow={copy.eyebrow}
+            title={copy.title}
+            subtitle={copy.subtitle}
             id="galerie-title"
           />
           <Button href="/galerie" variant="outline" size="sm" icon={<ArrowRight size={14} />} className="shrink-0">
-            Alle Projekte
+            {copy.ctaLabel}
           </Button>
         </div>
 

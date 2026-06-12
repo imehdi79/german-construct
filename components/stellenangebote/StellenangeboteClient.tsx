@@ -12,10 +12,19 @@ import { FormInput, FormTextarea, FormSelect, FormCheckbox } from '@/components/
 import { jobApplicationSchema, type JobApplicationSchema } from '@/schemas/jobs'
 import { submitJobApplication } from '@/actions/jobs'
 import { projectTypes } from '@/data/jobs'
-import type { Job } from '@/types'
+import { defaultPages } from '@/data/sections'
+import type { Job, StellenangebotePageCopy } from '@/types'
 import { cn } from '@/lib/utils'
 
-function JobCard({ job, onApply }: { job: Job; onApply: (jobTitle: string) => void }) {
+function JobCard({
+  job,
+  onApply,
+  copy,
+}: {
+  job: Job
+  onApply: (jobTitle: string) => void
+  copy: StellenangebotePageCopy
+}) {
   const [expanded, setExpanded] = useState(false)
 
   return (
@@ -41,7 +50,7 @@ function JobCard({ job, onApply }: { job: Job; onApply: (jobTitle: string) => vo
             className="shrink-0"
             icon={<ArrowRight size={14} />}
           >
-            Bewerben
+            {copy.applyLabel}
           </Button>
         </div>
 
@@ -65,7 +74,7 @@ function JobCard({ job, onApply }: { job: Job; onApply: (jobTitle: string) => vo
           className="flex items-center gap-1.5 text-sm text-aman-gold hover:text-aman-gold-dark transition-colors mt-4 font-medium"
           aria-expanded={expanded}
         >
-          {expanded ? 'Weniger anzeigen' : 'Details anzeigen'}
+          {expanded ? copy.detailsHide : copy.detailsShow}
           <ChevronDown
             size={15}
             className={cn('transition-transform duration-200', expanded && 'rotate-180')}
@@ -86,7 +95,7 @@ function JobCard({ job, onApply }: { job: Job; onApply: (jobTitle: string) => vo
               <div className="grid md:grid-cols-2 gap-8">
                 <div>
                   <h3 className="text-sm font-medium text-aman-charcoal uppercase tracking-wider mb-4">
-                    Anforderungen
+                    {copy.requirementsTitle}
                   </h3>
                   <ul className="space-y-2">
                     {job.requirements.map((req) => (
@@ -99,7 +108,7 @@ function JobCard({ job, onApply }: { job: Job; onApply: (jobTitle: string) => vo
                 </div>
                 <div>
                   <h3 className="text-sm font-medium text-aman-charcoal uppercase tracking-wider mb-4">
-                    Was wir bieten
+                    {copy.benefitsTitle}
                   </h3>
                   <ul className="space-y-2">
                     {job.benefits.map((benefit) => (
@@ -118,7 +127,7 @@ function JobCard({ job, onApply }: { job: Job; onApply: (jobTitle: string) => vo
                   onClick={() => onApply(job.title)}
                   icon={<ArrowRight size={15} />}
                 >
-                  Jetzt bewerben
+                  {copy.applyLabelLong}
                 </Button>
               </div>
             </div>
@@ -129,7 +138,13 @@ function JobCard({ job, onApply }: { job: Job; onApply: (jobTitle: string) => vo
   )
 }
 
-export function StellenangeboteClient({ jobs }: { jobs: Job[] }) {
+export function StellenangeboteClient({
+  jobs,
+  copy = defaultPages.stellenangebote,
+}: {
+  jobs: Job[]
+  copy?: StellenangebotePageCopy
+}) {
   const [selectedJob, setSelectedJob] = useState<string>('')
   const [showForm, setShowForm] = useState(false)
   const [submitSuccess, setSubmitSuccess] = useState(false)
@@ -173,12 +188,12 @@ export function StellenangeboteClient({ jobs }: { jobs: Job[] }) {
           <nav aria-label="Brotkrümel" className="flex items-center gap-2 text-sm text-aman-text-muted mb-5">
             <Link href="/" className="hover:text-aman-gold transition-colors">Startseite</Link>
             <span>/</span>
-            <span className="text-aman-charcoal">Stellenangebote</span>
+            <span className="text-aman-charcoal">{copy.breadcrumb}</span>
           </nav>
           <SectionTitle
-            eyebrow="Karriere bei AMAN"
-            title="Wachsen Sie mit uns"
-            subtitle="Werden Sie Teil unseres jungen Teams und arbeiten Sie an spannenden Projekten in Frankfurt und Umgebung. Wir suchen leidenschaftliche Handwerker, die mit uns Großes erschaffen möchten."
+            eyebrow={copy.eyebrow}
+            title={copy.title}
+            subtitle={copy.subtitle}
           />
         </div>
       </div>
@@ -188,25 +203,25 @@ export function StellenangeboteClient({ jobs }: { jobs: Job[] }) {
         <div className="container-aman">
           <div className="grid gap-6 mb-12">
             {jobs.map((job) => (
-              <JobCard key={job.id} job={job} onApply={handleApply} />
+              <JobCard key={job.id} job={job} onApply={handleApply} copy={copy} />
             ))}
           </div>
 
           {/* Spontaneous Application */}
           <div className="bg-aman-cream rounded-2xl p-8 md:p-10 border border-aman-border text-center">
             <h3 className="font-serif text-2xl text-aman-charcoal mb-3">
-              Keine passende Stelle gefunden?
+              {copy.spontaneousTitle}
             </h3>
             <p className="text-aman-text-muted mb-6 max-w-lg mx-auto">
-              Wir freuen uns auch über Initiativbewerbungen. Zeigen Sie uns, was Sie können!
+              {copy.spontaneousText}
             </p>
             <Button
               variant="primary"
               size="md"
-              onClick={() => handleApply('Initiativbewerbung')}
+              onClick={() => handleApply(copy.spontaneousCtaLabel)}
               icon={<ArrowRight size={15} />}
             >
-              Initiativbewerbung
+              {copy.spontaneousCtaLabel}
             </Button>
           </div>
         </div>
@@ -225,8 +240,8 @@ export function StellenangeboteClient({ jobs }: { jobs: Job[] }) {
           >
             <div className="container-aman max-w-2xl mx-auto">
               <SectionTitle
-                eyebrow="Jetzt bewerben"
-                title={selectedJob ? `Bewerbung: ${selectedJob}` : 'Ihre Bewerbung'}
+                eyebrow={copy.formEyebrow}
+                title={selectedJob ? `Bewerbung: ${selectedJob}` : copy.formTitleFallback}
                 align="center"
                 className="mb-10"
               />
@@ -241,11 +256,10 @@ export function StellenangeboteClient({ jobs }: { jobs: Job[] }) {
                     <CheckCircle2 size={32} className="text-green-600" />
                   </div>
                   <h3 className="font-serif text-2xl text-aman-charcoal mb-3">
-                    Bewerbung eingegangen!
+                    {copy.successTitle}
                   </h3>
                   <p className="text-aman-text-muted max-w-md">
-                    Vielen Dank für Ihre Bewerbung! Wir prüfen Ihre Unterlagen sorgfältig und
-                    melden uns so schnell wie möglich bei Ihnen.
+                    {copy.successText}
                   </p>
                 </motion.div>
               ) : (
@@ -289,23 +303,23 @@ export function StellenangeboteClient({ jobs }: { jobs: Job[] }) {
                   />
 
                   <FormSelect
-                    label="Bewerbung für"
+                    label={copy.positionLabel}
                     required
                     options={[
                       ...jobs.map((j) => ({ value: j.title, label: j.title })),
                       ...projectTypes.slice(-2).map((p) => ({ value: p.label, label: p.label })),
                     ]}
-                    placeholder="Bitte wählen Sie eine Stelle"
+                    placeholder={copy.positionPlaceholder}
                     error={errors.position?.message}
                     {...register('position')}
                   />
 
                   <FormTextarea
-                    label="Anschreiben"
+                    label={copy.coverLetterLabel}
                     required
                     rows={7}
-                    placeholder="Erzählen Sie uns von sich, Ihrer Erfahrung und warum Sie zu AMAN passen..."
-                    hint="Mindestens 50 Zeichen"
+                    placeholder={copy.coverLetterPlaceholder}
+                    hint={copy.coverLetterHint}
                     error={errors.anschreiben?.message}
                     {...register('anschreiben')}
                   />
@@ -313,12 +327,11 @@ export function StellenangeboteClient({ jobs }: { jobs: Job[] }) {
                   <FormCheckbox
                     label={
                       <>
-                        Ich habe die{' '}
+                        {copy.consent.prefix}
                         <Link href="/datenschutz" className="text-aman-gold underline" target="_blank">
-                          Datenschutzerklärung
-                        </Link>{' '}
-                        gelesen und stimme der Verarbeitung meiner personenbezogenen Daten im
-                        Rahmen des Bewerbungsprozesses zu.{' '}
+                          {copy.consent.linkText}
+                        </Link>
+                        {copy.consent.suffix}{' '}
                         <span className="text-aman-gold">*</span>
                       </>
                     }
@@ -340,7 +353,7 @@ export function StellenangeboteClient({ jobs }: { jobs: Job[] }) {
                       loading={isSubmitting}
                       icon={<ArrowRight size={16} />}
                     >
-                      {isSubmitting ? 'Wird gesendet…' : 'Bewerbung absenden'}
+                      {isSubmitting ? copy.submittingLabel : copy.submitLabel}
                     </Button>
                     <Button
                       type="button"
@@ -348,7 +361,7 @@ export function StellenangeboteClient({ jobs }: { jobs: Job[] }) {
                       size="lg"
                       onClick={() => setShowForm(false)}
                     >
-                      Abbrechen
+                      {copy.cancelLabel}
                     </Button>
                   </div>
                 </form>

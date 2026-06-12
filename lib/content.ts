@@ -3,10 +3,35 @@ import path from 'path'
 import { services as seedServices } from '@/data/services'
 import { jobs as seedJobs } from '@/data/jobs'
 import { galleryItems as seedGallery } from '@/data/gallery'
+import { testimonials as seedTestimonials } from '@/data/testimonials'
 import { formSchemas as seedFormSchemas } from '@/components/Form-Builder/schemas'
 import { plannerCards as seedPlannerCards } from '@/data/plannerCards'
+import { legalContent as seedLegal } from '@/data/legal'
+import {
+  defaultBrand,
+  defaultHero,
+  defaultNav,
+  defaultSections,
+  defaultFooter,
+  defaultPages,
+  defaultSeo,
+} from '@/data/sections'
 import { siteConfig } from '@/config/site'
-import type { Service, Job, GalleryItem, PlannerCard } from '@/types'
+import type {
+  Service,
+  Job,
+  GalleryItem,
+  PlannerCard,
+  Testimonial,
+  BrandContent,
+  HeroCopy,
+  NavContent,
+  SectionsContent,
+  FooterContent,
+  PagesContent,
+  SeoContent,
+  LegalContent,
+} from '@/types'
 import type { Step } from '@/components/Form-Builder/types'
 
 /**
@@ -25,20 +50,27 @@ const CONTENT_DIR = path.join(process.cwd(), 'content')
 // ─── Editable site settings (the "new company" content) ──────────────────────
 
 export interface SiteContent {
+  brand: BrandContent
   descriptionShort: string
   contact: {
     phone: string
     mobile: string
     email: string
-    address: { street: string; zip: string; city: string; region: string }
+    address: { street: string; zip: string; city: string; region: string; country: string }
   }
   openingHours: { weekdays: string; saturday: string; sunday: string }
   social: { instagram: string; facebook: string }
-  hero: { eyebrow: string; titleLine1: string; titleAccent: string; subtitle: string }
+  hero: HeroCopy
   stats: { value: number; suffix: string; label: string; description: string }[]
+  nav: NavContent
+  sections: SectionsContent
+  footer: FooterContent
+  pages: PagesContent
+  seo: SeoContent
 }
 
 export const defaultSiteContent: SiteContent = {
+  brand: defaultBrand,
   descriptionShort:
     'Ihr neuer Meisterbetrieb für Fliesen-, Platten- und Natursteinarbeiten in Frankfurt und Umgebung. Präzision, Qualität und persönliche Betreuung – vom ersten Gespräch bis zur letzten Fuge.',
   contact: {
@@ -50,23 +82,23 @@ export const defaultSiteContent: SiteContent = {
       zip: siteConfig.contact.address.zip,
       city: siteConfig.contact.address.city,
       region: siteConfig.contact.address.region,
+      country: siteConfig.contact.address.country,
     },
   },
   openingHours: { ...siteConfig.openingHours },
   social: { ...siteConfig.social },
-  hero: {
-    eyebrow: 'Neu gegründeter Meisterbetrieb',
-    titleLine1: 'Handwerkskunst,',
-    titleAccent: 'die bleibt.',
-    subtitle:
-      'Ihr Fachbetrieb für Fliesen-, Platten- und Natursteinarbeiten in Frankfurt und Umgebung. Frische Ideen, meisterliche Ausführung, faire Festpreise.',
-  },
+  hero: defaultHero,
   stats: [
     { value: 100, suffix: '%', label: 'Festpreisgarantie', description: 'Verbindliche Angebote ohne versteckte Kosten' },
     { value: 5, suffix: ' Jahre', label: 'Gewährleistung', description: 'Auf unsere Verlege- und Verfugungsarbeiten' },
     { value: 24, suffix: 'h', label: 'Schnelle Rückmeldung', description: 'Antwort auf Ihre Anfrage werktags' },
     { value: 100, suffix: '%', label: 'Meisterqualität', description: 'Jedes Projekt vom Meister abgenommen' },
   ],
+  nav: defaultNav,
+  sections: defaultSections,
+  footer: defaultFooter,
+  pages: defaultPages,
+  seo: defaultSeo,
 }
 
 // ─── Editable project-planner form schemas ──────────────────────────────────
@@ -84,6 +116,11 @@ export const defaultFormSchemas: FormSchemasContent = seedFormSchemas
 
 export const defaultPlannerCards: PlannerCard[] = seedPlannerCards
 
+// ─── Editable testimonials & legal pages ─────────────────────────────────────
+
+export const defaultTestimonials: Testimonial[] = seedTestimonials
+export const defaultLegal: LegalContent = seedLegal
+
 // ─── Low-level JSON helpers ──────────────────────────────────────────────────
 
 async function readJson<T>(file: string, fallback: T): Promise<T> {
@@ -93,6 +130,38 @@ async function readJson<T>(file: string, fallback: T): Promise<T> {
   } catch {
     return fallback
   }
+}
+
+function isPlainObject(v: unknown): v is Record<string, unknown> {
+  return typeof v === 'object' && v !== null && !Array.isArray(v)
+}
+
+/**
+ * Deep-merge stored content over the defaults so that JSON saved before a schema
+ * change (missing newly-added keys) still resolves to complete content. Arrays
+ * and primitives from the stored value replace the default wholesale; nested
+ * objects merge key-by-key.
+ */
+function deepMerge<T>(base: T, override: unknown): T {
+  if (!isPlainObject(base) || !isPlainObject(override)) {
+    return (override === undefined ? base : (override as T))
+  }
+  const out: Record<string, unknown> = { ...base }
+  for (const key of Object.keys(override)) {
+    const baseVal = (base as Record<string, unknown>)[key]
+    const overrideVal = override[key]
+    out[key] =
+      isPlainObject(baseVal) && isPlainObject(overrideVal)
+        ? deepMerge(baseVal, overrideVal)
+        : overrideVal
+  }
+  return out as T
+}
+
+/** Read a JSON object file and deep-merge it over `defaults` (schema-safe). */
+async function readMerged<T>(file: string, defaults: T): Promise<T> {
+  const stored = await readJson<unknown>(file, undefined)
+  return stored === undefined ? defaults : deepMerge(defaults, stored)
 }
 
 async function writeJson<T>(file: string, data: T): Promise<void> {
@@ -106,7 +175,7 @@ async function writeJson<T>(file: string, data: T): Promise<void> {
 
 // ─── Public getters (used by pages/sections) ─────────────────────────────────
 
-export const getSiteContent = () => readJson<SiteContent>('site.json', defaultSiteContent)
+export const getSiteContent = () => readMerged<SiteContent>('site.json', defaultSiteContent)
 export const getServices = () => readJson<Service[]>('services.json', seedServices)
 export const getJobs = () => readJson<Job[]>('jobs.json', seedJobs)
 export const getGallery = () => readJson<GalleryItem[]>('gallery.json', seedGallery)
@@ -114,6 +183,9 @@ export const getFormSchemas = () =>
   readJson<FormSchemasContent>('form-schemas.json', defaultFormSchemas)
 export const getPlannerCards = () =>
   readJson<PlannerCard[]>('planner-cards.json', defaultPlannerCards)
+export const getTestimonials = () =>
+  readJson<Testimonial[]>('testimonials.json', defaultTestimonials)
+export const getLegal = () => readMerged<LegalContent>('legal.json', defaultLegal)
 
 // ─── Writers (used by admin server actions) ──────────────────────────────────
 
@@ -125,6 +197,9 @@ export const saveFormSchemas = (data: FormSchemasContent) =>
   writeJson('form-schemas.json', data)
 export const savePlannerCards = (data: PlannerCard[]) =>
   writeJson('planner-cards.json', data)
+export const saveTestimonials = (data: Testimonial[]) =>
+  writeJson('testimonials.json', data)
+export const saveLegal = (data: LegalContent) => writeJson('legal.json', data)
 
 // ─── Aggregate read for the admin editor ─────────────────────────────────────
 
@@ -135,18 +210,23 @@ export interface FullContent {
   gallery: GalleryItem[]
   formSchemas: FormSchemasContent
   plannerCards: PlannerCard[]
+  testimonials: Testimonial[]
+  legal: LegalContent
 }
 
 export async function getAllContent(): Promise<FullContent> {
-  const [site, services, jobs, gallery, formSchemas, plannerCards] = await Promise.all([
-    getSiteContent(),
-    getServices(),
-    getJobs(),
-    getGallery(),
-    getFormSchemas(),
-    getPlannerCards(),
-  ])
-  return { site, services, jobs, gallery, formSchemas, plannerCards }
+  const [site, services, jobs, gallery, formSchemas, plannerCards, testimonials, legal] =
+    await Promise.all([
+      getSiteContent(),
+      getServices(),
+      getJobs(),
+      getGallery(),
+      getFormSchemas(),
+      getPlannerCards(),
+      getTestimonials(),
+      getLegal(),
+    ])
+  return { site, services, jobs, gallery, formSchemas, plannerCards, testimonials, legal }
 }
 
 // ─── Hard reset to the in-repo defaults ──────────────────────────────────────
@@ -160,6 +240,8 @@ export function getDefaultContent(): FullContent {
     gallery: seedGallery,
     formSchemas: defaultFormSchemas,
     plannerCards: defaultPlannerCards,
+    testimonials: defaultTestimonials,
+    legal: defaultLegal,
   }
 }
 
@@ -173,6 +255,8 @@ export async function resetContent(): Promise<FullContent> {
     saveGallery(defaults.gallery),
     saveFormSchemas(defaults.formSchemas),
     savePlannerCards(defaults.plannerCards),
+    saveTestimonials(defaults.testimonials),
+    saveLegal(defaults.legal),
   ])
   return defaults
 }

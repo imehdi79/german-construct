@@ -15,6 +15,8 @@ import {
   saveGallery,
   saveFormSchemas,
   savePlannerCards,
+  saveTestimonials,
+  saveLegal,
   resetContent,
   type FullContent,
 } from '@/lib/content'
@@ -66,6 +68,8 @@ export async function publishContentAction(
       saveGallery(content.gallery),
       saveFormSchemas(content.formSchemas),
       savePlannerCards(content.plannerCards),
+      saveTestimonials(content.testimonials),
+      saveLegal(content.legal),
     ])
   } catch (err) {
     console.error('Publish failed:', err)

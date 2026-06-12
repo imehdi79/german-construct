@@ -3,39 +3,19 @@
 import { useRef } from 'react'
 import Image from 'next/image'
 import { motion, useInView } from 'framer-motion'
-import { Award, Shield, Clock, ThumbsUp } from 'lucide-react'
 import { SectionTitle } from '@/components/ui/SectionTitle'
+import { resolveIcon } from '@/lib/icons'
+import { defaultSections } from '@/data/sections'
+import type { WarumAmanCopy } from '@/types'
 
-const reasons = [
-  {
-    icon: Award,
-    title: 'Zertifizierter Fachbetrieb',
-    description:
-      'Als Mitglied der Handwerkskammer Frankfurt arbeiten wir nach höchsten Qualitätsstandards und halten unsere Zertifizierungen stets aktuell.',
-  },
-  {
-    icon: Clock,
-    title: 'Geführt vom Meister',
-    description:
-      'Jedes Projekt wird vom Handwerksmeister geplant, begleitet und abgenommen – fundiertes Können statt anonymer Massenabwicklung.',
-  },
-  {
-    icon: Shield,
-    title: 'Qualitätsgarantie',
-    description:
-      'Wir stehen hinter unserer Arbeit. Unsere Leistungen sind mit fünf Jahren Gewährleistung abgesichert und werden nur mit zertifizierten Materialien ausgeführt.',
-  },
-  {
-    icon: ThumbsUp,
-    title: 'Faire Festpreise',
-    description:
-      'Verbindliche Angebote ohne versteckte Kosten. Sie wissen vor Projektbeginn genau, woran Sie sind – transparent und nachvollziehbar.',
-  },
-]
-
-export function WarumAmanSection() {
+export function WarumAmanSection({
+  copy = defaultSections.warumAman,
+}: {
+  copy?: WarumAmanCopy
+}) {
   const ref = useRef<HTMLDivElement>(null)
   const isInView = useInView(ref, { once: true, margin: '-80px' })
+  const reasons = copy.reasons
 
   return (
     <section
@@ -55,7 +35,7 @@ export function WarumAmanSection() {
             <div className="relative aspect-[4/5] rounded-2xl overflow-hidden shadow-hover">
               <Image
                 src="/about-craftsman.jpg"
-                alt="AMAN Handwerker bei der Arbeit – Präzision und Qualität"
+                alt={copy.imageAlt}
                 fill
                 className="object-cover"
                 sizes="(max-width: 1024px) 100vw, 50vw"
@@ -72,15 +52,15 @@ export function WarumAmanSection() {
           {/* Content Side */}
           <div ref={ref}>
             <SectionTitle
-              eyebrow="Warum AMAN"
-              title="Ihr verlässlicher Partner im Handwerk"
-              subtitle="Wir verbinden traditionelles Handwerk mit modernen Techniken – für Ergebnisse, die dauerhaft begeistern."
+              eyebrow={copy.eyebrow}
+              title={copy.title}
+              subtitle={copy.subtitle}
               id="warum-aman-title"
             />
 
             <div className="grid gap-6 mt-10">
               {reasons.map((reason, index) => {
-                const Icon = reason.icon
+                const Icon = resolveIcon(reason.icon)
                 return (
                   <motion.div
                     key={reason.title}

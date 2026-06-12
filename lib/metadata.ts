@@ -1,26 +1,43 @@
 import type { Metadata } from 'next'
 import { siteConfig } from '@/config/site'
+import { getSiteContent } from '@/lib/content'
 
 interface PageMetadataOptions {
+  /** Look up title/description from the editable `seo.perPage[pageKey]`. */
+  pageKey?: string
   title?: string
   description?: string
   path?: string
   noIndex?: boolean
   image?: string
+  keywords?: string[]
 }
 
-export function createMetadata({
+/**
+ * Build page metadata from the editable content store (brand + SEO). Reads
+ * `site.json` so titles, descriptions and keywords are admin-editable. URL and
+ * locale stay in `config/site.ts` (not part of the editable content scope).
+ */
+export async function createMetadata({
+  pageKey,
   title,
   description,
   path = '',
   noIndex = false,
   image,
-}: PageMetadataOptions = {}): Metadata {
-  const fullTitle = title
-    ? `${title} | ${siteConfig.name}`
-    : `${siteConfig.name} – ${siteConfig.tagline}`
+  keywords,
+}: PageMetadataOptions = {}): Promise<Metadata> {
+  const site = await getSiteContent()
+  const { brand, seo } = site
+  const perPage = pageKey ? seo.perPage[pageKey] : undefined
 
-  const metaDescription = description ?? siteConfig.description
+  const resolvedTitle = title ?? (perPage?.title || undefined)
+  const fullTitle = resolvedTitle
+    ? `${resolvedTitle} | ${brand.name}`
+    : `${brand.name} – ${brand.tagline}`
+
+  const metaDescription =
+    description ?? perPage?.description ?? brand.description
   const url = `${siteConfig.url}${path}`
   // When no explicit image is given, omit it so the generated
   // app/opengraph-image.tsx (and twitter-image.tsx) convention is used.
@@ -29,12 +46,14 @@ export function createMetadata({
     : undefined
 
   return {
-    title: fullTitle,
+    // `absolute` prevents the root layout's `%s | brand` template from
+    // wrapping a title that already includes the brand name.
+    title: { absolute: fullTitle },
     description: metaDescription,
-    keywords: siteConfig.seo.keywords.join(', '),
-    authors: [{ name: siteConfig.name }],
-    creator: siteConfig.name,
-    publisher: siteConfig.name,
+    keywords: (keywords ?? seo.keywords).join(', '),
+    authors: [{ name: brand.name }],
+    creator: brand.name,
+    publisher: brand.name,
     metadataBase: new URL(siteConfig.url),
     alternates: {
       canonical: url,
@@ -48,7 +67,7 @@ export function createMetadata({
       url,
       title: fullTitle,
       description: metaDescription,
-      siteName: siteConfig.name,
+      siteName: brand.name,
       ...(ogImages && { images: ogImages }),
     },
     twitter: {

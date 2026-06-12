@@ -9,8 +9,17 @@ import { navigation } from '@/config/navigation'
 import { siteConfig } from '@/config/site'
 import { cn } from '@/lib/utils'
 import { Logo } from './Logo'
+import type { SiteContent } from '@/lib/content'
 
-export function Header() {
+const defaultNavItems = navigation.map((n) => ({ label: n.label, href: n.href }))
+
+export function Header({
+  nav = { items: defaultNavItems, callLabel: 'Jetzt anrufen', skipToContent: '' },
+  contact = siteConfig.contact,
+}: {
+  nav?: SiteContent['nav']
+  contact?: SiteContent['contact']
+}) {
   const [isScrolled, setIsScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const pathname = usePathname()
@@ -55,7 +64,7 @@ export function Header() {
 
             {/* Desktop Nav */}
             <nav className="hidden lg:flex items-center gap-8" aria-label="Hauptnavigation">
-              {navigation.map((item) => (
+              {nav.items.map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
@@ -74,17 +83,17 @@ export function Header() {
             {/* CTA + Mobile Menu Toggle */}
             <div className="flex items-center gap-3">
               <a
-                href={`tel:${siteConfig.contact.phone.replace(/\s/g, '')}`}
+                href={`tel:${contact.phone.replace(/\s/g, '')}`}
                 className={cn(
                   'hidden md:flex items-center gap-2 text-sm font-medium px-4 py-2 rounded-full transition-all duration-300',
                   isTransparent
                     ? 'bg-white/15 text-white border border-white/30 hover:bg-white/25'
                     : 'bg-aman-gold text-white hover:bg-aman-gold-dark'
                 )}
-                aria-label={`Jetzt anrufen: ${siteConfig.contact.phone}`}
+                aria-label={`${nav.callLabel}: ${contact.phone}`}
               >
                 <Phone size={14} />
-                <span className="hidden xl:inline">Jetzt anrufen</span>
+                <span className="hidden xl:inline">{nav.callLabel}</span>
               </a>
 
               <button
@@ -117,7 +126,7 @@ export function Header() {
             aria-label="Mobiles Menü"
           >
             <nav className="flex flex-col gap-1 mt-6">
-              {navigation.map((item, index) => (
+              {nav.items.map((item, index) => (
                 <motion.div
                   key={item.href}
                   initial={{ opacity: 0, x: -16 }}
@@ -142,17 +151,17 @@ export function Header() {
 
             <div className="mt-auto space-y-3 pt-8">
               <a
-                href={`tel:${siteConfig.contact.phone.replace(/\s/g, '')}`}
+                href={`tel:${contact.phone.replace(/\s/g, '')}`}
                 className="flex items-center justify-center gap-2 w-full bg-aman-gold text-white font-medium py-3.5 rounded-full text-sm hover:bg-aman-gold-dark transition-colors"
               >
                 <Phone size={16} />
-                {siteConfig.contact.phone}
+                {contact.phone}
               </a>
               <a
-                href={`mailto:${siteConfig.contact.email}`}
+                href={`mailto:${contact.email}`}
                 className="flex items-center justify-center w-full border border-aman-border text-aman-text font-medium py-3.5 rounded-full text-sm hover:border-aman-gold hover:text-aman-gold transition-colors"
               >
-                {siteConfig.contact.email}
+                {contact.email}
               </a>
             </div>
           </motion.div>

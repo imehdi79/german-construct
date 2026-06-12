@@ -4,7 +4,9 @@ import { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Star, ChevronLeft, ChevronRight, Quote } from 'lucide-react'
 import { SectionTitle } from '@/components/ui/SectionTitle'
-import { testimonials } from '@/data/testimonials'
+import { testimonials as defaultTestimonials } from '@/data/testimonials'
+import { defaultSections } from '@/data/sections'
+import type { Testimonial, TestimonialsCopy } from '@/types'
 import { cn } from '@/lib/utils'
 
 function StarRating({ rating }: { rating: number }) {
@@ -21,17 +23,24 @@ function StarRating({ rating }: { rating: number }) {
   )
 }
 
-export function TestimonialsSection() {
+export function TestimonialsSection({
+  items = defaultTestimonials,
+  copy = defaultSections.testimonials,
+}: {
+  items?: Testimonial[]
+  copy?: TestimonialsCopy
+}) {
+  const testimonials = items
   const [current, setCurrent] = useState(0)
   const [isAutoPlaying, setIsAutoPlaying] = useState(true)
 
   const next = useCallback(() => {
     setCurrent((c) => (c + 1) % testimonials.length)
-  }, [])
+  }, [testimonials.length])
 
   const prev = useCallback(() => {
     setCurrent((c) => (c - 1 + testimonials.length) % testimonials.length)
-  }, [])
+  }, [testimonials.length])
 
   useEffect(() => {
     if (!isAutoPlaying) return
@@ -51,9 +60,9 @@ export function TestimonialsSection() {
     >
       <div className="container-aman">
         <SectionTitle
-          eyebrow="Kundenstimmen"
-          title="Was unsere Kunden sagen"
-          subtitle="Vertrauen entsteht durch Leistung – das spiegeln unsere Bewertungen wider."
+          eyebrow={copy.eyebrow}
+          title={copy.title}
+          subtitle={copy.subtitle}
           align="center"
           className="max-w-2xl mx-auto mb-14"
           id="testimonials-title"
@@ -97,7 +106,7 @@ export function TestimonialsSection() {
 
                     <blockquote className="mt-4 mb-5">
                       <p className="text-aman-charcoal text-lg leading-relaxed font-serif italic">
-                        „{testimonials[current].text}"
+                        {`„${testimonials[current].text}“`}
                       </p>
                     </blockquote>
 
@@ -171,19 +180,19 @@ export function TestimonialsSection() {
             className="mt-12 flex flex-wrap items-center justify-center gap-8 py-8 border-t border-aman-border"
           >
             <div className="text-center">
-              <p className="text-4xl font-serif text-aman-charcoal">5,0</p>
+              <p className="text-4xl font-serif text-aman-charcoal">{copy.summary.ratingValue}</p>
               <StarRating rating={5} />
-              <p className="text-xs text-aman-text-light mt-1">Gesamtbewertung</p>
+              <p className="text-xs text-aman-text-light mt-1">{copy.summary.ratingLabel}</p>
             </div>
             <div className="h-12 w-px bg-aman-border hidden sm:block" aria-hidden="true" />
             <div className="text-center">
-              <p className="text-4xl font-serif text-aman-charcoal">99%</p>
-              <p className="text-sm text-aman-text-muted mt-1">Weiterempfehlung</p>
+              <p className="text-4xl font-serif text-aman-charcoal">{copy.summary.recommendValue}</p>
+              <p className="text-sm text-aman-text-muted mt-1">{copy.summary.recommendLabel}</p>
             </div>
             <div className="h-12 w-px bg-aman-border hidden sm:block" aria-hidden="true" />
             <div className="text-center">
-              <p className="text-4xl font-serif text-aman-charcoal">6</p>
-              <p className="text-sm text-aman-text-muted mt-1">Aktuelle Bewertungen</p>
+              <p className="text-4xl font-serif text-aman-charcoal">{copy.summary.countValue}</p>
+              <p className="text-sm text-aman-text-muted mt-1">{copy.summary.countLabel}</p>
             </div>
           </motion.div>
         </div>

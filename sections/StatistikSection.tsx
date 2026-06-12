@@ -4,8 +4,9 @@ import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { useCountUp } from '@/hooks/useCountUp'
 import { stats as defaultStats } from '@/data/stats'
+import { defaultSections } from '@/data/sections'
 import { cn } from '@/lib/utils'
-import type { Stat } from '@/types'
+import type { Stat, StatistikCopy } from '@/types'
 
 function StatCounter({
   value,
@@ -51,7 +52,13 @@ function StatCounter({
   )
 }
 
-export function StatistikSection({ stats = defaultStats }: { stats?: Stat[] }) {
+export function StatistikSection({
+  stats = defaultStats,
+  copy = defaultSections.statistik,
+}: {
+  stats?: Stat[]
+  copy?: StatistikCopy
+}) {
   const ref = useRef<HTMLDivElement>(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 
@@ -71,7 +78,7 @@ export function StatistikSection({ stats = defaultStats }: { stats?: Stat[] }) {
             viewport={{ once: true }}
             className="text-xs font-medium uppercase tracking-[0.2em] text-aman-gold"
           >
-            Worauf Sie zählen können
+            {copy.eyebrow}
           </motion.span>
           <motion.h2
             id="statistik-title"
@@ -82,7 +89,7 @@ export function StatistikSection({ stats = defaultStats }: { stats?: Stat[] }) {
             className="font-serif text-white mt-3"
             style={{ fontSize: 'clamp(1.75rem, 3vw, 2.75rem)' }}
           >
-            Unser Versprechen an Sie
+            {copy.title}
           </motion.h2>
         </div>
 

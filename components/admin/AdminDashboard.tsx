@@ -4,7 +4,8 @@ import { useState, useTransition } from 'react'
 import Link from 'next/link'
 import {
   LayoutDashboard, Globe, Wrench, Briefcase, Images, ClipboardList,
-  LayoutGrid, LogOut, Menu, X, ChevronRight, Plus, Trash2, Save,
+  LayoutGrid, BadgeCheck, Navigation, LayoutTemplate, FileText, Quote,
+  Scale, LogOut, Menu, X, ChevronRight, Plus, Trash2, Save,
   CheckCircle2, AlertCircle, AlertTriangle, RotateCcw, ExternalLink,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
@@ -15,23 +16,36 @@ import {
   resetContentAction,
   type ActionResult,
 } from '@/actions/admin'
-import type { FullContent, FormSchemasContent } from '@/lib/content'
+import type { FullContent, FormSchemasContent, SiteContent } from '@/lib/content'
 import type { Service, Job, GalleryItem } from '@/types'
 import { DEFAULT_PLANNER_ICON } from '@/lib/plannerIcons'
 import { FormSchemaEditor } from './FormSchemaEditor'
 import { PlannerCardsEditor } from './PlannerCardsEditor'
+import { BrandSeoEditor } from './BrandSeoEditor'
+import { NavFooterEditor } from './NavFooterEditor'
+import { HomeSectionsEditor } from './HomeSectionsEditor'
+import { PageTextsEditor } from './PageTextsEditor'
+import { TestimonialsEditor } from './TestimonialsEditor'
+import { LegalEditor } from './LegalEditor'
 
 type SectionId =
-  | 'dashboard' | 'site' | 'services' | 'jobs' | 'gallery' | 'planner' | 'forms'
+  | 'dashboard' | 'site' | 'brand' | 'navfooter' | 'homesections' | 'pagetexts'
+  | 'services' | 'jobs' | 'gallery' | 'testimonials' | 'planner' | 'forms' | 'legal'
 
 const navItems: { id: SectionId; icon: typeof LayoutDashboard; label: string }[] = [
   { id: 'dashboard', icon: LayoutDashboard, label: 'Übersicht' },
+  { id: 'brand', icon: BadgeCheck, label: 'Marke & SEO' },
   { id: 'site', icon: Globe, label: 'Website-Inhalte' },
+  { id: 'navfooter', icon: Navigation, label: 'Navigation & Fußzeile' },
+  { id: 'homesections', icon: LayoutTemplate, label: 'Startseite-Abschnitte' },
+  { id: 'pagetexts', icon: FileText, label: 'Seitentexte' },
   { id: 'services', icon: Wrench, label: 'Leistungen' },
   { id: 'jobs', icon: Briefcase, label: 'Stellenangebote' },
   { id: 'gallery', icon: Images, label: 'Galerie' },
+  { id: 'testimonials', icon: Quote, label: 'Kundenstimmen' },
   { id: 'planner', icon: LayoutGrid, label: 'Projektplaner-Karten' },
   { id: 'forms', icon: ClipboardList, label: 'Projektplaner-Formulare' },
+  { id: 'legal', icon: Scale, label: 'Rechtstexte' },
 ]
 
 // ─── Reusable fields ─────────────────────────────────────────────────────────
@@ -115,6 +129,13 @@ export function AdminDashboard({ initialContent }: { initialContent: FullContent
     setDirty(true)
     setResult(null)
   }
+
+  // Scoped updater for the site-content tree (used by the copy editors).
+  const editSite = (mutator: (site: SiteContent) => void) =>
+    update((d) => {
+      mutator(d.site)
+      return d
+    })
 
   const publish = () => {
     startPublish(async () => {
@@ -289,6 +310,36 @@ export function AdminDashboard({ initialContent }: { initialContent: FullContent
               dirty={dirty}
               onReset={reset}
               resetting={resetting}
+            />
+          )}
+
+          {section === 'brand' && (
+            <BrandSeoEditor site={site} onChange={editSite} />
+          )}
+
+          {section === 'navfooter' && (
+            <NavFooterEditor site={site} onChange={editSite} />
+          )}
+
+          {section === 'homesections' && (
+            <HomeSectionsEditor site={site} onChange={editSite} />
+          )}
+
+          {section === 'pagetexts' && (
+            <PageTextsEditor site={site} onChange={editSite} />
+          )}
+
+          {section === 'testimonials' && (
+            <TestimonialsEditor
+              testimonials={content.testimonials}
+              onChange={(m) => update((d) => { m(d.testimonials); return d })}
+            />
+          )}
+
+          {section === 'legal' && (
+            <LegalEditor
+              legal={content.legal}
+              onChange={(m) => update((d) => { m(d.legal); return d })}
             />
           )}
 
@@ -494,6 +545,7 @@ function Dashboard({ content, onGo, dirty, onReset, resetting }: {
     { id: 'services' as const, label: 'Leistungen', count: content.services.length, icon: Wrench },
     { id: 'jobs' as const, label: 'Stellenangebote', count: content.jobs.length, icon: Briefcase },
     { id: 'gallery' as const, label: 'Galerie-Bilder', count: content.gallery.length, icon: Images },
+    { id: 'testimonials' as const, label: 'Kundenstimmen', count: content.testimonials.length, icon: Quote },
     { id: 'planner' as const, label: 'Projektplaner-Karten', count: content.plannerCards.length, icon: LayoutGrid },
     { id: 'forms' as const, label: 'Projektplaner-Formulare', count: Object.keys(content.formSchemas).length, icon: ClipboardList },
   ]

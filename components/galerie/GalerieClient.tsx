@@ -7,11 +7,21 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { X, ChevronLeft, ChevronRight, ZoomIn, ArrowRight } from 'lucide-react'
 import { SectionTitle } from '@/components/ui/SectionTitle'
 import { Button } from '@/components/ui/Button'
-import { galleryCategories } from '@/data/gallery'
-import type { GalleryCategory, GalleryItem } from '@/types'
+import { galleryCategories as defaultCategories } from '@/data/gallery'
+import { defaultPages } from '@/data/sections'
+import type { GalleryCategory, GalleryItem, GaleriePageCopy, SelectOption } from '@/types'
 import { cn } from '@/lib/utils'
 
-export function GalerieClient({ items }: { items: GalleryItem[] }) {
+export function GalerieClient({
+  items,
+  categories = defaultCategories.map((c) => ({ value: c.value, label: c.label })),
+  copy = defaultPages.galerie,
+}: {
+  items: GalleryItem[]
+  categories?: SelectOption[]
+  copy?: GaleriePageCopy
+}) {
+  const galleryCategories = categories
   const [activeCategory, setActiveCategory] = useState<GalleryCategory>('alle')
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
 
@@ -28,12 +38,12 @@ export function GalerieClient({ items }: { items: GalleryItem[] }) {
           <nav aria-label="Brotkrümel" className="flex items-center gap-2 text-sm text-aman-text-muted mb-5">
             <Link href="/" className="hover:text-aman-gold transition-colors">Startseite</Link>
             <span>/</span>
-            <span className="text-aman-charcoal">Galerie</span>
+            <span className="text-aman-charcoal">{copy.breadcrumb}</span>
           </nav>
           <SectionTitle
-            eyebrow="Unsere Projekte"
-            title="Handwerkskunst in Bildern"
-            subtitle="Eine Auswahl unserer abgeschlossenen Projekte – jede Arbeit ein Zeugnis unserer Präzision und Leidenschaft für das Handwerk."
+            eyebrow={copy.eyebrow}
+            title={copy.title}
+            subtitle={copy.subtitle}
           />
         </div>
       </div>
@@ -113,7 +123,7 @@ export function GalerieClient({ items }: { items: GalleryItem[] }) {
 
           {filtered.length === 0 && (
             <div className="text-center py-20 text-aman-text-muted">
-              <p>Keine Projekte in dieser Kategorie.</p>
+              <p>{copy.emptyText}</p>
             </div>
           )}
         </div>
@@ -123,10 +133,10 @@ export function GalerieClient({ items }: { items: GalleryItem[] }) {
       <section className="section-padding-sm bg-aman-cream border-t border-aman-border">
         <div className="container-aman text-center">
           <p className="text-aman-text-muted mb-5 text-lg">
-            Bereit für Ihr eigenes Projekt?
+            {copy.ctaText}
           </p>
           <Button href="/projektplaner" variant="gold" size="lg" icon={<ArrowRight size={16} />}>
-            Kostenlos anfragen
+            {copy.ctaLabel}
           </Button>
         </div>
       </section>

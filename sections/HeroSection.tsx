@@ -2,32 +2,11 @@
 
 import { useEffect, useRef } from 'react'
 import Image from 'next/image'
-import Link from 'next/link'
 import { motion, type Variants } from 'framer-motion'
 import { ArrowRight, CheckCircle2, ChevronDown } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
-import { siteConfig } from '@/config/site'
-
-const defaultTrustIndicators = [
-  'Geführt vom Meister',
-  'Verbindliche Festpreise',
-  'Persönliche Betreuung',
-]
-
-export interface HeroContent {
-  eyebrow: string
-  titleLine1: string
-  titleAccent: string
-  subtitle: string
-}
-
-const defaultHero: HeroContent = {
-  eyebrow: 'Neu gegründeter Meisterbetrieb',
-  titleLine1: 'Handwerkskunst,',
-  titleAccent: 'die bleibt.',
-  subtitle:
-    'Ihr Fachbetrieb für Fliesen-, Platten- und Natursteinarbeiten in Frankfurt und Umgebung. Frische Ideen, meisterliche Ausführung, faire Festpreise.',
-}
+import { defaultHero } from '@/data/sections'
+import type { HeroCopy } from '@/types'
 
 const ease = [0.16, 1, 0.3, 1] as [number, number, number, number]
 
@@ -49,9 +28,9 @@ const itemVariants: Variants = {
 
 export function HeroSection({
   hero = defaultHero,
-  trustIndicators = [],
+  trustIndicators = hero.trustIndicators,
 }: {
-  hero?: HeroContent
+  hero?: HeroCopy
   trustIndicators?: string[]
 }) {
   const heroRef = useRef<HTMLElement>(null)
@@ -157,7 +136,7 @@ export function HeroSection({
               size="lg"
               icon={<ArrowRight size={16} />}
             >
-              Kostenloses Angebot
+              {hero.ctaPrimary}
             </Button>
             <Button
               href="/galerie"
@@ -165,7 +144,7 @@ export function HeroSection({
               size="lg"
               className="border-white/40 text-white hover:bg-white hover:text-aman-charcoal"
             >
-              Unsere Projekte
+              {hero.ctaSecondary}
             </Button>
           </motion.div>
 
@@ -209,7 +188,7 @@ export function HeroSection({
         className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/40 no-print"
         aria-hidden="true"
       >
-        <span className="text-[10px] uppercase tracking-widest">Scrollen</span>
+        <span className="text-[10px] uppercase tracking-widest">{hero.scrollLabel}</span>
         <motion.div
           animate={{ y: [0, 6, 0] }}
           transition={{ repeat: Infinity, duration: 1.5, ease: 'easeInOut' }}

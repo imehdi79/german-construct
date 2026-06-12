@@ -4,8 +4,19 @@ import { motion } from 'framer-motion'
 import { Phone, ArrowRight, MapPin } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { siteConfig } from '@/config/site'
+import { defaultSections } from '@/data/sections'
+import type { SiteContent } from '@/lib/content'
+import type { KontaktCtaCopy } from '@/types'
 
-export function KontaktCtaSection() {
+export function KontaktCtaSection({
+  copy = defaultSections.kontaktCta,
+  contact = siteConfig.contact,
+  openingHours = siteConfig.openingHours,
+}: {
+  copy?: KontaktCtaCopy
+  contact?: SiteContent['contact']
+  openingHours?: SiteContent['openingHours']
+}) {
   return (
     <section
       className="section-padding bg-aman-charcoal relative overflow-hidden"
@@ -40,7 +51,7 @@ export function KontaktCtaSection() {
             viewport={{ once: true }}
             className="text-xs font-medium uppercase tracking-[0.2em] text-aman-gold"
           >
-            Bereit für Ihr Projekt?
+            {copy.eyebrow}
           </motion.span>
 
           <motion.h2
@@ -52,9 +63,9 @@ export function KontaktCtaSection() {
             className="font-serif text-white mt-4 mb-6"
             style={{ fontSize: 'clamp(2rem, 4vw, 3.25rem)' }}
           >
-            Lassen Sie uns gemeinsam
+            {copy.titleLine1}
             <br />
-            <span className="text-aman-gold">etwas Schönes erschaffen.</span>
+            <span className="text-aman-gold">{copy.titleAccent}</span>
           </motion.h2>
 
           <motion.p
@@ -64,8 +75,7 @@ export function KontaktCtaSection() {
             transition={{ delay: 0.2, duration: 0.6 }}
             className="text-white/60 text-lg mb-10 leading-relaxed"
           >
-            Kontaktieren Sie uns für ein kostenfreies und unverbindliches Beratungsgespräch.
-            Wir freuen uns auf Ihr Projekt.
+            {copy.subtitle}
           </motion.p>
 
           <motion.div
@@ -81,15 +91,15 @@ export function KontaktCtaSection() {
               size="lg"
               icon={<ArrowRight size={16} />}
             >
-              Anfrage stellen
+              {copy.ctaLabel}
             </Button>
             <a
-              href={`tel:${siteConfig.contact.phone.replace(/\s/g, '')}`}
+              href={`tel:${contact.phone.replace(/\s/g, '')}`}
               className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full border border-white/20 text-white text-sm font-medium uppercase tracking-wider hover:border-white/40 hover:bg-white/5 transition-all duration-200"
-              aria-label={`Anrufen: ${siteConfig.contact.phone}`}
+              aria-label={`Anrufen: ${contact.phone}`}
             >
               <Phone size={15} />
-              {siteConfig.contact.phone}
+              {contact.phone}
             </a>
           </motion.div>
 
@@ -103,8 +113,8 @@ export function KontaktCtaSection() {
           >
             <MapPin size={14} className="text-aman-gold" />
             <span>
-              {siteConfig.contact.address.street}, {siteConfig.contact.address.zip}{' '}
-              {siteConfig.contact.address.city}
+              {contact.address.street}, {contact.address.zip}{' '}
+              {contact.address.city}
             </span>
           </motion.div>
 
@@ -116,7 +126,7 @@ export function KontaktCtaSection() {
             transition={{ delay: 0.5, duration: 0.6 }}
             className="mt-3 text-white/30 text-xs"
           >
-            {siteConfig.openingHours.weekdays} · {siteConfig.openingHours.saturday}
+            {openingHours.weekdays} · {openingHours.saturday}
           </motion.div>
         </div>
       </div>
