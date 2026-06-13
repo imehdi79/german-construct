@@ -133,18 +133,31 @@ export async function submitProjectInquiry(
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
+/** Cap the total size of email attachments so the SMTP server doesn't reject the message. */
+const MAX_ATTACHMENTS_BYTES = 15 * 1024 * 1024 // 15 MB
+
 /**
- * Receives the dynamic, schema-driven project planner submission.
+ * Receives the dynamic, schema-driven project planner submission as `FormData`
+ * so that any files uploaded in the planner's dropzone steps can be attached to
+ * the notification email.
  *
- * Values arrive as a flat `Record<string, string | string[]>` keyed by the
- * field labels defined in the form-builder schema, so we validate the few
- * fields we depend on (contact essentials) rather than a fixed Zod shape.
+ * - `projektTyp`: the selected project-type label.
+ * - `values`: JSON string of the flat `Record<string, string | string[]>` keyed
+ *   by the form-builder field ids (which are the human-readable questions).
+ * - `files`: zero or more uploaded `File` entries.
+ *
+ * We validate only the contact essentials we depend on rather than a fixed Zod
+ * shape, since the schema is editable.
  */
-export async function submitPlannerInquiry(payload: {
-  projektTyp: string
-  values: FormValues
-}): Promise<ActionResult> {
-  const { projektTyp, values } = payload
+export async function submitPlannerInquiry(formData: FormData): Promise<ActionResult> {
+  const projektTyp = String(formData.get('projektTyp') ?? '').trim()
+
+  let values: FormValues = {}
+  try {
+    values = JSON.parse(String(formData.get('values') ?? '{}')) as FormValues
+  } catch {
+    return { success: false, message: 'Ungültige Daten. Bitte versuchen Sie es erneut.' }
+  }
 
   const asText = (v: FormValues[string] | undefined): string =>
     Array.isArray(v) ? v.join(', ') : (v ?? '')
@@ -160,8 +173,8 @@ export async function submitPlannerInquiry(payload: {
     }
   }
 
-  // Flatten every submitted field (label → value) into the email body so the
-  // company sees the full, schema-driven planner answers.
+  // Flatten every submitted field (question → answer) into the email body so
+  // the company sees the full, schema-driven planner answers.
   const rows: Array<[string, string]> = [
     ['Projekttyp', projektTyp],
     ...Object.entries(values)
@@ -170,13 +183,37 @@ export async function submitPlannerInquiry(payload: {
   ]
   const { text, html } = renderRows(rows)
 
+  // Collect uploaded files as attachments, capped to a safe total size.
+  const attachments: { filename: string; content: Buffer }[] = []
+  const skipped: string[] = []
+  let total = 0
+  for (const entry of formData.getAll('files')) {
+    if (!(entry instanceof File) || entry.size === 0) continue
+    if (total + entry.size > MAX_ATTACHMENTS_BYTES) {
+      skipped.push(entry.name)
+      continue
+    }
+    total += entry.size
+    attachments.push({
+      filename: entry.name,
+      content: Buffer.from(await entry.arrayBuffer()),
+    })
+  }
+
+  const skippedNote = skipped.length
+    ? `\n\nHinweis: Folgende Anhänge wurden wegen der Größenbeschränkung nicht angehängt: ${skipped.join(', ')}.`
+    : ''
+
   try {
     await sendMail({
       to: NOTIFY_TO,
       subject: `Projektplaner-Anfrage: ${projektTyp}`,
-      text: `Neue Projektplaner-Anfrage über die Website:\n\n${text}`,
-      html: `<p>Neue Projektplaner-Anfrage über die Website:</p>${html}`,
+      text: `Neue Projektplaner-Anfrage über die Website:\n\n${text}${skippedNote}`,
+      html: `<p>Neue Projektplaner-Anfrage über die Website:</p>${html}${
+        skippedNote ? `<p>${escapeHtml(skippedNote.trim())}</p>` : ''
+      }`,
       replyTo: email,
+      attachments,
     })
   } catch (error) {
     console.error('Planner inquiry email failed:', error)

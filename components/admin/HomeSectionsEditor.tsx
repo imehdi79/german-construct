@@ -11,6 +11,7 @@ import {
   ContentIconPicker,
   OptionListEditor,
 } from './fields'
+import { ImageUpload } from './ImageUpload'
 
 export function HomeSectionsEditor({
   site,
@@ -23,7 +24,9 @@ export function HomeSectionsEditor({
 
   return (
     <div className="max-w-3xl space-y-6">
-      <Group title="Hero – Buttons & Hinweise">
+      <Group title="Hero – Bild, Buttons & Hinweise">
+        <ImageUpload label="Hintergrundbild" value={site.hero.image}
+          onChange={(v) => onChange((s) => (s.hero.image = v))} />
         <div className="grid sm:grid-cols-2 gap-3">
           <Field label="Button 1 (primär)" value={site.hero.ctaPrimary}
             onChange={(v) => onChange((s) => (s.hero.ctaPrimary = v))} />
@@ -43,6 +46,8 @@ export function HomeSectionsEditor({
           onChange={(v) => onChange((s) => (s.sections.warumAman.title = v))} />
         <TextArea label="Untertitel" value={sec.warumAman.subtitle}
           onChange={(v) => onChange((s) => (s.sections.warumAman.subtitle = v))} />
+        <ImageUpload label="Bild (Handwerker)" value={sec.warumAman.image}
+          onChange={(v) => onChange((s) => (s.sections.warumAman.image = v))} />
         <Field label="Bild-Alternativtext" value={sec.warumAman.imageAlt}
           onChange={(v) => onChange((s) => (s.sections.warumAman.imageAlt = v))} />
 

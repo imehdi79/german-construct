@@ -10,6 +10,8 @@ services:
     volumes:
       # Persist admin-edited content (lib/content.ts writes to /app/content).
       - aman-content:/app/content
+      # Persist admin-uploaded images (actions/upload.ts writes to /app/public/uploads).
+      - aman-uploads:/app/public/uploads
     networks:
       - traefik
 
@@ -40,6 +42,7 @@ services:
 
 volumes:
   aman-content:
+  aman-uploads:
 
 networks:
   traefik:

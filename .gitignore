@@ -49,5 +49,8 @@ next-env.d.ts
 # content backups created by deploy.sh
 /content-backups/
 
+# admin-uploaded images (runtime; persisted via the aman-uploads volume).
+/public/uploads/
+
 # all addition files
 *.pdf

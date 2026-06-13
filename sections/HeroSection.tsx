@@ -65,7 +65,7 @@ export function HeroSection({
         aria-hidden="true"
       >
         <Image
-          src="/hero-bg.jpg"
+          src={hero.image}
           alt=""
           fill
           priority

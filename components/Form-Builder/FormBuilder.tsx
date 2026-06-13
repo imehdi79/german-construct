@@ -18,8 +18,11 @@ interface FormBuilderProps {
   schema: Step[]
   /** Heading shown in the panel header (e.g. the selected project type). */
   title?: string
-  /** Receives the collected values once the user submits the final step. */
-  onSubmit: (values: FormValues) => Promise<FormBuilderResult>
+  /**
+   * Receives the collected values once the user submits the final step, plus
+   * any files uploaded in dropzone fields (keyed by field id).
+   */
+  onSubmit: (values: FormValues, files?: Record<string, File[]>) => Promise<FormBuilderResult>
   /** Called when the user closes the form via the header ✕. */
   onClose?: () => void
 }
@@ -148,9 +151,12 @@ interface ControlProps {
   error?: string
   onChange: (value: FieldValue) => void
   onNoteChange: (note: string) => void
+  /** Uploaded files for a dropzone field (kept as real File objects for upload). */
+  files?: File[]
+  onFilesChange?: (files: File[]) => void
 }
 
-function FieldControl({ field, value, note, error, onChange, onNoteChange }: ControlProps) {
+function FieldControl({ field, value, note, error, onChange, onNoteChange, files, onFilesChange }: ControlProps) {
   const noteActive =
     field.options?.some(
       (o) =>
@@ -272,11 +278,19 @@ function FieldControl({ field, value, note, error, onChange, onNoteChange }: Con
       )
 
     case 'dropzone': {
-      const files = Array.isArray(value) ? value : []
+      const picked = files ?? []
+      const sync = (next: File[]) => {
+        onFilesChange?.(next)
+        // Keep the value in sync with the file names for display/validation.
+        onChange(next.map((f) => f.name))
+      }
       const addFiles = (list: FileList | null) => {
         if (!list) return
-        const names = Array.from(list).map((f) => f.name)
-        onChange([...files, ...names.filter((n) => !files.includes(n))])
+        const merged = [...picked]
+        for (const f of Array.from(list)) {
+          if (!merged.some((m) => m.name === f.name && m.size === f.size)) merged.push(f)
+        }
+        sync(merged)
       }
       return (
         <div className="flex flex-col gap-3">
@@ -300,22 +314,22 @@ function FieldControl({ field, value, note, error, onChange, onNoteChange }: Con
               className="sr-only"
             />
           </label>
-          {files.length > 0 && (
+          {picked.length > 0 && (
             <ul className="flex flex-col gap-1.5">
-              {files.map((name) => (
+              {picked.map((file, idx) => (
                 <li
-                  key={name}
+                  key={`${file.name}-${idx}`}
                   className="flex items-center justify-between gap-2 rounded-md border border-aman-border bg-white px-3 py-2 text-xs text-aman-text"
                 >
                   <span className="flex items-center gap-2 truncate">
                     <FileText size={14} className="shrink-0 text-aman-stone-400" />
-                    <span className="truncate">{name}</span>
+                    <span className="truncate">{file.name}</span>
                   </span>
                   <button
                     type="button"
-                    onClick={() => onChange(files.filter((f) => f !== name))}
+                    onClick={() => sync(picked.filter((_, i) => i !== idx))}
                     className="shrink-0 text-aman-text-muted hover:text-red-500"
-                    aria-label={`${name} entfernen`}
+                    aria-label={`${file.name} entfernen`}
                   >
                     <X size={14} />
                   </button>
@@ -348,6 +362,7 @@ export function FormBuilder({ schema, title, onSubmit, onClose }: FormBuilderPro
   const steps = useMemo(() => schema.filter((s) => !s.disabled), [schema])
 
   const [values, setValues] = useState<FormValues>(() => buildInitialValues(schema))
+  const [files, setFiles] = useState<Record<string, File[]>>({})
   const [notes, setNotes] = useState<Record<string, string>>({})
   const [stepIndex, setStepIndex] = useState(0)
   const [errors, setErrors] = useState<Record<string, string>>({})
@@ -418,7 +433,7 @@ export function FormBuilder({ schema, title, onSubmit, onClose }: FormBuilderPro
     }
 
     try {
-      const res = await onSubmit(payload)
+      const res = await onSubmit(payload, files)
       if (res.success) setResult(res)
       else setSubmitError(res.message)
     } catch {
@@ -541,6 +556,8 @@ export function FormBuilder({ schema, title, onSubmit, onClose }: FormBuilderPro
                   value={values[field.id] ?? emptyFor(field)}
                   note={notes[field.id] ?? ''}
                   error={error}
+                  files={files[field.id] ?? []}
+                  onFilesChange={(fs) => setFiles((prev) => ({ ...prev, [field.id]: fs }))}
                   onChange={(v) => setFieldValue(field.id, v)}
                   onNoteChange={(n) => setNotes((prev) => ({ ...prev, [field.id]: n }))}
                 />

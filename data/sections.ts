@@ -29,6 +29,7 @@ export const defaultHero: HeroCopy = {
   ctaPrimary: 'Kostenloses Angebot',
   ctaSecondary: 'Unsere Projekte',
   scrollLabel: 'Scrollen',
+  image: '/hero-bg.jpg',
   trustIndicators: [
     'Geführt vom Meister',
     'Verbindliche Festpreise',
@@ -51,6 +52,7 @@ export const defaultSections: SectionsContent = {
     subtitle:
       'Wir verbinden traditionelles Handwerk mit modernen Techniken – für Ergebnisse, die dauerhaft begeistern.',
     imageAlt: 'AMAN Handwerker bei der Arbeit – Präzision und Qualität',
+    image: '/about-craftsman.jpg',
     reasons: [
       {
         icon: 'award',

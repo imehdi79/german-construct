@@ -46,6 +46,12 @@ function getTransporter(): Transporter {
   return cachedTransporter
 }
 
+export interface MailAttachment {
+  filename: string
+  content: Buffer
+  contentType?: string
+}
+
 export interface SendMailOptions {
   to: string
   subject: string
@@ -53,13 +59,15 @@ export interface SendMailOptions {
   html?: string
   /** Address to set as Reply-To (e.g. the visitor who submitted the form). */
   replyTo?: string
+  /** File attachments (e.g. photos/plans uploaded with a planner inquiry). */
+  attachments?: MailAttachment[]
 }
 
 /**
  * Sends a single email. Throws if SMTP is not configured or the send fails —
  * callers decide how to surface that to the user.
  */
-export async function sendMail({ to, subject, text, html, replyTo }: SendMailOptions): Promise<void> {
+export async function sendMail({ to, subject, text, html, replyTo, attachments }: SendMailOptions): Promise<void> {
   if (!mailConfigured) {
     throw new Error(
       'SMTP is not configured. Set SMTP_EMAIL and SMTP_PASSWORD (and optionally SMTP_HOST/SMTP_PORT) in the environment.'
@@ -73,6 +81,7 @@ export async function sendMail({ to, subject, text, html, replyTo }: SendMailOpt
     text,
     html,
     replyTo,
+    attachments,
   })
 }
 

@@ -34,7 +34,7 @@ export function WarumAmanSection({
           >
             <div className="relative aspect-4/5 rounded-2xl overflow-hidden shadow-hover">
               <Image
-                src="/about-craftsman.jpg"
+                src={copy.image}
                 alt={copy.imageAlt}
                 fill
                 quality={90}

@@ -27,6 +27,7 @@ import { HomeSectionsEditor } from './HomeSectionsEditor'
 import { PageTextsEditor } from './PageTextsEditor'
 import { TestimonialsEditor } from './TestimonialsEditor'
 import { LegalEditor } from './LegalEditor'
+import { ImageUpload } from './ImageUpload'
 
 type SectionId =
   | 'dashboard' | 'site' | 'brand' | 'navfooter' | 'homesections' | 'pagetexts'
@@ -475,7 +476,7 @@ export function AdminDashboard({ initialContent }: { initialContent: FullContent
                     onChange={(v) => update((d) => { d.gallery[i].title = v; return d })} />
                   <Field label="Kategorie" value={item.category}
                     onChange={(v) => update((d) => { d.gallery[i].category = v as GalleryItem['category']; return d })} />
-                  <Field label="Bildpfad" value={item.image}
+                  <ImageUpload label="Bild" value={item.image}
                     onChange={(v) => update((d) => { d.gallery[i].image = v; return d })} />
                   <TextArea label="Beschreibung" value={item.description ?? ''}
                     onChange={(v) => update((d) => { d.gallery[i].description = v; return d })} />

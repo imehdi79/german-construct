@@ -179,6 +179,8 @@ export interface HeroCopy {
   ctaSecondary: string
   scrollLabel: string
   trustIndicators: string[]
+  /** Background image path (editable/uploadable via the admin). */
+  image: string
 }
 
 export interface IntroCopy {
@@ -193,6 +195,8 @@ export interface WarumAmanCopy {
   title: string
   subtitle: string
   imageAlt: string
+  /** Craftsman image path (editable/uploadable via the admin). */
+  image: string
   reasons: IconCard[]
 }
 

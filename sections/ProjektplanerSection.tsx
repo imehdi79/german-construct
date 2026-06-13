@@ -208,9 +208,15 @@ export function ProjektplanerSection({
                     title={selected.title}
                     schema={schemaFor(selected.id)}
                     onClose={() => setSelectedCard(null)}
-                    onSubmit={(values) =>
-                      submitPlannerInquiry({ projektTyp: selected.title, values })
-                    }
+                    onSubmit={(values, files) => {
+                      const formData = new FormData()
+                      formData.append('projektTyp', selected.title)
+                      formData.append('values', JSON.stringify(values))
+                      for (const list of Object.values(files ?? {})) {
+                        for (const file of list) formData.append('files', file)
+                      }
+                      return submitPlannerInquiry(formData)
+                    }}
                   />
                 </motion.div>
               )}
