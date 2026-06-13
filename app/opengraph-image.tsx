@@ -45,11 +45,11 @@ async function loadGoogleFont(
 }
 
 export default async function Image() {
-  const eyebrow = 'Meisterbetrieb · Frankfurt am Main'
+  const eyebrow = 'Meisterbetrieb · Neu-Ulm'
   const headline = 'Fliesen-Naturstein'
   const wordmark = 'AMAN'
   const services = 'Fliesen · Platten · Naturstein'
-  const domain = 'fliesen-naturstein-aman.de'
+  const domain = 'fliesen-aman.de'
   const glyphs = `${eyebrow}${headline}${wordmark}${services}${domain}`
 
   const [bgData, playfair, playfairBold, inter] = await Promise.all([

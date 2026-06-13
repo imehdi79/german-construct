@@ -6,10 +6,10 @@ export const jobs: Job[] = [
     title: 'Fliesenleger / Fliesenlegerin (m/w/d)',
     type: 'Vollzeit',
     level: 'Senior',
-    location: 'Frankfurt am Main',
+    location: 'Neu-Ulm',
     salary: '20 – 26 € / Stunde (je nach Qualifikation)',
     description:
-      'Wir suchen einen erfahrenen Fliesenleger zur Verstärkung unseres wachsenden Teams. Sie arbeiten selbstständig auf unseren Baustellen in Frankfurt und Umgebung und vertreten dabei die hohen Qualitätsstandards von AMAN.',
+      'Wir suchen einen erfahrenen Fliesenleger zur Verstärkung unseres wachsenden Teams. Sie arbeiten selbstständig auf unseren Baustellen in Neu-Ulm, Ulm und Umgebung und vertreten dabei die hohen Qualitätsstandards von AMAN.',
     requirements: [
       'Abgeschlossene Berufsausbildung als Fliesenleger oder vergleichbare Qualifikation',
       'Mehrjährige Berufserfahrung im Fliesenlegerhandwerk',
@@ -34,7 +34,7 @@ export const jobs: Job[] = [
     title: 'Estrichleger / Estrichlegerin (m/w/d)',
     type: 'Vollzeit',
     level: 'Senior',
-    location: 'Frankfurt am Main und Umgebung',
+    location: 'Neu-Ulm, Ulm und Umgebung',
     salary: '18 – 24 € / Stunde',
     description:
       'Zur Erweiterung unseres Teams suchen wir einen qualifizierten Estrichleger. Sie sind für die fachgerechte Verlegung verschiedener Estrichsysteme verantwortlich und arbeiten eng mit unserem Fliesenlegeteam zusammen.',
@@ -59,7 +59,7 @@ export const jobs: Job[] = [
     title: 'Ausbildung Fliesen-, Platten- und Mosaikleger (m/w/d)',
     type: 'Ausbildung',
     level: 'Junior',
-    location: 'Frankfurt am Main',
+    location: 'Neu-Ulm',
     salary: 'Ausbildungsvergütung nach Tarif',
     description:
       'Starten Sie Ihre Karriere im Bauhandwerk mit einer fundierten Ausbildung bei AMAN. Wir bieten Ihnen eine praxisorientierte Ausbildung mit persönlicher Betreuung durch unsere erfahrenen Meister.',

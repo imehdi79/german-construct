@@ -660,7 +660,7 @@ function newJob(): Job {
     title: 'Neue Stelle (m/w/d)',
     type: 'Vollzeit',
     level: 'Senior',
-    location: 'Frankfurt am Main',
+    location: 'Neu-Ulm',
     salary: '',
     description: '',
     requirements: [],

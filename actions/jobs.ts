@@ -2,6 +2,7 @@
 
 import { jobApplicationSchema } from '@/schemas/jobs'
 import type { JobApplicationSchema } from '@/schemas/jobs'
+import { sendMail, renderRows, NOTIFY_TO } from '@/lib/email'
 
 export interface ActionResult {
   success: boolean
@@ -20,20 +21,33 @@ export async function submitJobApplication(
     }
   }
 
-  // In production: send email with attachment
-  // await sendEmail({
-  //   to: 'bewerbung@fliesen-naturstein-aman.de',
-  //   subject: `Bewerbung: ${parsed.data.position}`,
-  //   text: `
-  //     Name: ${parsed.data.vorname} ${parsed.data.nachname}
-  //     E-Mail: ${parsed.data.email}
-  //     Telefon: ${parsed.data.telefon ?? 'Nicht angegeben'}
-  //     Stelle: ${parsed.data.position}
-  //     Anschreiben: ${parsed.data.anschreiben}
-  //   `,
-  // })
+  const d = parsed.data
+  const fullName = `${d.vorname} ${d.nachname}`
 
-  console.log('Job application submission:', parsed.data)
+  const { text, html } = renderRows([
+    ['Name', fullName],
+    ['E-Mail', d.email],
+    ['Telefon', d.telefon || 'Nicht angegeben'],
+    ['Stelle', d.position],
+    ['Anschreiben', d.anschreiben],
+  ])
+
+  try {
+    await sendMail({
+      to: NOTIFY_TO,
+      subject: `Bewerbung: ${d.position} – ${fullName}`,
+      text: `Neue Bewerbung über die Website:\n\n${text}`,
+      html: `<p>Neue Bewerbung über die Website:</p>${html}`,
+      replyTo: d.email,
+    })
+  } catch (error) {
+    console.error('Job application email failed:', error)
+    return {
+      success: false,
+      message:
+        'Ihre Bewerbung konnte nicht gesendet werden. Bitte versuchen Sie es später erneut.',
+    }
+  }
 
   return {
     success: true,

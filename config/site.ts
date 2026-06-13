@@ -3,21 +3,21 @@ export const siteConfig = {
   shortName: 'AMAN',
   tagline: 'Ihr Fachbetrieb für Fliesen-, Platten- und Natursteinarbeiten',
   description:
-    'Fliesen-Naturstein AMAN – Ihr neuer Meisterbetrieb für hochwertige Fliesen-, Platten- und Natursteinarbeiten in Frankfurt und Umgebung. Präzision, Qualität und persönliche Betreuung zu fairen Festpreisen.',
-  url: 'https://fliesen-naturstein-aman.de',
+    'Fliesen-Naturstein AMAN – Ihr Meisterbetrieb für hochwertige Fliesen-, Platten- und Natursteinarbeiten in Neu-Ulm, Ulm und Umgebung. Präzision, Qualität und persönliche Betreuung zu fairen Festpreisen.',
+  url: 'https://fliesen-aman.de',
   locale: 'de_DE',
 
   contact: {
-    phone: '+49 69 123 456 789',
-    mobile: '+49 151 234 567 89',
-    email: 'info@fliesen-naturstein-aman.de',
+    phone: '-',
+    mobile: '+49 176 34569351',
+    email: 'info@fliesen-aman.de',
     address: {
-      street: 'Musterstraße 42',
-      city: 'Frankfurt am Main',
-      zip: '60311',
+      street: 'Turmstraße 45/3',
+      city: 'Neu-Ulm',
+      zip: '89231',
       country: 'Deutschland',
       countryCode: 'DE',
-      region: 'Hessen',
+      region: 'Bayern',
     },
   },
 
@@ -41,17 +41,17 @@ export const siteConfig = {
 
   seo: {
     keywords: [
-      'Fliesenleger Frankfurt',
-      'Fliesenarbeiten Frankfurt',
-      'Naturstein Frankfurt',
-      'Fliesenleger',
+      'Fliesenleger Neu-Ulm',
+      'Fliesenarbeiten Neu-Ulm',
+      'Naturstein Ulm',
+      'Fliesenleger Ulm',
       'Natursteinarbeiten',
-      'Estricharbeiten Frankfurt',
-      'Badezimmer Fliesen Frankfurt',
-      'Terrassenplatten Frankfurt',
+      'Estricharbeiten Neu-Ulm',
+      'Badezimmer Fliesen Ulm',
+      'Terrassenplatten Neu-Ulm',
       'Verfugungsarbeiten',
-      'Sanierung Frankfurt',
-      'Fachbetrieb Fliesen Hessen',
+      'Sanierung Neu-Ulm',
+      'Fachbetrieb Fliesen Bayern',
     ],
   },
 } as const

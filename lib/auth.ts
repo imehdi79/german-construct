@@ -13,7 +13,7 @@ import crypto from 'crypto'
 const COOKIE_NAME = 'aman_admin_session'
 const SESSION_TTL = 60 * 60 * 8 // 8 hours
 
-const ADMIN_EMAIL = process.env.ADMIN_EMAIL ?? 'admin@fliesen-naturstein-aman.de'
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL ?? 'admin@fliesen-aman.de'
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD ?? 'admin123'
 const SECRET = process.env.ADMIN_SESSION_SECRET ?? 'dev-only-insecure-secret-change-me'
 

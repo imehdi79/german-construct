@@ -72,7 +72,7 @@ export interface SiteContent {
 export const defaultSiteContent: SiteContent = {
   brand: defaultBrand,
   descriptionShort:
-    'Ihr neuer Meisterbetrieb für Fliesen-, Platten- und Natursteinarbeiten in Frankfurt und Umgebung. Präzision, Qualität und persönliche Betreuung – vom ersten Gespräch bis zur letzten Fuge.',
+    'Ihr Meisterbetrieb für Fliesen-, Platten- und Natursteinarbeiten in Neu-Ulm, Ulm und Umgebung. Präzision, Qualität und persönliche Betreuung – vom ersten Gespräch bis zur letzten Fuge.',
   contact: {
     phone: siteConfig.contact.phone,
     mobile: siteConfig.contact.mobile,

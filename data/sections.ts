@@ -25,7 +25,7 @@ export const defaultHero: HeroCopy = {
   titleLine1: 'Handwerkskunst,',
   titleAccent: 'die bleibt.',
   subtitle:
-    'Ihr Fachbetrieb für Fliesen-, Platten- und Natursteinarbeiten in Frankfurt und Umgebung. Frische Ideen, meisterliche Ausführung, faire Festpreise.',
+    'Ihr Fachbetrieb für Fliesen-, Platten- und Natursteinarbeiten in Neu-Ulm, Ulm und Umgebung. Frische Ideen, meisterliche Ausführung, faire Festpreise.',
   ctaPrimary: 'Kostenloses Angebot',
   ctaSecondary: 'Unsere Projekte',
   scrollLabel: 'Scrollen',
@@ -56,7 +56,7 @@ export const defaultSections: SectionsContent = {
         icon: 'award',
         title: 'Zertifizierter Fachbetrieb',
         description:
-          'Als Mitglied der Handwerkskammer Frankfurt arbeiten wir nach höchsten Qualitätsstandards und halten unsere Zertifizierungen stets aktuell.',
+          'Als Mitglied der Handwerkskammer Schwaben arbeiten wir nach höchsten Qualitätsstandards und halten unsere Zertifizierungen stets aktuell.',
       },
       {
         icon: 'clock',
@@ -137,7 +137,7 @@ export const defaultSections: SectionsContent = {
 // Footer copy + link labels.
 export const defaultFooter: FooterContent = {
   description:
-    'Ihr Fachbetrieb für Fliesen-, Platten- und Natursteinarbeiten in Frankfurt und Umgebung. Frisch gegründeter Meisterbetrieb mit Qualität und Handwerkskunst zu fairen Festpreisen.',
+    'Ihr Fachbetrieb für Fliesen-, Platten- und Natursteinarbeiten in Neu-Ulm, Ulm und Umgebung. Meisterbetrieb mit Qualität und Handwerkskunst zu fairen Festpreisen.',
   servicesTitle: 'Leistungen',
   companyTitle: 'Unternehmen',
   contactTitle: 'Kontakt',
@@ -222,7 +222,7 @@ export const defaultPages: PagesContent = {
     eyebrow: 'Karriere bei AMAN',
     title: 'Wachsen Sie mit uns',
     subtitle:
-      'Werden Sie Teil unseres jungen Teams und arbeiten Sie an spannenden Projekten in Frankfurt und Umgebung. Wir suchen leidenschaftliche Handwerker, die mit uns Großes erschaffen möchten.',
+      'Werden Sie Teil unseres jungen Teams und arbeiten Sie an spannenden Projekten in Neu-Ulm, Ulm und Umgebung. Wir suchen leidenschaftliche Handwerker, die mit uns Großes erschaffen möchten.',
     applyLabel: 'Bewerben',
     applyLabelLong: 'Jetzt bewerben',
     detailsShow: 'Details anzeigen',
@@ -284,22 +284,22 @@ export const defaultSeo: SeoContent = {
     leistungen: {
       title: 'Leistungen',
       description:
-        'Unsere Leistungen: Fliesenarbeiten, Natursteinarbeiten, Estricharbeiten, Verfugungen, Sanierungen und Terrassengestaltung in Frankfurt und Umgebung.',
+        'Unsere Leistungen: Fliesenarbeiten, Natursteinarbeiten, Estricharbeiten, Verfugungen, Sanierungen und Terrassengestaltung in Neu-Ulm, Ulm und Umgebung.',
     },
     galerie: {
       title: 'Galerie',
       description:
-        'Projektgalerie von Fliesen-Naturstein AMAN – abgeschlossene Fliesen-, Naturstein- und Terrassenprojekte in Frankfurt und Umgebung.',
+        'Projektgalerie von Fliesen-Naturstein AMAN – abgeschlossene Fliesen-, Naturstein- und Terrassenprojekte in Neu-Ulm, Ulm und Umgebung.',
     },
     kontakt: {
       title: 'Kontakt',
       description:
-        'Kontaktieren Sie Fliesen-Naturstein AMAN in Frankfurt – kostenlose Beratung und unverbindliche Angebote für Ihr Fliesen- oder Natursteinprojekt.',
+        'Kontaktieren Sie Fliesen-Naturstein AMAN in Neu-Ulm – kostenlose Beratung und unverbindliche Angebote für Ihr Fliesen- oder Natursteinprojekt.',
     },
     stellenangebote: {
       title: 'Stellenangebote',
       description:
-        'Karriere bei Fliesen-Naturstein AMAN – aktuelle Stellenangebote für Fliesenleger, Estrichleger und Auszubildende in Frankfurt und Umgebung.',
+        'Karriere bei Fliesen-Naturstein AMAN – aktuelle Stellenangebote für Fliesenleger, Estrichleger und Auszubildende in Neu-Ulm, Ulm und Umgebung.',
     },
   },
 }

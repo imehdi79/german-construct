@@ -4,167 +4,170 @@ import type { LegalContent } from '@/types'
  * Default legal-page content. Each page is a title plus an ordered list of
  * `{ heading, body }` blocks. `body` is plain text — single newlines become line
  * breaks, blank lines separate paragraphs (rendered with `whitespace-pre-line`).
- * Seeded from the original in-repo legal pages; fully editable via the admin.
+ *
+ * Impressum + Datenschutzerklärung transcribed from the official eRecht24 PDFs
+ * for Fliesen - Naturstein Aman (Inhaber Aman Rezayi). Generated via
+ * scripts/_genlegal.mjs — keep the source there in sync. Fully editable via the admin.
  */
 export const legalContent: LegalContent = {
-  impressum: {
-    metaTitle: 'Impressum',
-    metaDescription: 'Impressum der Fliesen-Naturstein AMAN – Pflichtangaben gemäß § 5 TMG.',
-    title: 'Impressum',
-    breadcrumb: 'Impressum',
-    sections: [
+  "impressum": {
+    "metaTitle": "Impressum",
+    "metaDescription": "Impressum der Fliesen - Naturstein Aman, Inhaber Aman Rezayi – Pflichtangaben gemäß § 5 TMG.",
+    "title": "Impressum",
+    "breadcrumb": "Impressum",
+    "sections": [
       {
-        heading: 'Angaben gemäß § 5 TMG',
-        body: 'Fliesen-Naturstein AMAN\nMusterstraße 42\n60311 Frankfurt am Main\nDeutschland',
+        "heading": "Angaben gemäß § 5 TMG",
+        "body": "Aman Rezayi\nFliesen - Naturstein Aman\nTurmstraße 45/3\n89231 Neu-Ulm"
       },
       {
-        heading: 'Kontakt',
-        body: 'Telefon: +49 69 123 456 789\nMobil: +49 151 234 567 89\nE-Mail: info@fliesen-naturstein-aman.de',
+        "heading": "Kontakt",
+        "body": "Telefon: 017634569351\nE-Mail: info@fliesen-aman.de"
       },
       {
-        heading: 'Berufsrechtliche Angaben',
-        body: 'Zuständige Handwerkskammer: Handwerkskammer Frankfurt-Rhein-Main\nHandwerksrolle: Fliesen-, Platten- und Mosaikleger\nMeisterbetrieb',
+        "heading": "Aufsichtsbehörde",
+        "body": "Handwerkskammer Schwaben\nSiebentischstraße 52, 86161 Augsburg\nhttp://www.hwk-schwaben.de"
       },
       {
-        heading: 'Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV',
-        body: '[Name des Inhabers]\nMusterstraße 42\n60311 Frankfurt am Main',
+        "heading": "Verbraucherstreitbeilegung/Universalschlichtungsstelle",
+        "body": "Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen."
       },
       {
-        heading: 'Haftung für Inhalte',
-        body: 'Als Diensteanbieter sind wir gemäß § 7 Abs. 1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen.\n\nVerpflichtungen zur Entfernung oder Sperrung der Nutzung von Informationen nach den allgemeinen Gesetzen bleiben hiervon unberührt. Eine diesbezügliche Haftung ist jedoch erst ab dem Zeitpunkt der Kenntnis einer konkreten Rechtsverletzung möglich. Bei Bekanntwerden von entsprechenden Rechtsverletzungen werden wir diese Inhalte umgehend entfernen.',
+        "heading": "Haftung für Inhalte",
+        "body": "Als Diensteanbieter sind wir gemäß § 7 Abs. 1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen.\n\nVerpflichtungen zur Entfernung oder Sperrung der Nutzung von Informationen nach den allgemeinen Gesetzen bleiben hiervon unberührt. Eine diesbezügliche Haftung ist jedoch erst ab dem Zeitpunkt der Kenntnis einer konkreten Rechtsverletzung möglich. Bei Bekanntwerden von entsprechenden Rechtsverletzungen werden wir diese Inhalte umgehend entfernen."
       },
       {
-        heading: 'Haftung für Links',
-        body: 'Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich.',
+        "heading": "Haftung für Links",
+        "body": "Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich."
       },
       {
-        heading: 'Urheberrecht',
-        body: 'Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers.',
+        "heading": "Urheberrecht",
+        "body": "Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers."
       },
       {
-        heading: 'Streitschlichtung',
-        body: 'Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit: https://ec.europa.eu/consumers/odr/. Unsere E-Mail-Adresse finden Sie oben im Impressum.\n\nWir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.',
-      },
-    ],
+        "heading": "Quelle",
+        "body": "https://www.e-recht24.de"
+      }
+    ]
   },
-  datenschutz: {
-    metaTitle: 'Datenschutzerklärung',
-    metaDescription: 'Datenschutzerklärung der Fliesen-Naturstein AMAN gemäß DSGVO/GDPR.',
-    title: 'Datenschutzerklärung',
-    breadcrumb: 'Datenschutz',
-    sections: [
+  "datenschutz": {
+    "metaTitle": "Datenschutzerklärung",
+    "metaDescription": "Datenschutzerklärung der Fliesen - Naturstein Aman gemäß DSGVO.",
+    "title": "Datenschutzerklärung",
+    "breadcrumb": "Datenschutz",
+    "sections": [
       {
-        heading: '1. Datenschutz auf einen Blick',
-        body: 'Allgemeine Hinweise\n\nDie folgenden Hinweise geben einen einfachen Überblick darüber, was mit Ihren personenbezogenen Daten passiert, wenn Sie diese Website besuchen. Personenbezogene Daten sind alle Daten, mit denen Sie persönlich identifiziert werden können. Ausführliche Informationen zum Thema Datenschutz entnehmen Sie unserer unter diesem Text aufgeführten Datenschutzerklärung.\n\nWer ist verantwortlich für die Datenerfassung auf dieser Website?\nDie Datenverarbeitung auf dieser Website erfolgt durch den Websitebetreiber. Dessen Kontaktdaten können Sie dem Abschnitt „Verantwortliche Stelle" in dieser Datenschutzerklärung entnehmen.\n\nWie erfassen wir Ihre Daten?\nIhre Daten werden zum einen dadurch erhoben, dass Sie uns diese mitteilen. Hierbei kann es sich z. B. um Daten handeln, die Sie in ein Kontaktformular eingeben. Andere Daten werden automatisch oder nach Ihrer Einwilligung beim Besuch der Website durch unsere IT-Systeme erfasst (z. B. Internetbrowser, Betriebssystem oder Uhrzeit des Seitenaufrufs).',
+        "heading": "1. Datenschutz auf einen Blick",
+        "body": "Allgemeine Hinweise\n\nDie folgenden Hinweise geben einen einfachen Überblick darüber, was mit Ihren personenbezogenen Daten passiert, wenn Sie diese Website besuchen. Personenbezogene Daten sind alle Daten, mit denen Sie persönlich identifiziert werden können. Ausführliche Informationen zum Thema Datenschutz entnehmen Sie unserer unter diesem Text aufgeführten Datenschutzerklärung.\n\nDatenerfassung auf dieser Website\n\nWer ist verantwortlich für die Datenerfassung auf dieser Website?\nDie Datenverarbeitung auf dieser Website erfolgt durch den Websitebetreiber. Dessen Kontaktdaten können Sie dem Abschnitt „Hinweis zur verantwortlichen Stelle“ in dieser Datenschutzerklärung entnehmen.\n\nWie erfassen wir Ihre Daten?\nIhre Daten werden zum einen dadurch erhoben, dass Sie uns diese mitteilen. Hierbei kann es sich z. B. um Daten handeln, die Sie in ein Kontaktformular eingeben. Andere Daten werden automatisch oder nach Ihrer Einwilligung beim Besuch der Website durch unsere IT-Systeme erfasst. Das sind vor allem technische Daten (z. B. Internetbrowser, Betriebssystem oder Uhrzeit des Seitenaufrufs). Die Erfassung dieser Daten erfolgt automatisch, sobald Sie diese Website betreten.\n\nWofür nutzen wir Ihre Daten?\nEin Teil der Daten wird erhoben, um eine fehlerfreie Bereitstellung der Website zu gewährleisten. Andere Daten können zur Analyse Ihres Nutzerverhaltens verwendet werden. Sofern über die Website Verträge geschlossen oder angebahnt werden können, werden die übermittelten Daten auch für Vertragsangebote, Bestellungen oder sonstige Auftragsanfragen verarbeitet.\n\nWelche Rechte haben Sie bezüglich Ihrer Daten?\nSie haben jederzeit das Recht, unentgeltlich Auskunft über Herkunft, Empfänger und Zweck Ihrer gespeicherten personenbezogenen Daten zu erhalten. Sie haben außerdem ein Recht, die Berichtigung oder Löschung dieser Daten zu verlangen. Wenn Sie eine Einwilligung zur Datenverarbeitung erteilt haben, können Sie diese Einwilligung jederzeit für die Zukunft widerrufen. Außerdem haben Sie das Recht, unter bestimmten Umständen die Einschränkung der Verarbeitung Ihrer personenbezogenen Daten zu verlangen. Des Weiteren steht Ihnen ein Beschwerderecht bei der zuständigen Aufsichtsbehörde zu.\n\nHierzu sowie zu weiteren Fragen zum Thema Datenschutz können Sie sich jederzeit an uns wenden."
       },
       {
-        heading: '2. Verantwortliche Stelle',
-        body: 'Fliesen-Naturstein AMAN\nMusterstraße 42\n60311 Frankfurt am Main\nTelefon: +49 69 123 456 789\nE-Mail: info@fliesen-naturstein-aman.de\n\nVerantwortliche Stelle ist die natürliche oder juristische Person, die allein oder gemeinsam mit anderen über die Zwecke und Mittel der Verarbeitung von personenbezogenen Daten (z. B. Namen, E-Mail-Adressen o. Ä.) entscheidet.',
+        "heading": "2. Hosting",
+        "body": "Wir hosten die Inhalte unserer Website bei folgendem Anbieter:\n\nIONOS\nAnbieter ist die IONOS SE, Elgendorfer Str. 57, 56410 Montabaur (nachfolgend IONOS). Wenn Sie unsere Website besuchen, erfasst IONOS verschiedene Logfiles inklusive Ihrer IP-Adressen. Details entnehmen Sie der Datenschutzerklärung von IONOS: https://www.ionos.de/terms-gtc/terms-privacy.\n\nDie Verwendung von IONOS erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO. Wir haben ein berechtigtes Interesse an einer möglichst zuverlässigen Darstellung unserer Website. Sofern eine entsprechende Einwilligung abgefragt wurde, erfolgt die Verarbeitung ausschließlich auf Grundlage von Art. 6 Abs. 1 lit. a DSGVO und § 25 Abs. 1 TDDDG, soweit die Einwilligung die Speicherung von Cookies oder den Zugriff auf Informationen im Endgerät des Nutzers (z. B. Device-Fingerprinting) im Sinne des TDDDG umfasst. Die Einwilligung ist jederzeit widerrufbar.\n\nAuftragsverarbeitung\nWir haben einen Vertrag über Auftragsverarbeitung (AVV) zur Nutzung des oben genannten Dienstes geschlossen. Hierbei handelt es sich um einen datenschutzrechtlich vorgeschriebenen Vertrag, der gewährleistet, dass dieser die personenbezogenen Daten unserer Websitebesucher nur nach unseren Weisungen und unter Einhaltung der DSGVO verarbeitet."
       },
       {
-        heading: '3. Ihre Rechte',
-        body: 'Sie haben jederzeit das Recht:\n\n- unentgeltlich Auskunft über Herkunft, Empfänger und Zweck Ihrer gespeicherten personenbezogenen Daten zu erhalten (Art. 15 DSGVO)\n- die Berichtigung unrichtiger personenbezogener Daten zu verlangen (Art. 16 DSGVO)\n- die Löschung Ihrer bei uns gespeicherten personenbezogenen Daten zu verlangen (Art. 17 DSGVO)\n- die Einschränkung der Datenverarbeitung zu verlangen (Art. 18 DSGVO)\n- der Verarbeitung Ihrer personenbezogenen Daten zu widersprechen (Art. 21 DSGVO)\n- Datenübertragbarkeit zu verlangen (Art. 20 DSGVO)\n\nSie haben außerdem das Recht, sich bei einer Datenschutz-Aufsichtsbehörde über die Verarbeitung Ihrer personenbezogenen Daten durch uns zu beschweren.',
+        "heading": "3. Allgemeine Hinweise und Pflichtinformationen",
+        "body": "Datenschutz\nDie Betreiber dieser Seiten nehmen den Schutz Ihrer persönlichen Daten sehr ernst. Wir behandeln Ihre personenbezogenen Daten vertraulich und entsprechend den gesetzlichen Datenschutzvorschriften sowie dieser Datenschutzerklärung.\n\nWenn Sie diese Website benutzen, werden verschiedene personenbezogene Daten erhoben. Personenbezogene Daten sind Daten, mit denen Sie persönlich identifiziert werden können. Die vorliegende Datenschutzerklärung erläutert, welche Daten wir erheben und wofür wir sie nutzen. Sie erläutert auch, wie und zu welchem Zweck das geschieht.\n\nWir weisen darauf hin, dass die Datenübertragung im Internet (z. B. bei der Kommunikation per E-Mail) Sicherheitslücken aufweisen kann. Ein lückenloser Schutz der Daten vor dem Zugriff durch Dritte ist nicht möglich.\n\nHinweis zur verantwortlichen Stelle\nDie verantwortliche Stelle für die Datenverarbeitung auf dieser Website ist:\n\nAman Rezayi\nTurmstraße 45/3\n89231 Neu-Ulm\nTelefon: 017634569351\nE-Mail: info@fliesen-aman.de\n\nVerantwortliche Stelle ist die natürliche oder juristische Person, die allein oder gemeinsam mit anderen über die Zwecke und Mittel der Verarbeitung von personenbezogenen Daten (z. B. Namen, E-Mail-Adressen o. Ä.) entscheidet.\n\nSpeicherdauer\nSoweit innerhalb dieser Datenschutzerklärung keine speziellere Speicherdauer genannt wurde, verbleiben Ihre personenbezogenen Daten bei uns, bis der Zweck für die Datenverarbeitung entfällt. Wenn Sie ein berechtigtes Löschersuchen geltend machen oder eine Einwilligung zur Datenverarbeitung widerrufen, werden Ihre Daten gelöscht, sofern wir keine anderen rechtlich zulässigen Gründe für die Speicherung Ihrer personenbezogenen Daten haben (z. B. steuer- oder handelsrechtliche Aufbewahrungsfristen); im letztgenannten Fall erfolgt die Löschung nach Fortfall dieser Gründe.\n\nAllgemeine Hinweise zu den Rechtsgrundlagen der Datenverarbeitung auf dieser Website\nSofern Sie in die Datenverarbeitung eingewilligt haben, verarbeiten wir Ihre personenbezogenen Daten auf Grundlage von Art. 6 Abs. 1 lit. a DSGVO bzw. Art. 9 Abs. 2 lit. a DSGVO, sofern besondere Datenkategorien nach Art. 9 Abs. 1 DSGVO verarbeitet werden. Im Falle einer ausdrücklichen Einwilligung in die Übertragung personenbezogener Daten in Drittstaaten erfolgt die Datenverarbeitung außerdem auf Grundlage von Art. 49 Abs. 1 lit. a DSGVO. Sofern Sie in die Speicherung von Cookies oder in den Zugriff auf Informationen in Ihr Endgerät (z. B. via Device-Fingerprinting) eingewilligt haben, erfolgt die Datenverarbeitung zusätzlich auf Grundlage von § 25 Abs. 1 TDDDG. Die Einwilligung ist jederzeit widerrufbar. Sind Ihre Daten zur Vertragserfüllung oder zur Durchführung vorvertraglicher Maßnahmen erforderlich, verarbeiten wir Ihre Daten auf Grundlage des Art. 6 Abs. 1 lit. b DSGVO. Des Weiteren verarbeiten wir Ihre Daten, sofern diese zur Erfüllung einer rechtlichen Verpflichtung erforderlich sind, auf Grundlage von Art. 6 Abs. 1 lit. c DSGVO. Die Datenverarbeitung kann ferner auf Grundlage unseres berechtigten Interesses nach Art. 6 Abs. 1 lit. f DSGVO erfolgen. Über die jeweils im Einzelfall einschlägigen Rechtsgrundlagen wird in den folgenden Absätzen dieser Datenschutzerklärung informiert.\n\nEmpfänger von personenbezogenen Daten\nIm Rahmen unserer Geschäftstätigkeit arbeiten wir mit verschiedenen externen Stellen zusammen. Dabei ist teilweise auch eine Übermittlung von personenbezogenen Daten an diese externen Stellen erforderlich. Wir geben personenbezogene Daten nur dann an externe Stellen weiter, wenn dies im Rahmen einer Vertragserfüllung erforderlich ist, wenn wir gesetzlich hierzu verpflichtet sind (z. B. Weitergabe von Daten an Steuerbehörden), wenn wir ein berechtigtes Interesse nach Art. 6 Abs. 1 lit. f DSGVO an der Weitergabe haben oder wenn eine sonstige Rechtsgrundlage die Datenweitergabe erlaubt. Beim Einsatz von Auftragsverarbeitern geben wir personenbezogene Daten unserer Kunden nur auf Grundlage eines gültigen Vertrags über Auftragsverarbeitung weiter. Im Falle einer gemeinsamen Verarbeitung wird ein Vertrag über gemeinsame Verarbeitung geschlossen.\n\nWiderruf Ihrer Einwilligung zur Datenverarbeitung\nViele Datenverarbeitungsvorgänge sind nur mit Ihrer ausdrücklichen Einwilligung möglich. Sie können eine bereits erteilte Einwilligung jederzeit widerrufen. Die Rechtmäßigkeit der bis zum Widerruf erfolgten Datenverarbeitung bleibt vom Widerruf unberührt.\n\nWiderspruchsrecht gegen die Datenerhebung in besonderen Fällen sowie gegen Direktwerbung (Art. 21 DSGVO)\nWENN DIE DATENVERARBEITUNG AUF GRUNDLAGE VON ART. 6 ABS. 1 LIT. E ODER F DSGVO ERFOLGT, HABEN SIE JEDERZEIT DAS RECHT, AUS GRÜNDEN, DIE SICH AUS IHRER BESONDEREN SITUATION ERGEBEN, GEGEN DIE VERARBEITUNG IHRER PERSONENBEZOGENEN DATEN WIDERSPRUCH EINZULEGEN; DIES GILT AUCH FÜR EIN AUF DIESE BESTIMMUNGEN GESTÜTZTES PROFILING. DIE JEWEILIGE RECHTSGRUNDLAGE, AUF DENEN EINE VERARBEITUNG BERUHT, ENTNEHMEN SIE DIESER DATENSCHUTZERKLÄRUNG. WENN SIE WIDERSPRUCH EINLEGEN, WERDEN WIR IHRE BETROFFENEN PERSONENBEZOGENEN DATEN NICHT MEHR VERARBEITEN, ES SEI DENN, WIR KÖNNEN ZWINGENDE SCHUTZWÜRDIGE GRÜNDE FÜR DIE VERARBEITUNG NACHWEISEN, DIE IHRE INTERESSEN, RECHTE UND FREIHEITEN ÜBERWIEGEN ODER DIE VERARBEITUNG DIENT DER GELTENDMACHUNG, AUSÜBUNG ODER VERTEIDIGUNG VON RECHTSANSPRÜCHEN (WIDERSPRUCH NACH ART. 21 ABS. 1 DSGVO).\n\nWERDEN IHRE PERSONENBEZOGENEN DATEN VERARBEITET, UM DIREKTWERBUNG ZU BETREIBEN, SO HABEN SIE DAS RECHT, JEDERZEIT WIDERSPRUCH GEGEN DIE VERARBEITUNG SIE BETREFFENDER PERSONENBEZOGENER DATEN ZUM ZWECKE DERARTIGER WERBUNG EINZULEGEN; DIES GILT AUCH FÜR DAS PROFILING, SOWEIT ES MIT SOLCHER DIREKTWERBUNG IN VERBINDUNG STEHT. WENN SIE WIDERSPRECHEN, WERDEN IHRE PERSONENBEZOGENEN DATEN ANSCHLIESSEND NICHT MEHR ZUM ZWECKE DER DIREKTWERBUNG VERWENDET (WIDERSPRUCH NACH ART. 21 ABS. 2 DSGVO).\n\nBeschwerderecht bei der zuständigen Aufsichtsbehörde\nIm Falle von Verstößen gegen die DSGVO steht den Betroffenen ein Beschwerderecht bei einer Aufsichtsbehörde, insbesondere in dem Mitgliedstaat ihres gewöhnlichen Aufenthalts, ihres Arbeitsplatzes oder des Orts des mutmaßlichen Verstoßes zu. Das Beschwerderecht besteht unbeschadet anderweitiger verwaltungsrechtlicher oder gerichtlicher Rechtsbehelfe.\n\nRecht auf Datenübertragbarkeit\nSie haben das Recht, Daten, die wir auf Grundlage Ihrer Einwilligung oder in Erfüllung eines Vertrags automatisiert verarbeiten, an sich oder an einen Dritten in einem gängigen, maschinenlesbaren Format aushändigen zu lassen. Sofern Sie die direkte Übertragung der Daten an einen anderen Verantwortlichen verlangen, erfolgt dies nur, soweit es technisch machbar ist.\n\nAuskunft, Berichtigung und Löschung\nSie haben im Rahmen der geltenden gesetzlichen Bestimmungen jederzeit das Recht auf unentgeltliche Auskunft über Ihre gespeicherten personenbezogenen Daten, deren Herkunft und Empfänger und den Zweck der Datenverarbeitung und ggf. ein Recht auf Berichtigung oder Löschung dieser Daten. Hierzu sowie zu weiteren Fragen zum Thema personenbezogene Daten können Sie sich jederzeit an uns wenden.\n\nRecht auf Einschränkung der Verarbeitung\nSie haben das Recht, die Einschränkung der Verarbeitung Ihrer personenbezogenen Daten zu verlangen. Hierzu können Sie sich jederzeit an uns wenden. Das Recht auf Einschränkung der Verarbeitung besteht in folgenden Fällen:\n\n- Wenn Sie die Richtigkeit Ihrer bei uns gespeicherten personenbezogenen Daten bestreiten, benötigen wir in der Regel Zeit, um dies zu überprüfen. Für die Dauer der Prüfung haben Sie das Recht, die Einschränkung der Verarbeitung Ihrer personenbezogenen Daten zu verlangen.\n- Wenn die Verarbeitung Ihrer personenbezogenen Daten unrechtmäßig geschah/geschieht, können Sie statt der Löschung die Einschränkung der Datenverarbeitung verlangen.\n- Wenn wir Ihre personenbezogenen Daten nicht mehr benötigen, Sie sie jedoch zur Ausübung, Verteidigung oder Geltendmachung von Rechtsansprüchen benötigen, haben Sie das Recht, statt der Löschung die Einschränkung der Verarbeitung Ihrer personenbezogenen Daten zu verlangen.\n- Wenn Sie einen Widerspruch nach Art. 21 Abs. 1 DSGVO eingelegt haben, muss eine Abwägung zwischen Ihren und unseren Interessen vorgenommen werden. Solange noch nicht feststeht, wessen Interessen überwiegen, haben Sie das Recht, die Einschränkung der Verarbeitung Ihrer personenbezogenen Daten zu verlangen.\n\nWenn Sie die Verarbeitung Ihrer personenbezogenen Daten eingeschränkt haben, dürfen diese Daten – von ihrer Speicherung abgesehen – nur mit Ihrer Einwilligung oder zur Geltendmachung, Ausübung oder Verteidigung von Rechtsansprüchen oder zum Schutz der Rechte einer anderen natürlichen oder juristischen Person oder aus Gründen eines wichtigen öffentlichen Interesses der Europäischen Union oder eines Mitgliedstaats verarbeitet werden.\n\nSSL- bzw. TLS-Verschlüsselung\nDiese Seite nutzt aus Sicherheitsgründen und zum Schutz der Übertragung vertraulicher Inhalte, wie zum Beispiel Bestellungen oder Anfragen, die Sie an uns als Seitenbetreiber senden, eine SSL- bzw. TLS-Verschlüsselung. Eine verschlüsselte Verbindung erkennen Sie daran, dass die Adresszeile des Browsers von „http://“ auf „https://“ wechselt und an dem Schloss-Symbol in Ihrer Browserzeile. Wenn die SSL- bzw. TLS-Verschlüsselung aktiviert ist, können die Daten, die Sie an uns übermitteln, nicht von Dritten mitgelesen werden."
       },
       {
-        heading: '4. Hosting und technischer Betrieb',
-        body: 'Diese Website wird extern gehostet. Die personenbezogenen Daten, die auf dieser Website erfasst werden, werden auf den Servern des Hosters gespeichert. Hierbei kann es sich v. a. um IP-Adressen, Kontaktanfragen, Meta- und Kommunikationsdaten, Vertragsdaten, Kontaktdaten, Namen, Websitezugriffe und sonstige Daten, die über eine Website generiert werden, handeln.',
+        "heading": "4. Datenerfassung auf dieser Website",
+        "body": "Cookies\nUnsere Internetseiten verwenden so genannte „Cookies“. Cookies sind kleine Datenpakete und richten auf Ihrem Endgerät keinen Schaden an. Sie werden entweder vorübergehend für die Dauer einer Sitzung (Session-Cookies) oder dauerhaft (permanente Cookies) auf Ihrem Endgerät gespeichert. Session-Cookies werden nach Ende Ihres Besuchs automatisch gelöscht. Permanente Cookies bleiben auf Ihrem Endgerät gespeichert, bis Sie diese selbst löschen oder eine automatische Löschung durch Ihren Webbrowser erfolgt.\n\nCookies können von uns (First-Party-Cookies) oder von Drittunternehmen stammen (sog. Third-Party-Cookies). Third-Party-Cookies ermöglichen die Einbindung bestimmter Dienstleistungen von Drittunternehmen innerhalb von Webseiten (z. B. Cookies zur Abwicklung von Zahlungsdienstleistungen).\n\nCookies, die zur Durchführung des elektronischen Kommunikationsvorgangs, zur Bereitstellung bestimmter, von Ihnen erwünschter Funktionen oder zur Optimierung der Website (z. B. Cookies zur Messung des Webpublikums) erforderlich sind (notwendige Cookies), werden auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO gespeichert, sofern keine andere Rechtsgrundlage angegeben wird. Der Websitebetreiber hat ein berechtigtes Interesse an der Speicherung von notwendigen Cookies zur technisch fehlerfreien und optimierten Bereitstellung seiner Dienste. Sofern eine Einwilligung zur Speicherung von Cookies und vergleichbaren Wiedererkennungstechnologien abgefragt wurde, erfolgt die Verarbeitung ausschließlich auf Grundlage dieser Einwilligung (Art. 6 Abs. 1 lit. a DSGVO und § 25 Abs. 1 TDDDG); die Einwilligung ist jederzeit widerrufbar.\n\nSie können Ihren Browser so einstellen, dass Sie über das Setzen von Cookies informiert werden und Cookies nur im Einzelfall erlauben, die Annahme von Cookies für bestimmte Fälle oder generell ausschließen sowie das automatische Löschen der Cookies beim Schließen des Browsers aktivieren. Bei der Deaktivierung von Cookies kann die Funktionalität dieser Website eingeschränkt sein.\n\nKontaktformular\nWenn Sie uns per Kontaktformular Anfragen zukommen lassen, werden Ihre Angaben aus dem Anfrageformular inklusive der von Ihnen dort angegebenen Kontaktdaten zwecks Bearbeitung der Anfrage und für den Fall von Anschlussfragen bei uns gespeichert. Diese Daten geben wir nicht ohne Ihre Einwilligung weiter.\n\nDie Verarbeitung dieser Daten erfolgt auf Grundlage von Art. 6 Abs. 1 lit. b DSGVO, sofern Ihre Anfrage mit der Erfüllung eines Vertrags zusammenhängt oder zur Durchführung vorvertraglicher Maßnahmen erforderlich ist. In allen übrigen Fällen beruht die Verarbeitung auf unserem berechtigten Interesse an der effektiven Bearbeitung der an uns gerichteten Anfragen (Art. 6 Abs. 1 lit. f DSGVO) oder auf Ihrer Einwilligung (Art. 6 Abs. 1 lit. a DSGVO) sofern diese abgefragt wurde; die Einwilligung ist jederzeit widerrufbar.\n\nDie von Ihnen im Kontaktformular eingegebenen Daten verbleiben bei uns, bis Sie uns zur Löschung auffordern, Ihre Einwilligung zur Speicherung widerrufen oder der Zweck für die Datenspeicherung entfällt (z. B. nach abgeschlossener Bearbeitung Ihrer Anfrage). Zwingende gesetzliche Bestimmungen – insbesondere Aufbewahrungsfristen – bleiben unberührt.\n\nAnfrage per E-Mail, Telefon oder Telefax\nWenn Sie uns per E-Mail, Telefon oder Telefax kontaktieren, wird Ihre Anfrage inklusive aller daraus hervorgehenden personenbezogenen Daten (Name, Anfrage) zum Zwecke der Bearbeitung Ihres Anliegens bei uns gespeichert und verarbeitet. Diese Daten geben wir nicht ohne Ihre Einwilligung weiter.\n\nDie Verarbeitung dieser Daten erfolgt auf Grundlage von Art. 6 Abs. 1 lit. b DSGVO, sofern Ihre Anfrage mit der Erfüllung eines Vertrags zusammenhängt oder zur Durchführung vorvertraglicher Maßnahmen erforderlich ist. In allen übrigen Fällen beruht die Verarbeitung auf unserem berechtigten Interesse an der effektiven Bearbeitung der an uns gerichteten Anfragen (Art. 6 Abs. 1 lit. f DSGVO) oder auf Ihrer Einwilligung (Art. 6 Abs. 1 lit. a DSGVO) sofern diese abgefragt wurde; die Einwilligung ist jederzeit widerrufbar.\n\nDie von Ihnen an uns per Kontaktanfragen übersandten Daten verbleiben bei uns, bis Sie uns zur Löschung auffordern, Ihre Einwilligung zur Speicherung widerrufen oder der Zweck für die Datenspeicherung entfällt (z. B. nach abgeschlossener Bearbeitung Ihres Anliegens). Zwingende gesetzliche Bestimmungen – insbesondere gesetzliche Aufbewahrungsfristen – bleiben unberührt."
       },
       {
-        heading: '5. Kontaktformular',
-        body: 'Wenn Sie uns per Kontaktformular Anfragen zukommen lassen, werden Ihre Angaben aus dem Anfrageformular inklusive der von Ihnen dort angegebenen Kontaktdaten zwecks Bearbeitung der Anfrage und für den Fall von Anschlussfragen bei uns gespeichert. Diese Daten geben wir nicht ohne Ihre Einwilligung weiter.\n\nDie Verarbeitung dieser Daten erfolgt auf Grundlage von Art. 6 Abs. 1 lit. b DSGVO, sofern Ihre Anfrage mit der Erfüllung eines Vertrags zusammenhängt oder zur Durchführung vorvertraglicher Maßnahmen erforderlich ist. In allen übrigen Fällen beruht die Verarbeitung auf unserem berechtigten Interesse an der effektiven Bearbeitung der an uns gerichteten Anfragen (Art. 6 Abs. 1 lit. f DSGVO) oder auf Ihrer Einwilligung (Art. 6 Abs. 1 lit. a DSGVO), sofern diese abgefragt wurde.\n\nDie von Ihnen im Kontaktformular eingegebenen Daten verbleiben bei uns, bis Sie uns zur Löschung auffordern, Ihre Einwilligung zur Speicherung widerrufen oder der Zweck für die Datenspeicherung entfällt. Zwingende gesetzliche Bestimmungen – insbesondere Aufbewahrungsfristen – bleiben unberührt.',
+        "heading": "5. Analyse-Tools und Werbung",
+        "body": "IONOS WebAnalytics\nDiese Website nutzt die Analysedienste von IONOS WebAnalytics (im Folgenden: IONOS). Anbieter ist die 1&1 IONOS SE, Elgendorfer Straße 57, D – 56410 Montabaur. Im Rahmen der Analysen mit IONOS können u. a. Besucherzahlen und -verhalten (z. B. Anzahl der Seitenaufrufe, Dauer eines Webseitenbesuchs, Absprungraten), Besucherquellen (d. h., von welcher Seite der Besucher kommt), Besucherstandorte sowie technische Daten (Browser- und Betriebssystemversionen) analysiert werden. Zu diesem Zweck speichert IONOS insbesondere folgende Daten:\n\n- Referrer (zuvor besuchte Webseite)\n- angeforderte Webseite oder Datei\n- Browsertyp und Browserversion\n- verwendetes Betriebssystem\n- verwendeter Gerätetyp\n- Uhrzeit des Zugriffs\n- IP-Adresse in anonymisierter Form (wird nur zur Feststellung des Orts des Zugriffs verwendet)\n\nDie Datenerfassung erfolgt laut IONOS vollständig anonymisiert, sodass sie nicht zu einzelnen Personen zurückverfolgt werden kann. Cookies werden von IONOS WebAnalytics nicht gespeichert.\n\nDie Speicherung und Analyse der Daten erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO. Der Websitebetreiber hat ein berechtigtes Interesse an der statistischen Analyse des Nutzerverhaltens, um sowohl sein Webangebot als auch seine Werbung zu optimieren. Sofern eine entsprechende Einwilligung abgefragt wurde, erfolgt die Verarbeitung ausschließlich auf Grundlage von Art. 6 Abs. 1 lit. a DSGVO und § 25 Abs. 1 TDDDG, soweit die Einwilligung die Speicherung von Cookies oder den Zugriff auf Informationen im Endgerät des Nutzers (z. B. Device-Fingerprinting) im Sinne des TDDDG umfasst. Die Einwilligung ist jederzeit widerrufbar.\n\nWeitere Informationen zur Datenerfassung und Verarbeitung durch IONOS WebAnalytics entnehmen Sie der Datenschutzerklärung von IONOS unter folgendem Link: https://www.ionos.de/terms-gtc/datenschutzerklaerung/\n\nAuftragsverarbeitung\nWir haben einen Vertrag über Auftragsverarbeitung (AVV) zur Nutzung des oben genannten Dienstes geschlossen. Hierbei handelt es sich um einen datenschutzrechtlich vorgeschriebenen Vertrag, der gewährleistet, dass dieser die personenbezogenen Daten unserer Websitebesucher nur nach unseren Weisungen und unter Einhaltung der DSGVO verarbeitet."
       },
       {
-        heading: '6. Cookies',
-        body: 'Unsere Website verwendet sogenannte „Cookies". Cookies sind kleine Textdateien und richten auf Ihrem Endgerät keinen Schaden an. Sie werden entweder vorübergehend für die Dauer einer Sitzung (Session-Cookies) oder dauerhaft (permanente Cookies) auf Ihrem Endgerät gespeichert.\n\nWir setzen ausschließlich technisch notwendige Cookies ein. Die Verarbeitung erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO. Wir haben ein berechtigtes Interesse an der Speicherung von Cookies zur technisch fehlerfreien und optimierten Bereitstellung unserer Dienste.',
+        "heading": "6. Plugins und Tools",
+        "body": "Google Maps\nDiese Seite nutzt den Kartendienst Google Maps. Anbieter ist die Google Ireland Limited („Google“), Gordon House, Barrow Street, Dublin 4, Irland. Mit Hilfe dieses Dienstes können wir Kartenmaterial auf unserer Website einbinden.\n\nZur Nutzung der Funktionen von Google Maps ist es notwendig, Ihre IP-Adresse zu speichern. Diese Informationen werden in der Regel an einen Server von Google in den USA übertragen und dort gespeichert. Der Anbieter dieser Seite hat keinen Einfluss auf diese Datenübertragung. Wenn Google Maps aktiviert ist, kann Google zum Zwecke der einheitlichen Darstellung der Schriftarten Google Fonts verwenden. Beim Aufruf von Google Maps lädt Ihr Browser die benötigten Web Fonts in ihren Browsercache, um Texte und Schriftarten korrekt anzuzeigen.\n\nDie Nutzung von Google Maps erfolgt im Interesse einer ansprechenden Darstellung unserer Online-Angebote und an einer leichten Auffindbarkeit der von uns auf der Website angegebenen Orte. Dies stellt ein berechtigtes Interesse im Sinne von Art. 6 Abs. 1 lit. f DSGVO dar. Sofern eine entsprechende Einwilligung abgefragt wurde, erfolgt die Verarbeitung ausschließlich auf Grundlage von Art. 6 Abs. 1 lit. a DSGVO und § 25 Abs. 1 TDDDG, soweit die Einwilligung die Speicherung von Cookies oder den Zugriff auf Informationen im Endgerät des Nutzers (z. B. Device-Fingerprinting) im Sinne des TDDDG umfasst. Die Einwilligung ist jederzeit widerrufbar.\n\nDie Datenübertragung in die USA wird auf die Standardvertragsklauseln der EU-Kommission gestützt. Details finden Sie hier: https://privacy.google.com/businesses/gdprcontrollerterms/ und https://privacy.google.com/businesses/gdprcontrollerterms/sccs/.\n\nMehr Informationen zum Umgang mit Nutzerdaten finden Sie in der Datenschutzerklärung von Google: https://policies.google.com/privacy?hl=de.\n\nDas Unternehmen verfügt über eine Zertifizierung nach dem „EU-US Data Privacy Framework“ (DPF). Der DPF ist ein Übereinkommen zwischen der Europäischen Union und den USA, der die Einhaltung europäischer Datenschutzstandards bei Datenverarbeitungen in den USA gewährleisten soll. Jedes nach dem DPF zertifizierte Unternehmen verpflichtet sich, diese Datenschutzstandards einzuhalten. Weitere Informationen hierzu erhalten Sie vom Anbieter unter folgendem Link: https://www.dataprivacyframework.gov/participant/5780."
       },
       {
-        heading: '7. Bewerbungsdaten',
-        body: 'Wenn Sie sich bei uns bewerben, verarbeiten wir Ihre Bewerbungsdaten (Name, E-Mail-Adresse, Telefonnummer, Lebenslauf, Anschreiben) ausschließlich zum Zweck der Durchführung des Bewerbungsverfahrens. Rechtsgrundlage ist § 26 BDSG n.F. bzw. Art. 6 Abs. 1 lit. b DSGVO.\n\nWerden Sie nicht eingestellt, löschen wir Ihre Bewerbungsdaten nach 6 Monaten, sofern kein berechtigtes Interesse an einer längeren Aufbewahrung besteht. Sollten Sie einer längeren Aufbewahrung zustimmen, speichern wir Ihre Daten im Talentpool für bis zu 12 Monate.',
-      },
-    ],
+        "heading": "Quelle",
+        "body": "https://www.e-recht24.de"
+      }
+    ]
   },
-  agb: {
-    metaTitle: 'Allgemeine Geschäftsbedingungen',
-    metaDescription: 'AGB der Fliesen-Naturstein AMAN für Fliesen-, Platten- und Natursteinarbeiten.',
-    title: 'Allgemeine Geschäftsbedingungen',
-    breadcrumb: 'AGB',
-    sections: [
+  "agb": {
+    "metaTitle": "Allgemeine Geschäftsbedingungen",
+    "metaDescription": "AGB der Fliesen - Naturstein Aman für Fliesen-, Platten- und Natursteinarbeiten.",
+    "title": "Allgemeine Geschäftsbedingungen",
+    "breadcrumb": "AGB",
+    "sections": [
       {
-        heading: '§ 1 Geltungsbereich',
-        body: 'Diese Allgemeinen Geschäftsbedingungen (AGB) gelten für alle Verträge, die zwischen der Fliesen-Naturstein AMAN, Musterstraße 42, 60311 Frankfurt am Main (nachfolgend „Auftragnehmer") und dem Auftraggeber über Fliesen-, Platten-, Mosaik- und Natursteinarbeiten sowie damit verbundene Leistungen abgeschlossen werden.\n\nAbweichende Bedingungen des Auftraggebers werden nicht anerkannt, es sei denn, der Auftragnehmer hat ihrer Geltung ausdrücklich schriftlich zugestimmt.',
+        "heading": "§ 1 Geltungsbereich",
+        "body": "Diese Allgemeinen Geschäftsbedingungen (AGB) gelten für alle Verträge, die zwischen der Fliesen - Naturstein Aman, Inhaber Aman Rezayi, Turmstraße 45/3, 89231 Neu-Ulm (nachfolgend „Auftragnehmer“) und dem Auftraggeber über Fliesen-, Platten-, Mosaik- und Natursteinarbeiten sowie damit verbundene Leistungen abgeschlossen werden.\n\nAbweichende Bedingungen des Auftraggebers werden nicht anerkannt, es sei denn, der Auftragnehmer hat ihrer Geltung ausdrücklich schriftlich zugestimmt."
       },
       {
-        heading: '§ 2 Angebot und Vertragsschluss',
-        body: 'Angebote des Auftragnehmers sind freibleibend und unverbindlich, sofern sie nicht ausdrücklich als bindend bezeichnet wurden. Der Vertrag kommt durch schriftliche Auftragsbestätigung des Auftragnehmers oder durch Aufnahme der Ausführung der Leistungen zustande.\n\nKostenvoranschläge werden nach bestem Wissen und Gewissen erstellt. Wesentliche Abweichungen, die sich erst bei der Ausführung ergeben (z. B. durch unvorhergesehene Bausubstanz), werden dem Auftraggeber unverzüglich mitgeteilt.',
+        "heading": "§ 2 Angebot und Vertragsschluss",
+        "body": "Angebote des Auftragnehmers sind freibleibend und unverbindlich, sofern sie nicht ausdrücklich als bindend bezeichnet wurden. Der Vertrag kommt durch schriftliche Auftragsbestätigung des Auftragnehmers oder durch Aufnahme der Ausführung der Leistungen zustande.\n\nKostenvoranschläge werden nach bestem Wissen und Gewissen erstellt. Wesentliche Abweichungen, die sich erst bei der Ausführung ergeben (z. B. durch unvorhergesehene Bausubstanz), werden dem Auftraggeber unverzüglich mitgeteilt."
       },
       {
-        heading: '§ 3 Leistungserbringung',
-        body: 'Der Auftragnehmer führt die vereinbarten Leistungen nach den anerkannten Regeln der Technik, insbesondere gemäß den einschlägigen DIN-Normen und der VOB/C (Allgemeine Technische Vertragsbedingungen für Bauleistungen), aus.\n\nVereinbarte Ausführungstermine sind unter dem Vorbehalt gesetzt, dass der Auftraggeber seine Mitwirkungspflichten rechtzeitig erfüllt (insbesondere Bereitstellung des Baumaterials, Zugang zu den Räumlichkeiten, Abnahme von Teilleistungen).',
+        "heading": "§ 3 Leistungserbringung",
+        "body": "Der Auftragnehmer führt die vereinbarten Leistungen nach den anerkannten Regeln der Technik, insbesondere gemäß den einschlägigen DIN-Normen und der VOB/C (Allgemeine Technische Vertragsbedingungen für Bauleistungen), aus.\n\nVereinbarte Ausführungstermine sind unter dem Vorbehalt gesetzt, dass der Auftraggeber seine Mitwirkungspflichten rechtzeitig erfüllt (insbesondere Bereitstellung des Baumaterials, Zugang zu den Räumlichkeiten, Abnahme von Teilleistungen)."
       },
       {
-        heading: '§ 4 Preise und Zahlung',
-        body: 'Alle Preise verstehen sich zuzüglich der gesetzlichen Umsatzsteuer, sofern nicht ausdrücklich anders angegeben. Rechnungen sind innerhalb von 14 Tagen nach Rechnungsstellung ohne Abzug zahlbar, sofern keine andere Fälligkeit vereinbart wurde.\n\nBei Aufträgen mit einem Nettoauftragswert von mehr als 5.000 Euro ist der Auftragnehmer berechtigt, eine Abschlagszahlung von bis zu 30% bei Auftragserteilung sowie Zwischenrechnungen entsprechend dem Leistungsfortschritt zu stellen.',
+        "heading": "§ 4 Preise und Zahlung",
+        "body": "Alle Preise verstehen sich zuzüglich der gesetzlichen Umsatzsteuer, sofern nicht ausdrücklich anders angegeben. Rechnungen sind innerhalb von 14 Tagen nach Rechnungsstellung ohne Abzug zahlbar, sofern keine andere Fälligkeit vereinbart wurde.\n\nBei Aufträgen mit einem Nettoauftragswert von mehr als 5.000 Euro ist der Auftragnehmer berechtigt, eine Abschlagszahlung von bis zu 30% bei Auftragserteilung sowie Zwischenrechnungen entsprechend dem Leistungsfortschritt zu stellen."
       },
       {
-        heading: '§ 5 Material und Untergrundvorbereitung',
-        body: 'Der Auftragnehmer verwendet qualitativ hochwertige Materialien von zertifizierten Herstellern. Soweit der Auftraggeber eigene Materialien bereitstellt, übernimmt der Auftragnehmer keine Haftung für Mängel, die auf diese Materialien zurückzuführen sind.\n\nDer Untergrund muss vor Beginn der Arbeiten trocken, tragfähig, eben und frei von trennenden Substanzen sein. Der Auftragnehmer prüft den Untergrund und teilt festgestellte Mängel dem Auftraggeber schriftlich mit.',
+        "heading": "§ 5 Material und Untergrundvorbereitung",
+        "body": "Der Auftragnehmer verwendet qualitativ hochwertige Materialien von zertifizierten Herstellern. Soweit der Auftraggeber eigene Materialien bereitstellt, übernimmt der Auftragnehmer keine Haftung für Mängel, die auf diese Materialien zurückzuführen sind.\n\nDer Untergrund muss vor Beginn der Arbeiten trocken, tragfähig, eben und frei von trennenden Substanzen sein. Der Auftragnehmer prüft den Untergrund und teilt festgestellte Mängel dem Auftraggeber schriftlich mit."
       },
       {
-        heading: '§ 6 Gewährleistung',
-        body: 'Die Gewährleistungsfrist für erbrachte Leistungen beträgt 5 Jahre ab förmlicher Abnahme der Leistungen, soweit gesetzlich nichts anderes vorgeschrieben ist. Der Auftragnehmer ist berechtigt, Mängel zunächst durch Nachbesserung zu beheben.\n\nMängel sind unverzüglich schriftlich anzuzeigen. Mängelanzeigen werden innerhalb von 5 Werktagen bearbeitet; bei dringenden Fällen schnellstmöglich.',
+        "heading": "§ 6 Gewährleistung",
+        "body": "Die Gewährleistungsfrist für erbrachte Leistungen beträgt 5 Jahre ab förmlicher Abnahme der Leistungen, soweit gesetzlich nichts anderes vorgeschrieben ist. Der Auftragnehmer ist berechtigt, Mängel zunächst durch Nachbesserung zu beheben.\n\nMängel sind unverzüglich schriftlich anzuzeigen. Mängelanzeigen werden innerhalb von 5 Werktagen bearbeitet; bei dringenden Fällen schnellstmöglich."
       },
       {
-        heading: '§ 7 Haftungsbeschränkung',
-        body: 'Die Haftung des Auftragnehmers ist auf Vorsatz und grobe Fahrlässigkeit beschränkt, soweit nicht Schäden aus der Verletzung des Lebens, des Körpers oder der Gesundheit oder wesentlicher Vertragspflichten betroffen sind. Die Haftung für mittelbare Schäden und Folgeschäden ist ausgeschlossen.',
+        "heading": "§ 7 Haftungsbeschränkung",
+        "body": "Die Haftung des Auftragnehmers ist auf Vorsatz und grobe Fahrlässigkeit beschränkt, soweit nicht Schäden aus der Verletzung des Lebens, des Körpers oder der Gesundheit oder wesentlicher Vertragspflichten betroffen sind. Die Haftung für mittelbare Schäden und Folgeschäden ist ausgeschlossen."
       },
       {
-        heading: '§ 8 Datenschutz',
-        body: 'Die Verarbeitung personenbezogener Daten erfolgt gemäß unserer Datenschutzerklärung (siehe /datenschutz).',
+        "heading": "§ 8 Datenschutz",
+        "body": "Die Verarbeitung personenbezogener Daten erfolgt gemäß unserer Datenschutzerklärung (siehe /datenschutz)."
       },
       {
-        heading: '§ 9 Gerichtsstand und anwendbares Recht',
-        body: 'Es gilt das Recht der Bundesrepublik Deutschland unter Ausschluss des UN-Kaufrechts. Gerichtsstand für alle Streitigkeiten aus und im Zusammenhang mit diesem Vertrag ist Frankfurt am Main, sofern der Auftraggeber Kaufmann, juristische Person des öffentlichen Rechts oder öffentlich-rechtliches Sondervermögen ist.',
-      },
-    ],
+        "heading": "§ 9 Gerichtsstand und anwendbares Recht",
+        "body": "Es gilt das Recht der Bundesrepublik Deutschland unter Ausschluss des UN-Kaufrechts. Gerichtsstand für alle Streitigkeiten aus und im Zusammenhang mit diesem Vertrag ist Neu-Ulm, sofern der Auftraggeber Kaufmann, juristische Person des öffentlichen Rechts oder öffentlich-rechtliches Sondervermögen ist."
+      }
+    ]
   },
-  nutzungsbedingungen: {
-    metaTitle: 'Nutzungsbedingungen',
-    metaDescription: 'Nutzungsbedingungen der Website Fliesen-Naturstein AMAN.',
-    title: 'Nutzungsbedingungen',
-    breadcrumb: 'Nutzungsbedingungen',
-    sections: [
+  "nutzungsbedingungen": {
+    "metaTitle": "Nutzungsbedingungen",
+    "metaDescription": "Nutzungsbedingungen der Website Fliesen - Naturstein Aman.",
+    "title": "Nutzungsbedingungen",
+    "breadcrumb": "Nutzungsbedingungen",
+    "sections": [
       {
-        heading: '1. Geltungsbereich',
-        body: 'Diese Nutzungsbedingungen regeln die Nutzung der Website https://fliesen-naturstein-aman.de (nachfolgend „Website") der Fliesen-Naturstein AMAN. Mit dem Besuch und der Nutzung dieser Website erklären Sie sich mit diesen Nutzungsbedingungen einverstanden.',
+        "heading": "1. Geltungsbereich",
+        "body": "Diese Nutzungsbedingungen regeln die Nutzung der Website https://fliesen-aman.de (nachfolgend „Website“) der Fliesen - Naturstein Aman. Mit dem Besuch und der Nutzung dieser Website erklären Sie sich mit diesen Nutzungsbedingungen einverstanden."
       },
       {
-        heading: '2. Inhalte und Angebote',
-        body: 'Die auf dieser Website bereitgestellten Informationen dienen ausschließlich Informationszwecken. Sie stellen keine rechtlich bindende Offerte dar, sofern nicht ausdrücklich anders angegeben. Der Betreiber behält sich das Recht vor, die Inhalte dieser Website jederzeit ohne Vorankündigung zu ändern, zu ergänzen oder zu löschen.',
+        "heading": "2. Inhalte und Angebote",
+        "body": "Die auf dieser Website bereitgestellten Informationen dienen ausschließlich Informationszwecken. Sie stellen keine rechtlich bindende Offerte dar, sofern nicht ausdrücklich anders angegeben. Der Betreiber behält sich das Recht vor, die Inhalte dieser Website jederzeit ohne Vorankündigung zu ändern, zu ergänzen oder zu löschen."
       },
       {
-        heading: '3. Urheberrecht und Nutzungsrechte',
-        body: 'Alle auf dieser Website veröffentlichten Inhalte (Texte, Bilder, Grafiken, Design, Logos) unterliegen dem Urheberrecht der Fliesen-Naturstein AMAN oder der jeweiligen Rechteinhaber. Eine Verwendung, Vervielfältigung oder Verbreitung ist ohne vorherige schriftliche Genehmigung nicht gestattet.\n\nDie Vervielfältigung von Informationen oder Daten, insbesondere die Verwendung von Texten, Textteilen oder Bildmaterial bedarf der vorherigen Zustimmung des Betreibers.',
+        "heading": "3. Urheberrecht und Nutzungsrechte",
+        "body": "Alle auf dieser Website veröffentlichten Inhalte (Texte, Bilder, Grafiken, Design, Logos) unterliegen dem Urheberrecht der Fliesen - Naturstein Aman oder der jeweiligen Rechteinhaber. Eine Verwendung, Vervielfältigung oder Verbreitung ist ohne vorherige schriftliche Genehmigung nicht gestattet.\n\nDie Vervielfältigung von Informationen oder Daten, insbesondere die Verwendung von Texten, Textteilen oder Bildmaterial bedarf der vorherigen Zustimmung des Betreibers."
       },
       {
-        heading: '4. Links zu Drittseiten',
-        body: 'Diese Website kann Links zu externen Websites Dritter enthalten. Für die Inhalte dieser verlinkten Seiten ist ausschließlich der jeweilige Anbieter oder Betreiber der Seiten verantwortlich. Der Betreiber hat zum Zeitpunkt der Verlinkung keine rechtswidrigen Inhalte auf den verlinkten Seiten festgestellt.',
+        "heading": "4. Links zu Drittseiten",
+        "body": "Diese Website kann Links zu externen Websites Dritter enthalten. Für die Inhalte dieser verlinkten Seiten ist ausschließlich der jeweilige Anbieter oder Betreiber der Seiten verantwortlich. Der Betreiber hat zum Zeitpunkt der Verlinkung keine rechtswidrigen Inhalte auf den verlinkten Seiten festgestellt."
       },
       {
-        heading: '5. Haftungsausschluss',
-        body: 'Die Inhalte dieser Website wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte kann der Betreiber jedoch keine Gewähr übernehmen. Als Diensteanbieter ist der Betreiber gemäß § 7 Abs. 1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich.',
+        "heading": "5. Haftungsausschluss",
+        "body": "Die Inhalte dieser Website wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte kann der Betreiber jedoch keine Gewähr übernehmen. Als Diensteanbieter ist der Betreiber gemäß § 7 Abs. 1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich."
       },
       {
-        heading: '6. Formulare und Kontaktanfragen',
-        body: 'Durch das Absenden von Formularen auf dieser Website erklären Sie sich damit einverstanden, dass Ihre eingegebenen Daten gemäß unserer Datenschutzerklärung (siehe /datenschutz) verarbeitet werden. Eine Weitergabe an Dritte erfolgt nicht ohne Ihre ausdrückliche Einwilligung.',
+        "heading": "6. Formulare und Kontaktanfragen",
+        "body": "Durch das Absenden von Formularen auf dieser Website erklären Sie sich damit einverstanden, dass Ihre eingegebenen Daten gemäß unserer Datenschutzerklärung (siehe /datenschutz) verarbeitet werden. Eine Weitergabe an Dritte erfolgt nicht ohne Ihre ausdrückliche Einwilligung."
       },
       {
-        heading: '7. Änderungen der Nutzungsbedingungen',
-        body: 'Der Betreiber behält sich vor, diese Nutzungsbedingungen jederzeit zu ändern. Die aktuelle Version ist stets auf dieser Website abrufbar. Die fortgesetzte Nutzung der Website nach Änderungen gilt als Zustimmung zu den geänderten Nutzungsbedingungen.',
+        "heading": "7. Änderungen der Nutzungsbedingungen",
+        "body": "Der Betreiber behält sich vor, diese Nutzungsbedingungen jederzeit zu ändern. Die aktuelle Version ist stets auf dieser Website abrufbar. Die fortgesetzte Nutzung der Website nach Änderungen gilt als Zustimmung zu den geänderten Nutzungsbedingungen."
       },
       {
-        heading: '8. Anwendbares Recht',
-        body: 'Für die Nutzung dieser Website gilt das Recht der Bundesrepublik Deutschland. Gerichtsstand ist Frankfurt am Main.',
-      },
-    ],
-  },
+        "heading": "8. Anwendbares Recht",
+        "body": "Für die Nutzung dieser Website gilt das Recht der Bundesrepublik Deutschland. Gerichtsstand ist Neu-Ulm."
+      }
+    ]
+  }
 }

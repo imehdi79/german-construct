@@ -4,7 +4,7 @@ export const testimonials: Testimonial[] = [
   {
     id: '1',
     name: 'Thomas Bergmann',
-    location: 'Frankfurt-Sachsenhausen',
+    location: 'Neu-Ulm',
     rating: 5,
     text: 'Absolut professionelle Arbeit! Das Team von AMAN hat unser Badezimmer von Grund auf saniert und mit hochwertigen Marmorfliesen ausgestattet. Das Ergebnis übertrifft unsere Erwartungen bei Weitem. Sauber, pünktlich und zu einem fairen Preis.',
     project: 'Badsanierung mit Marmorfliesen',
@@ -13,7 +13,7 @@ export const testimonials: Testimonial[] = [
   {
     id: '2',
     name: 'Sabine Müller',
-    location: 'Offenbach am Main',
+    location: 'Senden',
     rating: 5,
     text: 'Wir haben AMAN mit der Verlegung unserer Granitbodenplatten im Erdgeschoss beauftragt. Die Qualität der Arbeit ist hervorragend – präzise Fugen, perfekte Ausrichtung. Das Team war stets freundlich und hat die Baustelle jeden Tag sauber hinterlassen.',
     project: 'Granitboden Erdgeschoss',
@@ -22,7 +22,7 @@ export const testimonials: Testimonial[] = [
   {
     id: '3',
     name: 'Klaus Hartmann',
-    location: 'Darmstadt',
+    location: 'Ulm',
     rating: 5,
     text: 'Für unser Mehrfamilienhaus haben wir einen neuen Estrich benötigt. AMAN hat die Arbeit termingerecht und in einwandfreier Qualität ausgeführt. Besonders schätze ich die kompetente Beratung im Vorfeld – man merkt, dass das echte Fachleute sind.',
     project: 'Estricharbeiten im Mehrfamilienhaus',
@@ -31,7 +31,7 @@ export const testimonials: Testimonial[] = [
   {
     id: '4',
     name: 'Petra Schneider',
-    location: 'Frankfurt-Bornheim',
+    location: 'Illertissen',
     rating: 5,
     text: 'Die Terrasse unseres Hauses wurde mit schönen Natursteinplatten neu gestaltet. Das Ergebnis ist wunderschön! Das Team von AMAN war sehr professionell, hat alles genau erklärt und ist auf unsere Wünsche eingegangen. Klare Empfehlung!',
     project: 'Naturstein-Terrasse',
@@ -40,7 +40,7 @@ export const testimonials: Testimonial[] = [
   {
     id: '5',
     name: 'Michael Wagner',
-    location: 'Bad Homburg',
+    location: 'Günzburg',
     rating: 5,
     text: 'Ich habe AMAN für die komplette Renovierung meines Badezimmers engagiert. Von der Planung bis zur Fertigstellung war alles perfekt organisiert. Die Handwerker waren pünktlich, sauber und äußerst kompetent. Ich bin restlos begeistert.',
     project: 'Komplette Badrenovierung',
@@ -49,7 +49,7 @@ export const testimonials: Testimonial[] = [
   {
     id: '6',
     name: 'Monika Fischer',
-    location: 'Wiesbaden',
+    location: 'Ulm-Söflingen',
     rating: 5,
     text: 'Hervorragende Qualität und toller Service! Die großformatigen Fliesen im Wohnzimmer sehen atemberaubend aus. AMAN hat die gesamte Arbeit in kürzester Zeit und ohne Probleme erledigt. Der Preis war fair und transparent. Vielen Dank!',
     project: 'Großformatige Wohnzimmerfliesen',

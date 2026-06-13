@@ -44,6 +44,10 @@ next-env.d.ts
 # content store (runtime "database"; seeded from in-repo defaults).
 # Not tracked so deploys never overwrite production's admin-edited content.
 /content/*.json
+/content/ba/*.json
 
 # content backups created by deploy.sh
 /content-backups/
+
+# all addition files
+*.pdf
