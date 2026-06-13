@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ClipboardList, CheckCircle2, ArrowLeft, ArrowUp } from 'lucide-react'
 import { SectionTitle } from '@/components/ui/SectionTitle'
@@ -120,15 +121,19 @@ export function ProjektplanerSection({
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                  className="relative overflow-hidden flex flex-col items-center justify-center text-center px-8 py-14 rounded-2xl border border-aman-border bg-gradient-to-br from-white to-aman-sand/40 shadow-card min-h-[400px]"
+                  className="relative overflow-hidden flex flex-col items-center justify-center text-center px-8 py-14 rounded-2xl border border-aman-border shadow-card min-h-100"
                 >
-                  {/* Soft decorative glow – gives the panel depth instead of an empty frame */}
-                  <div
-                    className="pointer-events-none absolute -top-20 -right-16 w-56 h-56 rounded-full bg-aman-gold/10 blur-3xl"
-                    aria-hidden="true"
+                  {/* Background image of our tiling craftsmanship */}
+                  <Image
+                    src="/gallery/pool-fliesen.jpg"
+                    alt="Fliesen- und Natursteinarbeiten an einem Pool"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 1024px) 100vw, 420px"
                   />
+                  {/* Dark overlay so the content stays legible on top of the photo */}
                   <div
-                    className="pointer-events-none absolute -bottom-24 -left-16 w-60 h-60 rounded-full bg-aman-gold/[0.06] blur-3xl"
+                    className="pointer-events-none absolute inset-0 bg-linear-to-t from-aman-charcoal/90 via-aman-charcoal/70 to-aman-charcoal/90"
                     aria-hidden="true"
                   />
 
@@ -139,23 +144,23 @@ export function ProjektplanerSection({
                     transition={{ delay: 0.1, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                     className="relative mb-6"
                   >
-                    <div className="w-20 h-20 rounded-2xl bg-aman-charcoal flex items-center justify-center shadow-card">
+                    <div className="w-20 h-20 rounded-2xl bg-white/10 backdrop-blur-sm ring-1 ring-white/20 flex items-center justify-center shadow-card">
                       <ClipboardList size={32} className="text-aman-gold" />
                     </div>
                     <motion.span
                       animate={{ y: [0, -4, 0] }}
                       transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}
-                      className="absolute -bottom-2 -right-2 w-8 h-8 rounded-full bg-aman-gold flex items-center justify-center shadow-md ring-4 ring-white"
+                      className="absolute -bottom-2 -right-2 w-8 h-8 rounded-full bg-aman-gold flex items-center justify-center shadow-md ring-4 ring-aman-charcoal"
                     >
                       <ArrowUp size={15} className="text-white lg:hidden" />
                       <ArrowLeft size={15} className="text-white hidden lg:block" />
                     </motion.span>
                   </motion.div>
 
-                  <h3 className="relative font-serif text-xl text-aman-charcoal mb-2">
+                  <h3 className="relative font-serif text-xl text-white mb-2">
                     {copy.emptyTitle}
                   </h3>
-                  <p className="relative text-sm text-aman-text-muted max-w-xs leading-relaxed">
+                  <p className="relative text-sm text-white/70 max-w-xs leading-relaxed">
                     {copy.emptySubtitle}
                   </p>
 
@@ -163,7 +168,7 @@ export function ProjektplanerSection({
                     {copy.benefits.map((benefit) => (
                       <li
                         key={benefit}
-                        className="flex items-center gap-2.5 text-sm text-aman-charcoal/80"
+                        className="flex items-center gap-2.5 text-sm text-white/90"
                       >
                         <CheckCircle2 size={16} className="text-aman-gold shrink-0" />
                         {benefit}
