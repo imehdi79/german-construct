@@ -20,15 +20,6 @@ export const galleryItems: GalleryItem[] = [
     description: 'Großformatige Granitplatten 120×120 cm im offenen Wohnbereich',
   },
   {
-    id: '3',
-    title: 'Naturstein-Terrasse',
-    category: 'terrasse',
-    image: '/gallery/terrasse-naturstein.jpg',
-    width: 1200,
-    height: 900,
-    description: 'Terrassengestaltung mit frostsicheren Kalkstein-Platten',
-  },
-  {
     id: '4',
     title: 'Modernes Duschbad',
     category: 'bad',
@@ -65,15 +56,6 @@ export const galleryItems: GalleryItem[] = [
     description: 'Rutschhemmende Naturstein-Umrandung für den Außenpool',
   },
   {
-    id: '8',
-    title: 'Wellness-Sauna-Bereich',
-    category: 'naturstein',
-    image: '/gallery/sauna-stein.jpg',
-    width: 800,
-    height: 1000,
-    description: 'Hochwertige Naturstein-Wandverkleidung im privaten Saunabereich',
-  },
-  {
     id: '9',
     title: 'Großformat-Fliesen Flur',
     category: 'fliesen',
@@ -83,15 +65,6 @@ export const galleryItems: GalleryItem[] = [
     description: 'Großformatige Feinsteinzeug-Fliesen 80×160 cm im langen Hausflur',
   },
   {
-    id: '10',
-    title: 'Außenbereich Restaurant',
-    category: 'terrasse',
-    image: '/gallery/restaurant-terrasse.jpg',
-    width: 1200,
-    height: 850,
-    description: 'Gewerbliche Terrassenfläche mit rutschhemmenden Keramikplatten',
-  },
-  {
     id: '11',
     title: 'Mosaik-Wandgestaltung',
     category: 'fliesen',
@@ -99,15 +72,6 @@ export const galleryItems: GalleryItem[] = [
     width: 800,
     height: 1000,
     description: 'Individuell gestalteter Mosaikfries in einem Hotellobbybad',
-  },
-  {
-    id: '12',
-    title: 'Kalkstein-Wohnzimmer',
-    category: 'naturstein',
-    image: '/gallery/wohnzimmer-kalkstein.jpg',
-    width: 1200,
-    height: 800,
-    description: 'Heller Kalksteinboden bringt mediterrane Wärme ins Wohnzimmer',
   },
 ]
 

@@ -32,11 +32,12 @@ export function WarumAmanSection({
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             className="relative"
           >
-            <div className="relative aspect-[4/5] rounded-2xl overflow-hidden shadow-hover">
+            <div className="relative aspect-4/5 rounded-2xl overflow-hidden shadow-hover">
               <Image
                 src="/about-craftsman.jpg"
                 alt={copy.imageAlt}
                 fill
+                quality={90}
                 className="object-cover"
                 sizes="(max-width: 1024px) 100vw, 50vw"
               />

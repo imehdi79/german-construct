@@ -41,5 +41,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# content store (runtime "database"; seeded from in-repo defaults)
-#/content/*.json
+# content store (runtime "database"; seeded from in-repo defaults).
+# Not tracked so deploys never overwrite production's admin-edited content.
+/content/*.json

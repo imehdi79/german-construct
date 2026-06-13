@@ -25,7 +25,7 @@ function JobCard({
   onApply: (jobTitle: string) => void
   copy: StellenangebotePageCopy
 }) {
-  const [expanded, setExpanded] = useState(false)
+  const [expanded, setExpanded] = useState(true)
 
   return (
     <article className="bg-white rounded-2xl border border-aman-border overflow-hidden shadow-soft hover:shadow-card transition-all duration-300 hover:border-aman-gold/30">

@@ -120,7 +120,6 @@ export const defaultSections: SectionsContent = {
     emptySubtitle:
       'Tippen Sie auf eine Karte und erhalten Sie Schritt für Schritt Ihr unverbindliches Angebot.',
     benefits: [
-      'Antwort innerhalb von 24 Stunden',
       '100 % kostenlos & unverbindlich',
       'Jedes Angebot wird geprüft',
     ],

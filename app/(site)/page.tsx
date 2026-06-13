@@ -3,9 +3,9 @@ import { HeroSection } from '@/sections/HeroSection'
 import { ProjektplanerSection } from '@/sections/ProjektplanerSection'
 import { LeistungenSection } from '@/sections/LeistungenSection'
 import { WarumAmanSection } from '@/sections/WarumAmanSection'
-import { StatistikSection } from '@/sections/StatistikSection'
+// import { StatistikSection } from '@/sections/StatistikSection'
 import { GalerieSection } from '@/sections/GalerieSection'
-import { TestimonialsSection } from '@/sections/TestimonialsSection'
+// import { TestimonialsSection } from '@/sections/TestimonialsSection'
 import { KontaktCtaSection } from '@/sections/KontaktCtaSection'
 import { siteConfig } from '@/config/site'
 import { createMetadata } from '@/lib/metadata'
@@ -13,7 +13,6 @@ import {
   getSiteContent,
   getServices,
   getGallery,
-  getTestimonials,
   getFormSchemas,
   getPlannerCards,
 } from '@/lib/content'
@@ -23,12 +22,11 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function HomePage() {
-  const [site, services, gallery, testimonials, formSchemas, plannerCards] =
+  const [site, services, gallery, formSchemas, plannerCards] =
     await Promise.all([
       getSiteContent(),
       getServices(),
       getGallery(),
-      getTestimonials(),
       getFormSchemas(),
       getPlannerCards(),
     ])
@@ -100,13 +98,13 @@ export default async function HomePage() {
       />
       <LeistungenSection services={services} copy={sections.leistungenIntro} />
       <WarumAmanSection copy={sections.warumAman} />
-      <StatistikSection stats={site.stats} copy={sections.statistik} />
+      {/* <StatistikSection stats={site.stats} copy={sections.statistik} /> */}
       <GalerieSection
         items={gallery}
         categories={sections.galleryCategories}
         copy={sections.galerieIntro}
       />
-      <TestimonialsSection items={testimonials} copy={sections.testimonials} />
+      {/* <TestimonialsSection items={testimonials} copy={sections.testimonials} /> */}
       <KontaktCtaSection
         copy={sections.kontaktCta}
         contact={contact}
