@@ -35,10 +35,39 @@ export function ProjektplanerSection({
   return (
     <section
       id="projektplaner"
-      className="section-padding bg-aman-cream"
+      className="section-padding bg-aman-charcoal relative overflow-hidden"
       aria-labelledby="projektplaner-title"
     >
-      <div className="container-aman">
+      {/* Subtle gold diagonal texture */}
+      <div
+        className="absolute inset-0 opacity-[0.03] pointer-events-none"
+        style={{
+          backgroundImage: `repeating-linear-gradient(
+            45deg,
+            #C9A96E,
+            #C9A96E 1px,
+            transparent 1px,
+            transparent 60px
+          )`,
+        }}
+        aria-hidden="true"
+      />
+      {/* Gold accent line along the top edge */}
+      <div
+        className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-aman-gold/40 to-transparent"
+        aria-hidden="true"
+      />
+      {/* Soft warm glows for depth */}
+      <div
+        className="pointer-events-none absolute -top-32 -right-24 w-96 h-96 rounded-full bg-aman-gold/10 blur-3xl"
+        aria-hidden="true"
+      />
+      <div
+        className="pointer-events-none absolute -bottom-40 -left-24 w-96 h-96 rounded-full bg-aman-gold/[0.06] blur-3xl"
+        aria-hidden="true"
+      />
+
+      <div className="container-aman relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
           {/* Header + cards */}
           <div>
@@ -46,6 +75,7 @@ export function ProjektplanerSection({
               eyebrow={copy.eyebrow}
               title={copy.title}
               subtitle={copy.subtitle}
+              light
               id="projektplaner-title"
             />
 
@@ -71,7 +101,7 @@ export function ProjektplanerSection({
                       'group relative flex flex-col items-start gap-3 p-4 rounded-xl text-left',
                       'border transition-all duration-300 cursor-pointer',
                       active
-                        ? 'bg-aman-charcoal text-white border-aman-charcoal shadow-card'
+                        ? 'bg-white border-aman-gold ring-1 ring-aman-gold shadow-card'
                         : 'bg-white border-aman-border hover:border-aman-gold hover:shadow-card',
                     )}
                     aria-pressed={active}
@@ -81,27 +111,17 @@ export function ProjektplanerSection({
                       className={cn(
                         'p-2 rounded-lg transition-colors',
                         active
-                          ? 'bg-aman-gold/20 text-aman-gold'
+                          ? 'bg-aman-gold/15 text-aman-gold'
                           : 'bg-aman-cream text-aman-stone-400 group-hover:bg-aman-gold/10 group-hover:text-aman-gold',
                       )}
                     >
                       <Icon size={18} />
                     </div>
                     <div>
-                      <p
-                        className={cn(
-                          'text-sm font-medium leading-tight mb-1',
-                          active ? 'text-white' : 'text-aman-charcoal',
-                        )}
-                      >
+                      <p className="text-sm font-medium leading-tight mb-1 text-aman-charcoal">
                         {card.title}
                       </p>
-                      <p
-                        className={cn(
-                          'text-xs leading-relaxed',
-                          active ? 'text-white/60' : 'text-aman-text-muted',
-                        )}
-                      >
+                      <p className="text-xs leading-relaxed text-aman-text-muted">
                         {card.description}
                       </p>
                     </div>
@@ -121,7 +141,7 @@ export function ProjektplanerSection({
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                  className="relative overflow-hidden flex flex-col items-center justify-center text-center px-8 py-14 rounded-2xl border border-aman-border shadow-card min-h-100"
+                  className="relative overflow-hidden flex flex-col items-center justify-center text-center px-8 py-14 rounded-2xl border border-aman-gold/25 ring-1 ring-white/5 shadow-card min-h-100"
                 >
                   {/* Background image of our tiling craftsmanship */}
                   <Image
@@ -133,7 +153,7 @@ export function ProjektplanerSection({
                   />
                   {/* Dark overlay so the content stays legible on top of the photo */}
                   <div
-                    className="pointer-events-none absolute inset-0 bg-linear-to-t from-aman-charcoal/90 via-aman-charcoal/70 to-aman-charcoal/90"
+                    className="pointer-events-none absolute inset-0 bg-linear-to-t from-aman-charcoal/95 via-aman-charcoal/65 to-aman-charcoal/80"
                     aria-hidden="true"
                   />
 
