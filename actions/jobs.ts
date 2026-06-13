@@ -2,17 +2,24 @@
 
 import { jobApplicationSchema } from '@/schemas/jobs'
 import type { JobApplicationSchema } from '@/schemas/jobs'
-import { sendMail, renderRows, NOTIFY_TO } from '@/lib/email'
+import { sendMail, escapeHtml, renderRows, collectAttachments, NOTIFY_TO } from '@/lib/email'
 
 export interface ActionResult {
   success: boolean
   message: string
 }
 
-export async function submitJobApplication(
-  data: JobApplicationSchema
-): Promise<ActionResult> {
-  const parsed = jobApplicationSchema.safeParse(data)
+export async function submitJobApplication(formData: FormData): Promise<ActionResult> {
+  const str = (k: string) => String(formData.get(k) ?? '')
+  const parsed = jobApplicationSchema.safeParse({
+    vorname: str('vorname'),
+    nachname: str('nachname'),
+    email: str('email'),
+    telefon: str('telefon') || undefined,
+    position: str('position'),
+    anschreiben: str('anschreiben'),
+    datenschutz: formData.get('datenschutz') === 'true',
+  } satisfies JobApplicationSchema)
 
   if (!parsed.success) {
     return {
@@ -32,13 +39,22 @@ export async function submitJobApplication(
     ['Anschreiben', d.anschreiben],
   ])
 
+  // Collect uploaded files (CV, certificates, …) as attachments.
+  const { attachments, skipped } = await collectAttachments(formData)
+  const note = skipped.length
+    ? `\n\nHinweis: Folgende Anhänge wurden wegen der Größenbeschränkung nicht angehängt: ${skipped.join(', ')}.`
+    : ''
+
   try {
     await sendMail({
       to: NOTIFY_TO,
       subject: `Bewerbung: ${d.position} – ${fullName}`,
-      text: `Neue Bewerbung über die Website:\n\n${text}`,
-      html: `<p>Neue Bewerbung über die Website:</p>${html}`,
+      text: `Neue Bewerbung über die Website:\n\n${text}${note}`,
+      html: `<p>Neue Bewerbung über die Website:</p>${html}${
+        note ? `<p>${escapeHtml(note.trim())}</p>` : ''
+      }`,
       replyTo: d.email,
+      attachments,
     })
   } catch (error) {
     console.error('Job application email failed:', error)

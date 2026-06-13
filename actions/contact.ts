@@ -3,15 +3,31 @@
 import { contactSchema, projectInquirySchema } from '@/schemas/contact'
 import type { ContactSchema, ProjectInquirySchema } from '@/schemas/contact'
 import type { FormValues } from '@/components/Form-Builder/types'
-import { sendMail, escapeHtml, renderRows, NOTIFY_TO } from '@/lib/email'
+import { sendMail, escapeHtml, renderRows, collectAttachments, NOTIFY_TO } from '@/lib/email'
 
 export interface ActionResult {
   success: boolean
   message: string
 }
 
-export async function submitContact(data: ContactSchema): Promise<ActionResult> {
-  const parsed = contactSchema.safeParse(data)
+/** Builds a note listing attachments skipped for exceeding the size cap. */
+function skippedNote(skipped: string[]): string {
+  return skipped.length
+    ? `\n\nHinweis: Folgende Anhänge wurden wegen der Größenbeschränkung nicht angehängt: ${skipped.join(', ')}.`
+    : ''
+}
+
+export async function submitContact(formData: FormData): Promise<ActionResult> {
+  const str = (k: string) => String(formData.get(k) ?? '')
+  const parsed = contactSchema.safeParse({
+    vorname: str('vorname'),
+    nachname: str('nachname'),
+    email: str('email'),
+    telefon: str('telefon') || undefined,
+    betreff: str('betreff'),
+    nachricht: str('nachricht'),
+    datenschutz: formData.get('datenschutz') === 'true',
+  } satisfies ContactSchema)
 
   if (!parsed.success) {
     return {
@@ -31,15 +47,22 @@ export async function submitContact(data: ContactSchema): Promise<ActionResult> 
     ['Nachricht', d.nachricht],
   ])
 
+  // Collect any uploaded files as attachments.
+  const { attachments, skipped } = await collectAttachments(formData)
+  const note = skippedNote(skipped)
+
   // Notify the company. This is the critical send — if it fails we ask the
   // visitor to try again.
   try {
     await sendMail({
       to: NOTIFY_TO,
       subject: `Kontaktanfrage: ${d.betreff}`,
-      text: `Neue Kontaktanfrage über die Website:\n\n${text}`,
-      html: `<p>Neue Kontaktanfrage über die Website:</p>${html}`,
+      text: `Neue Kontaktanfrage über die Website:\n\n${text}${note}`,
+      html: `<p>Neue Kontaktanfrage über die Website:</p>${html}${
+        note ? `<p>${escapeHtml(note.trim())}</p>` : ''
+      }`,
       replyTo: d.email,
+      attachments,
     })
   } catch (error) {
     console.error('Contact notification email failed:', error)
@@ -133,9 +156,6 @@ export async function submitProjectInquiry(
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
-/** Cap the total size of email attachments so the SMTP server doesn't reject the message. */
-const MAX_ATTACHMENTS_BYTES = 15 * 1024 * 1024 // 15 MB
-
 /**
  * Receives the dynamic, schema-driven project planner submission as `FormData`
  * so that any files uploaded in the planner's dropzone steps can be attached to
@@ -183,34 +203,17 @@ export async function submitPlannerInquiry(formData: FormData): Promise<ActionRe
   ]
   const { text, html } = renderRows(rows)
 
-  // Collect uploaded files as attachments, capped to a safe total size.
-  const attachments: { filename: string; content: Buffer }[] = []
-  const skipped: string[] = []
-  let total = 0
-  for (const entry of formData.getAll('files')) {
-    if (!(entry instanceof File) || entry.size === 0) continue
-    if (total + entry.size > MAX_ATTACHMENTS_BYTES) {
-      skipped.push(entry.name)
-      continue
-    }
-    total += entry.size
-    attachments.push({
-      filename: entry.name,
-      content: Buffer.from(await entry.arrayBuffer()),
-    })
-  }
-
-  const skippedNote = skipped.length
-    ? `\n\nHinweis: Folgende Anhänge wurden wegen der Größenbeschränkung nicht angehängt: ${skipped.join(', ')}.`
-    : ''
+  // Collect uploaded files (planner dropzone steps) as attachments.
+  const { attachments, skipped } = await collectAttachments(formData)
+  const note = skippedNote(skipped)
 
   try {
     await sendMail({
       to: NOTIFY_TO,
       subject: `Projektplaner-Anfrage: ${projektTyp}`,
-      text: `Neue Projektplaner-Anfrage über die Website:\n\n${text}${skippedNote}`,
+      text: `Neue Projektplaner-Anfrage über die Website:\n\n${text}${note}`,
       html: `<p>Neue Projektplaner-Anfrage über die Website:</p>${html}${
-        skippedNote ? `<p>${escapeHtml(skippedNote.trim())}</p>` : ''
+        note ? `<p>${escapeHtml(note.trim())}</p>` : ''
       }`,
       replyTo: email,
       attachments,

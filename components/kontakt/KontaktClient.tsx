@@ -9,6 +9,7 @@ import { Phone, Smartphone, Mail, MapPin, Clock, ArrowRight, CheckCircle2 } from
 import { SectionTitle } from '@/components/ui/SectionTitle'
 import { Button } from '@/components/ui/Button'
 import { FormInput, FormTextarea, FormSelect, FormCheckbox } from '@/components/ui/FormField'
+import { FileUpload } from '@/components/ui/FileUpload'
 import { contactSchema, type ContactSchema } from '@/schemas/contact'
 import { submitContact } from '@/actions/contact'
 import { siteConfig } from '@/config/site'
@@ -27,6 +28,7 @@ export function KontaktClient({
 }) {
   const [submitSuccess, setSubmitSuccess] = useState(false)
   const [submitError, setSubmitError] = useState('')
+  const [files, setFiles] = useState<File[]>([])
 
   const {
     register,
@@ -38,10 +40,22 @@ export function KontaktClient({
   })
 
   const onSubmit = async (data: ContactSchema) => {
-    const result = await submitContact(data)
+    setSubmitError('')
+    const formData = new FormData()
+    formData.append('vorname', data.vorname)
+    formData.append('nachname', data.nachname)
+    formData.append('email', data.email)
+    formData.append('telefon', data.telefon ?? '')
+    formData.append('betreff', data.betreff)
+    formData.append('nachricht', data.nachricht)
+    formData.append('datenschutz', String(data.datenschutz))
+    for (const file of files) formData.append('files', file)
+
+    const result = await submitContact(formData)
     if (result.success) {
       setSubmitSuccess(true)
       reset()
+      setFiles([])
     } else {
       setSubmitError(result.message)
     }
@@ -187,6 +201,13 @@ export function KontaktClient({
                     rows={6}
                     error={errors.nachricht?.message}
                     {...register('nachricht')}
+                  />
+
+                  <FileUpload
+                    label="Anhänge (optional)"
+                    hint="Bilder oder PDF – z. B. Fotos, Pläne oder Skizzen"
+                    files={files}
+                    onChange={setFiles}
                   />
 
                   <FormCheckbox

@@ -9,6 +9,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { SectionTitle } from '@/components/ui/SectionTitle'
 import { Button } from '@/components/ui/Button'
 import { FormInput, FormTextarea, FormSelect, FormCheckbox } from '@/components/ui/FormField'
+import { FileUpload } from '@/components/ui/FileUpload'
 import { jobApplicationSchema, type JobApplicationSchema } from '@/schemas/jobs'
 import { submitJobApplication } from '@/actions/jobs'
 import { projectTypes } from '@/data/jobs'
@@ -149,6 +150,7 @@ export function StellenangeboteClient({
   const [showForm, setShowForm] = useState(false)
   const [submitSuccess, setSubmitSuccess] = useState(false)
   const [submitError, setSubmitError] = useState('')
+  const [files, setFiles] = useState<File[]>([])
 
   const {
     register,
@@ -171,10 +173,22 @@ export function StellenangeboteClient({
   }
 
   const onSubmit = async (data: JobApplicationSchema) => {
-    const result = await submitJobApplication(data)
+    setSubmitError('')
+    const formData = new FormData()
+    formData.append('vorname', data.vorname)
+    formData.append('nachname', data.nachname)
+    formData.append('email', data.email)
+    formData.append('telefon', data.telefon ?? '')
+    formData.append('position', data.position)
+    formData.append('anschreiben', data.anschreiben)
+    formData.append('datenschutz', String(data.datenschutz))
+    for (const file of files) formData.append('files', file)
+
+    const result = await submitJobApplication(formData)
     if (result.success) {
       setSubmitSuccess(true)
       reset()
+      setFiles([])
     } else {
       setSubmitError(result.message)
     }
@@ -322,6 +336,13 @@ export function StellenangeboteClient({
                     hint={copy.coverLetterHint}
                     error={errors.anschreiben?.message}
                     {...register('anschreiben')}
+                  />
+
+                  <FileUpload
+                    label="Unterlagen (Lebenslauf, Zeugnisse …)"
+                    hint="PDF oder Bilder – mehrere Dateien möglich"
+                    files={files}
+                    onChange={setFiles}
                   />
 
                   <FormCheckbox

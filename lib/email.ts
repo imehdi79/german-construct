@@ -94,6 +94,37 @@ export function escapeHtml(value: string): string {
     .replace(/"/g, '&quot;')
 }
 
+/** Default cap on total attachment size so the SMTP server doesn't reject the message. */
+export const MAX_ATTACHMENTS_BYTES = 15 * 1024 * 1024 // 15 MB
+
+/**
+ * Collects uploaded `File` entries from a FormData field into mail attachments,
+ * capped to a total byte budget. Returns the attachments plus the names of any
+ * files skipped because they would exceed the cap.
+ */
+export async function collectAttachments(
+  formData: FormData,
+  field = 'files',
+  maxBytes = MAX_ATTACHMENTS_BYTES
+): Promise<{ attachments: MailAttachment[]; skipped: string[] }> {
+  const attachments: MailAttachment[] = []
+  const skipped: string[] = []
+  let total = 0
+  for (const entry of formData.getAll(field)) {
+    if (!(entry instanceof File) || entry.size === 0) continue
+    if (total + entry.size > maxBytes) {
+      skipped.push(entry.name)
+      continue
+    }
+    total += entry.size
+    attachments.push({
+      filename: entry.name,
+      content: Buffer.from(await entry.arrayBuffer()),
+    })
+  }
+  return { attachments, skipped }
+}
+
 /** Renders label/value pairs as matching plain-text and HTML email bodies. */
 export function renderRows(
   rows: Array<[label: string, value: string]>
