@@ -159,7 +159,7 @@ export const fliesenarbeitenSchema: Step[] = [
       {
         id: "Wo befindet sich der Auftragsort?",
         label: "",
-        type: "select",
+        type: "autocomplete",
         required: true,
         options: locationOptions,
       },

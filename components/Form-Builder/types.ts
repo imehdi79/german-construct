@@ -2,6 +2,7 @@ export type FieldType =
   | "text"
   | "textarea"
   | "select"
+  | "autocomplete"
   | "radio"
   | "checkbox"
   | "dropzone"

@@ -10,6 +10,7 @@ const FIELD_TYPES: FieldType[] = [
   'text',
   'textarea',
   'select',
+  'autocomplete',
   'radio',
   'checkbox',
   'dropzone',
@@ -21,6 +22,7 @@ const TYPE_LABELS: Record<FieldType, string> = {
   text: 'Textfeld',
   textarea: 'Mehrzeilig',
   select: 'Auswahlliste',
+  autocomplete: 'Auswahlliste mit Suche',
   radio: 'Einfachauswahl',
   checkbox: 'Mehrfachauswahl',
   dropzone: 'Datei-Upload',
@@ -28,7 +30,7 @@ const TYPE_LABELS: Record<FieldType, string> = {
   label: 'Beschriftung',
 }
 
-const OPTION_TYPES: FieldType[] = ['select', 'radio', 'checkbox']
+const OPTION_TYPES: FieldType[] = ['select', 'autocomplete', 'radio', 'checkbox']
 
 const uid = () =>
   `fb-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 6)}`

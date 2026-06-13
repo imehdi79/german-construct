@@ -1,9 +1,9 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ArrowRight, ArrowLeft, X, Upload, Check, FileText } from 'lucide-react'
+import { ArrowRight, ArrowLeft, X, Upload, Check, FileText, Search, ChevronDown } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { cn } from '@/lib/utils'
 import type { Field, Step, FieldValue, FormValues } from './types'
@@ -55,6 +55,7 @@ function validateField(field: Field, value: FieldValue | undefined): string | un
         return 'Bitte wählen Sie mindestens eine Option.'
       case 'radio':
       case 'select':
+      case 'autocomplete':
         return 'Bitte treffen Sie eine Auswahl.'
       case 'date':
         return 'Bitte wählen Sie ein Datum.'
@@ -143,6 +144,164 @@ const controlClass = (error?: boolean) =>
     'hover:border-aman-stone-200',
     error ? 'border-red-400 focus:ring-red-400' : 'border-aman-border',
   )
+
+// ─── Autocomplete (searchable combobox) ──────────────────────────────────────
+// A type-to-filter select used for long option lists (e.g. the city/location
+// step). Lets the user type to narrow the list, pick with mouse or keyboard,
+// and still enter a free-text value for anything not listed.
+
+function AutocompleteControl({
+  field,
+  value,
+  error,
+  onChange,
+}: {
+  field: Field
+  value: string
+  error?: string
+  onChange: (value: string) => void
+}) {
+  const options = field.options ?? []
+  const [open, setOpen] = useState(false)
+  const [query, setQuery] = useState('')
+  const [highlight, setHighlight] = useState(0)
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  // While the menu is open the input shows the live query; otherwise the
+  // committed value.
+  const display = open ? query : value
+
+  const filtered = useMemo(() => {
+    const q = query.trim().toLowerCase()
+    const list = q
+      ? options.filter((o) => o.label.toLowerCase().includes(q))
+      : options
+    return list.slice(0, 60)
+  }, [options, query])
+
+  // Close when clicking outside.
+  useEffect(() => {
+    if (!open) return
+    const onDocClick = (e: MouseEvent) => {
+      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+        setOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', onDocClick)
+    return () => document.removeEventListener('mousedown', onDocClick)
+  }, [open])
+
+  const openMenu = () => {
+    setQuery('')
+    setHighlight(0)
+    setOpen(true)
+  }
+
+  const commit = (val: string) => {
+    onChange(val)
+    setOpen(false)
+  }
+
+  const onKeyDown = (e: React.KeyboardEvent) => {
+    if (!open && (e.key === 'ArrowDown' || e.key === 'Enter')) {
+      openMenu()
+      return
+    }
+    if (!open) return
+    switch (e.key) {
+      case 'ArrowDown':
+        e.preventDefault()
+        setHighlight((h) => Math.min(h + 1, filtered.length - 1))
+        break
+      case 'ArrowUp':
+        e.preventDefault()
+        setHighlight((h) => Math.max(h - 1, 0))
+        break
+      case 'Enter':
+        e.preventDefault()
+        if (filtered[highlight]) commit(filtered[highlight].value)
+        else if (query.trim()) commit(query.trim())
+        break
+      case 'Escape':
+        setOpen(false)
+        break
+    }
+  }
+
+  return (
+    <div ref={containerRef} className="relative">
+      <div className="relative">
+        <Search
+          size={16}
+          className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-aman-stone-400"
+          aria-hidden="true"
+        />
+        <input
+          type="text"
+          role="combobox"
+          aria-expanded={open}
+          aria-controls={`${field.id}-listbox`}
+          aria-autocomplete="list"
+          value={display}
+          placeholder={field.description || 'Ort suchen…'}
+          onChange={(e) => {
+            setQuery(e.target.value)
+            setHighlight(0)
+            if (!open) setOpen(true)
+          }}
+          onFocus={openMenu}
+          onKeyDown={onKeyDown}
+          className={cn(controlClass(!!error), 'pl-9 pr-9')}
+          aria-invalid={!!error}
+        />
+        <ChevronDown
+          size={16}
+          className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-aman-stone-400"
+          aria-hidden="true"
+        />
+      </div>
+
+      {open && (
+        <ul
+          id={`${field.id}-listbox`}
+          role="listbox"
+          className="absolute z-20 mt-1 max-h-60 w-full overflow-auto rounded-lg border border-aman-border bg-white py-1 shadow-card"
+        >
+          {filtered.length === 0 ? (
+            <li className="px-4 py-2.5 text-sm text-aman-text-light">
+              {query.trim()
+                ? `„${query.trim()}“ übernehmen – mit Enter bestätigen`
+                : 'Keine Treffer'}
+            </li>
+          ) : (
+            filtered.map((opt, i) => {
+              const selected = opt.value === value
+              return (
+                <li
+                  key={opt.value}
+                  role="option"
+                  aria-selected={selected}
+                  onMouseDown={(e) => {
+                    e.preventDefault()
+                    commit(opt.value)
+                  }}
+                  onMouseEnter={() => setHighlight(i)}
+                  className={cn(
+                    'flex cursor-pointer items-center justify-between gap-2 px-4 py-2.5 text-sm',
+                    i === highlight ? 'bg-aman-gold/10 text-aman-charcoal' : 'text-aman-text',
+                  )}
+                >
+                  <span>{opt.label}</span>
+                  {selected && <Check size={14} className="text-aman-gold" />}
+                </li>
+              )
+            })
+          )}
+        </ul>
+      )}
+    </div>
+  )
+}
 
 interface ControlProps {
   field: Field
@@ -252,6 +411,16 @@ function FieldControl({ field, value, note, error, onChange, onNoteChange, files
             </option>
           ))}
         </select>
+      )
+
+    case 'autocomplete':
+      return (
+        <AutocompleteControl
+          field={field}
+          value={typeof value === 'string' ? value : ''}
+          error={error}
+          onChange={onChange}
+        />
       )
 
     case 'textarea':
