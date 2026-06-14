@@ -1,34 +1,36 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import Link from 'next/link'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { motion } from 'framer-motion'
-import { Phone, Smartphone, Mail, MapPin, Clock, ArrowRight, CheckCircle2 } from 'lucide-react'
-import { SectionTitle } from '@/components/ui/SectionTitle'
-import { Button } from '@/components/ui/Button'
-import { FormInput, FormTextarea, FormSelect, FormCheckbox } from '@/components/ui/FormField'
-import { FileUpload } from '@/components/ui/FileUpload'
-import { contactSchema, type ContactSchema } from '@/schemas/contact'
-import { submitContact } from '@/actions/contact'
-import { siteConfig } from '@/config/site'
-import { defaultPages } from '@/data/sections'
-import type { SiteContent } from '@/lib/content'
-import type { KontaktPageCopy } from '@/types'
+import { useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { motion } from "framer-motion";
+import { Phone, Smartphone, Mail, MapPin, Clock, ArrowRight, CheckCircle2 } from "lucide-react";
+import { SectionTitle } from "@/components/ui/SectionTitle";
+import { Button } from "@/components/ui/Button";
+import { FormInput, FormTextarea, FormSelect, FormCheckbox } from "@/components/ui/FormField";
+import { FileUpload } from "@/components/ui/FileUpload";
+import { contactSchema, type ContactSchema } from "@/schemas/contact";
+import { submitContact } from "@/actions/contact";
+import { siteConfig } from "@/config/site";
+import { defaultPages } from "@/data/sections";
+import type { SiteContent } from "@/lib/content";
+import type { KontaktPageCopy } from "@/types";
+import { isEmpty } from "@/lib/utils";
 
 export function KontaktClient({
   copy = defaultPages.kontakt,
   contact = siteConfig.contact,
   openingHours = siteConfig.openingHours,
 }: {
-  copy?: KontaktPageCopy
-  contact?: SiteContent['contact']
-  openingHours?: SiteContent['openingHours']
+  copy?: KontaktPageCopy;
+  contact?: SiteContent["contact"];
+  openingHours?: SiteContent["openingHours"];
 }) {
-  const [submitSuccess, setSubmitSuccess] = useState(false)
-  const [submitError, setSubmitError] = useState('')
-  const [files, setFiles] = useState<File[]>([])
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState("");
+  const [files, setFiles] = useState<File[]>([]);
 
   const {
     register,
@@ -37,45 +39,46 @@ export function KontaktClient({
     formState: { errors, isSubmitting },
   } = useForm<ContactSchema>({
     resolver: zodResolver(contactSchema),
-  })
+  });
 
   const onSubmit = async (data: ContactSchema) => {
-    setSubmitError('')
-    const formData = new FormData()
-    formData.append('vorname', data.vorname)
-    formData.append('nachname', data.nachname)
-    formData.append('email', data.email)
-    formData.append('telefon', data.telefon ?? '')
-    formData.append('betreff', data.betreff)
-    formData.append('nachricht', data.nachricht)
-    formData.append('datenschutz', String(data.datenschutz))
-    for (const file of files) formData.append('files', file)
+    setSubmitError("");
+    const formData = new FormData();
+    formData.append("vorname", data.vorname);
+    formData.append("nachname", data.nachname);
+    formData.append("email", data.email);
+    formData.append("telefon", data.telefon ?? "");
+    formData.append("betreff", data.betreff);
+    formData.append("nachricht", data.nachricht);
+    formData.append("datenschutz", String(data.datenschutz));
+    for (const file of files) formData.append("files", file);
 
-    const result = await submitContact(formData)
+    const result = await submitContact(formData);
     if (result.success) {
-      setSubmitSuccess(true)
-      reset()
-      setFiles([])
+      setSubmitSuccess(true);
+      reset();
+      setFiles([]);
     } else {
-      setSubmitError(result.message)
+      setSubmitError(result.message);
     }
-  }
+  };
 
-  const addressValue = `${contact.address.street}, ${contact.address.zip} ${contact.address.city}`
-  const mapsHref = `https://maps.google.com/?q=${encodeURIComponent(addressValue)}`
+  const addressValue = `${contact.address.street}, ${contact.address.zip} ${contact.address.city}`;
+  // const mapsHref = `https://maps.google.com/?q=${encodeURIComponent(addressValue)}`;
+  const mapsHref = "";
 
   const contactInfo = [
     {
       icon: Phone,
       label: copy.contactLabels.phone,
       value: contact.phone,
-      href: `tel:${contact.phone.replace(/\s/g, '')}`,
+      href: `tel:${contact.phone.replace(/\s/g, "")}`,
     },
     {
       icon: Smartphone,
       label: copy.contactLabels.mobile,
       value: contact.mobile,
-      href: `tel:${contact.mobile.replace(/\s/g, '')}`,
+      href: `tel:${contact.mobile.replace(/\s/g, "")}`,
     },
     {
       icon: Mail,
@@ -95,7 +98,7 @@ export function KontaktClient({
       value: `${openingHours.weekdays} · ${openingHours.saturday}`,
       href: undefined,
     },
-  ]
+  ];
 
   return (
     <>
@@ -103,7 +106,9 @@ export function KontaktClient({
       <div className="bg-aman-cream pt-28 md:pt-36 pb-14 border-b border-aman-border">
         <div className="container-aman">
           <nav aria-label="Brotkrümel" className="flex items-center gap-2 text-sm text-aman-text-muted mb-5">
-            <Link href="/" className="hover:text-aman-gold transition-colors">Startseite</Link>
+            <Link href="/" className="hover:text-aman-gold transition-colors">
+              Startseite
+            </Link>
             <span>/</span>
             <span className="text-aman-charcoal">{copy.breadcrumb}</span>
           </nav>
@@ -117,9 +122,7 @@ export function KontaktClient({
           <div className="grid lg:grid-cols-[1fr_420px] gap-14 lg:gap-20">
             {/* Contact Form */}
             <div>
-              <h2 className="font-serif text-2xl text-aman-charcoal mb-8">
-                {copy.formHeading}
-              </h2>
+              <h2 className="font-serif text-2xl text-aman-charcoal mb-8">{copy.formHeading}</h2>
 
               {submitSuccess ? (
                 <motion.div
@@ -130,23 +133,14 @@ export function KontaktClient({
                   <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mb-5">
                     <CheckCircle2 size={32} className="text-green-600" />
                   </div>
-                  <h3 className="font-serif text-2xl text-aman-charcoal mb-3">
-                    {copy.successTitle}
-                  </h3>
-                  <p className="text-aman-text-muted mb-6 max-w-md">
-                    {copy.successText}
-                  </p>
+                  <h3 className="font-serif text-2xl text-aman-charcoal mb-3">{copy.successTitle}</h3>
+                  <p className="text-aman-text-muted mb-6 max-w-md">{copy.successText}</p>
                   <Button variant="secondary" onClick={() => setSubmitSuccess(false)} size="sm">
                     {copy.successButton}
                   </Button>
                 </motion.div>
               ) : (
-                <form
-                  onSubmit={handleSubmit(onSubmit)}
-                  className="space-y-5"
-                  noValidate
-                  aria-label="Kontaktformular"
-                >
+                <form onSubmit={handleSubmit(onSubmit)} className="space-y-5" noValidate aria-label="Kontaktformular">
                   <div className="grid sm:grid-cols-2 gap-5">
                     <FormInput
                       label="Vorname"
@@ -154,7 +148,7 @@ export function KontaktClient({
                       placeholder="Max"
                       autoComplete="given-name"
                       error={errors.vorname?.message}
-                      {...register('vorname')}
+                      {...register("vorname")}
                     />
                     <FormInput
                       label="Nachname"
@@ -162,7 +156,7 @@ export function KontaktClient({
                       placeholder="Mustermann"
                       autoComplete="family-name"
                       error={errors.nachname?.message}
-                      {...register('nachname')}
+                      {...register("nachname")}
                     />
                   </div>
 
@@ -173,7 +167,7 @@ export function KontaktClient({
                     placeholder="max@beispiel.de"
                     autoComplete="email"
                     error={errors.email?.message}
-                    {...register('email')}
+                    {...register("email")}
                   />
 
                   <FormInput
@@ -182,7 +176,7 @@ export function KontaktClient({
                     placeholder="+49 69 123 456 789"
                     autoComplete="tel"
                     error={errors.telefon?.message}
-                    {...register('telefon')}
+                    {...register("telefon")}
                   />
 
                   <FormSelect
@@ -191,7 +185,7 @@ export function KontaktClient({
                     placeholder={copy.betreffPlaceholder}
                     options={copy.betreffOptions}
                     error={errors.betreff?.message}
-                    {...register('betreff')}
+                    {...register("betreff")}
                   />
 
                   <FormTextarea
@@ -200,7 +194,7 @@ export function KontaktClient({
                     placeholder="Beschreiben Sie Ihr Anliegen oder Projekt..."
                     rows={6}
                     error={errors.nachricht?.message}
-                    {...register('nachricht')}
+                    {...register("nachricht")}
                   />
 
                   <FileUpload
@@ -217,12 +211,11 @@ export function KontaktClient({
                         <Link href="/datenschutz" className="text-aman-gold underline" target="_blank">
                           {copy.consent.linkText}
                         </Link>
-                        {copy.consent.suffix}{' '}
-                        <span className="text-aman-gold">*</span>
+                        {copy.consent.suffix} <span className="text-aman-gold">*</span>
                       </>
                     }
                     error={errors.datenschutz?.message}
-                    {...register('datenschutz')}
+                    {...register("datenschutz")}
                   />
 
                   {submitError && (
@@ -256,12 +249,12 @@ export function KontaktClient({
             {/* Contact Info Sidebar */}
             <div className="space-y-8">
               <div>
-                <h2 className="font-serif text-2xl text-aman-charcoal mb-6">
-                  {copy.sidebarHeading}
-                </h2>
-                <div className="space-y-4">
+                <h2 className="font-serif text-2xl text-aman-charcoal mb-6">{copy.sidebarHeading}</h2>
+                <div className="flex flex-col gap-2">
                   {contactInfo.map((item) => {
-                    const Icon = item.icon
+                    if (isEmpty(item.value)) return null;
+
+                    const Icon = item.icon;
                     const content = (
                       <div className="flex items-start gap-4 p-4 rounded-xl border border-aman-border hover:border-aman-gold hover:shadow-soft transition-all duration-200 group">
                         <div className="w-10 h-10 rounded-lg bg-aman-cream flex items-center justify-center shrink-0 group-hover:bg-aman-gold/10 transition-colors">
@@ -271,52 +264,53 @@ export function KontaktClient({
                           <p className="text-xs font-medium uppercase tracking-wider text-aman-text-light mb-0.5">
                             {item.label}
                           </p>
-                          <p className="text-sm text-aman-charcoal font-medium leading-relaxed">
-                            {item.value}
-                          </p>
+                          <p className="text-sm text-aman-charcoal font-medium leading-relaxed">{item.value}</p>
                         </div>
                       </div>
-                    )
+                    );
                     return item.href ? (
                       <a
                         key={item.label}
                         href={item.href}
-                        target={item.href.startsWith('https') ? '_blank' : undefined}
-                        rel={item.href.startsWith('https') ? 'noopener noreferrer' : undefined}
+                        target={item.href.startsWith("https") ? "_blank" : undefined}
+                        rel={item.href.startsWith("https") ? "noopener noreferrer" : undefined}
                         aria-label={`${item.label}: ${item.value}`}
                       >
                         {content}
                       </a>
                     ) : (
                       <div key={item.label}>{content}</div>
-                    )
+                    );
                   })}
                 </div>
               </div>
 
-              {/* Map placeholder */}
-              <div className="rounded-xl overflow-hidden border border-aman-border aspect-video bg-aman-cream flex items-center justify-center">
-                <div className="text-center p-6">
-                  <MapPin size={32} className="text-aman-gold mx-auto mb-3" />
-                  <p className="text-sm text-aman-text-muted">
-                    {contact.address.street}
-                    <br />
-                    {contact.address.zip} {contact.address.city}
-                  </p>
-                  <a
-                    href={mapsHref}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-block mt-3 text-xs text-aman-gold underline"
-                  >
-                    {copy.mapLinkLabel}
-                  </a>
+              {/* Location photo */}
+              <a
+                href={mapsHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative block aspect-video overflow-hidden rounded-xl border border-aman-border"
+                aria-label={`${contact.address.street}, ${contact.address.zip} ${contact.address.city} – ${copy.mapLinkLabel}`}
+              >
+                <Image
+                  src="/location.jpeg"
+                  alt={`${contact.address.street}, ${contact.address.zip} ${contact.address.city}`}
+                  fill
+                  sizes="(min-width: 1024px) 420px, 100vw"
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-linear-to-t from-aman-charcoal/80 via-aman-charcoal/10 to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 flex items-end gap-3 p-4">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-aman-gold/90">
+                    <MapPin size={18} className="text-white" />
+                  </div>
                 </div>
-              </div>
+              </a>
             </div>
           </div>
         </div>
       </section>
     </>
-  )
+  );
 }
