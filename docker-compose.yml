@@ -27,14 +27,14 @@ services:
       - "traefik.docker.network=traefik"
 
       # HTTPS router (serves the app)
-      - "traefik.http.routers.aman.rule=Host(`aman.mehdify.com`)"
+      - "traefik.http.routers.aman.rule=Host(`fliesen-aman.de`)"
       - "traefik.http.routers.aman.entrypoints=websecure"
       - "traefik.http.routers.aman.tls.certresolver=letsencrypt"
       - "traefik.http.routers.aman.service=aman"
       - "traefik.http.services.aman.loadbalancer.server.port=3000"
 
       # HTTP router → permanent redirect to HTTPS
-      - "traefik.http.routers.aman-web.rule=Host(`aman.mehdify.com`)"
+      - "traefik.http.routers.aman-web.rule=Host(`fliesen-aman.de`)"
       - "traefik.http.routers.aman-web.entrypoints=web"
       - "traefik.http.routers.aman-web.middlewares=aman-https-redirect"
       - "traefik.http.middlewares.aman-https-redirect.redirectscheme.scheme=https"
