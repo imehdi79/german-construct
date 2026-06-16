@@ -67,7 +67,7 @@ export function FileUpload({
                 'bg-white px-3 py-2 text-xs text-aman-text',
               )}
             >
-              <span className="flex items-center gap-2 truncate">
+              <span className="flex min-w-0 items-center gap-2">
                 <FileText size={14} className="shrink-0 text-aman-stone-400" />
                 <span className="truncate">{file.name}</span>
               </span>
