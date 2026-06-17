@@ -1,21 +1,21 @@
-'use client'
+"use client";
 
-import { useEffect, useRef } from 'react'
-import Image from 'next/image'
-import { motion, type Variants } from 'framer-motion'
-import { ArrowRight, CheckCircle2, ChevronDown } from 'lucide-react'
-import { Button } from '@/components/ui/Button'
-import { defaultHero } from '@/data/sections'
-import type { HeroCopy } from '@/types'
+import { useEffect, useRef } from "react";
+import Image from "next/image";
+import { motion, type Variants } from "framer-motion";
+import { ArrowRight, CheckCircle2, ChevronDown } from "lucide-react";
+import { Button } from "@/components/ui/Button";
+import { defaultHero } from "@/data/sections";
+import type { HeroCopy } from "@/types";
 
-const ease = [0.16, 1, 0.3, 1] as [number, number, number, number]
+const ease = [0.16, 1, 0.3, 1] as [number, number, number, number];
 
 const containerVariants: Variants = {
   hidden: {},
   visible: {
     transition: { staggerChildren: 0.12, delayChildren: 0.3 },
   },
-}
+};
 
 const itemVariants: Variants = {
   hidden: { opacity: 0, y: 28 },
@@ -24,33 +24,33 @@ const itemVariants: Variants = {
     y: 0,
     transition: { duration: 0.8, ease },
   },
-}
+};
 
 export function HeroSection({
   hero = defaultHero,
   trustIndicators = hero.trustIndicators,
 }: {
-  hero?: HeroCopy
-  trustIndicators?: string[]
+  hero?: HeroCopy;
+  trustIndicators?: string[];
 }) {
-  const heroRef = useRef<HTMLElement>(null)
+  const heroRef = useRef<HTMLElement>(null);
 
   // Parallax effect for the background on scroll
   useEffect(() => {
-    const hero = heroRef.current
-    if (!hero) return
+    const hero = heroRef.current;
+    if (!hero) return;
 
     const handleScroll = () => {
-      const scrollY = window.scrollY
-      const bg = hero.querySelector<HTMLElement>('[data-parallax]')
+      const scrollY = window.scrollY;
+      const bg = hero.querySelector<HTMLElement>("[data-parallax]");
       if (bg) {
-        bg.style.transform = `translateY(${scrollY * 0.3}px)`
+        bg.style.transform = `translateY(${scrollY * 0.3}px)`;
       }
-    }
+    };
 
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <section
@@ -59,11 +59,7 @@ export function HeroSection({
       aria-label="Hero Bereich"
     >
       {/* Background Image */}
-      <div
-        data-parallax
-        className="absolute inset-0 will-change-transform"
-        aria-hidden="true"
-      >
+      <div data-parallax className="absolute inset-0 will-change-transform" aria-hidden="true">
         <Image
           src={hero.image}
           alt=""
@@ -89,28 +85,18 @@ export function HeroSection({
 
       {/* Content */}
       <div className="relative z-10 container-aman pb-20 md:pb-28 pt-32 md:pt-40">
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          className="max-w-3xl"
-        >
+        <motion.div variants={containerVariants} initial="hidden" animate="visible" className="max-w-3xl">
           {/* Eyebrow */}
-          <motion.div
-            variants={itemVariants}
-            className="flex items-center gap-3 mb-6"
-          >
+          <motion.div variants={itemVariants} className="flex items-center gap-3 mb-6">
             <span className="gold-line" aria-hidden="true" />
-            <span className="text-aman-gold text-xs font-medium uppercase tracking-[0.2em]">
-              {hero.eyebrow}
-            </span>
+            <span className="text-aman-gold text-xs font-medium uppercase tracking-[0.2em]">{hero.eyebrow}</span>
           </motion.div>
 
           {/* Heading */}
           <motion.h1
             variants={itemVariants}
             className="text-white font-serif mb-6 leading-[1.1]"
-            style={{ fontSize: 'clamp(2.5rem, 7vw, 5.5rem)' }}
+            style={{ fontSize: "clamp(2.5rem, 7vw, 5.5rem)" }}
           >
             {hero.titleLine1}
             <br />
@@ -118,10 +104,7 @@ export function HeroSection({
           </motion.h1>
 
           {/* Subtitle */}
-          <motion.p
-            variants={itemVariants}
-            className="text-white/75 text-xl leading-relaxed mb-10 max-w-xl"
-          >
+          <motion.p variants={itemVariants} className="text-white/75 text-xl leading-relaxed mb-10 max-w-xl">
             {hero.subtitle}
           </motion.p>
 
@@ -130,12 +113,7 @@ export function HeroSection({
             variants={itemVariants}
             className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-14"
           >
-            <Button
-              href="/projektplaner"
-              variant="gold"
-              size="lg"
-              icon={<ArrowRight size={16} />}
-            >
+            <Button href="/projektplaner" variant="gold" size="lg" icon={<ArrowRight size={16} />}>
               {hero.ctaPrimary}
             </Button>
             <Button
@@ -149,10 +127,7 @@ export function HeroSection({
           </motion.div>
 
           {/* Trust indicators */}
-          <motion.div
-            variants={itemVariants}
-            className="flex flex-col sm:flex-row gap-4 sm:gap-6"
-          >
+          <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 sm:gap-6">
             {trustIndicators.map((indicator) => (
               <div key={indicator} className="flex items-center gap-2">
                 <CheckCircle2 size={15} className="text-aman-gold shrink-0" />
@@ -163,23 +138,6 @@ export function HeroSection({
         </motion.div>
       </div>
 
-      {/* Logo watermark */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.2, duration: 1 }}
-        className="absolute bottom-8 right-8 md:bottom-12 md:right-12 opacity-20 pointer-events-none"
-        aria-hidden="true"
-      >
-        <Image
-          src="/logo-no-background.png"
-          alt=""
-          width={120}
-          height={120}
-          className="object-contain brightness-0 invert"
-        />
-      </motion.div>
-
       {/* Scroll indicator */}
       <motion.div
         initial={{ opacity: 0 }}
@@ -189,13 +147,10 @@ export function HeroSection({
         aria-hidden="true"
       >
         <span className="text-[10px] uppercase tracking-widest">{hero.scrollLabel}</span>
-        <motion.div
-          animate={{ y: [0, 6, 0] }}
-          transition={{ repeat: Infinity, duration: 1.5, ease: 'easeInOut' }}
-        >
+        <motion.div animate={{ y: [0, 6, 0] }} transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}>
           <ChevronDown size={20} />
         </motion.div>
       </motion.div>
     </section>
-  )
+  );
 }
