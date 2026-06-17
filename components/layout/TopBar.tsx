@@ -5,7 +5,7 @@ import { isEmpty } from "@/lib/utils";
 
 export function TopBar({ contact = siteConfig.contact }: { contact?: SiteContent["contact"] }) {
   return (
-    <div className="fixed top-7 left-0 right-0 z-50 bg-aman-charcoal text-white/80 text-xs py-2.5 hidden md:block">
+    <div className="fixed top-0 left-0 right-0 z-50 bg-aman-charcoal text-white/80 text-xs py-2.5 hidden md:block">
       <div className="container-aman">
         <div className="flex items-center justify-end gap-6">
           {!isEmpty(contact.phone) && (

@@ -1,7 +1,6 @@
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { TopBar } from '@/components/layout/TopBar'
-import { ExperimentalBanner } from '@/components/layout/ExperimentalBanner'
 import { SmoothScrollProvider } from '@/components/providers/SmoothScrollProvider'
 import { CookieBanner } from '@/components/providers/CookieBanner'
 import { ScrollProgress } from '@/components/ui/ScrollProgress'
@@ -19,12 +18,11 @@ export default async function SiteLayout({
       {/* Skip to main content - accessibility */}
       <a
         href="#main-content"
-        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[9999] focus:bg-white focus:px-4 focus:py-2 focus:rounded-lg focus:shadow-lg focus:text-aman-charcoal focus:text-sm"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-9999 focus:bg-white focus:px-4 focus:py-2 focus:rounded-lg focus:shadow-lg focus:text-aman-charcoal focus:text-sm"
       >
         {site.nav.skipToContent}
       </a>
 
-      <ExperimentalBanner />
       <ScrollProgress />
       <TopBar contact={site.contact} />
       <Header nav={site.nav} contact={site.contact} />

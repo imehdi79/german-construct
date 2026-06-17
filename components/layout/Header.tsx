@@ -51,7 +51,7 @@ export function Header({
     <>
       <header
         className={cn(
-          'fixed top-7 md:top-16 left-0 right-0 z-50 transition-all duration-300',
+          'fixed top-0 md:top-9 left-0 right-0 z-50 transition-all duration-300',
           isTransparent
             ? 'bg-transparent'
             : 'bg-white/97 backdrop-blur-md border-b border-aman-border shadow-[0_1px_20px_rgba(26,25,23,0.05)]'

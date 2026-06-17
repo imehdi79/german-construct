@@ -9,46 +9,50 @@ interface LogoProps {
   priority?: boolean;
 }
 
+/**
+ * Brand logo. The "Aman" script stays as artwork; the "Fliesen · Naturstein"
+ * tagline is rendered as real text (Playfair) so it stays crisp and legible at
+ * header size, where the baked-in subtitle of the full artwork turned to mush.
+ *
+ * One navy artwork (`aman.webp`) is used everywhere: on dark/transparent
+ * surfaces (`variant="light"`) it is knocked out to white via
+ * `brightness-0 invert`, and the tagline switches to white.
+ */
 export function Logo({ variant = "dark", size = "md", className, priority = false }: LogoProps) {
   const isLight = variant === "light";
+
+  const scriptBox = size === "sm" ? "w-16 h-9" : "w-20 h-10 md:w-24 md:h-12";
+  const taglineSize = size === "sm" ? "text-[7px]" : "text-[10px] md:text-[11px]";
 
   return (
     <Link
       href="/"
-      className={cn("flex items-center gap-3 shrink-0 group", className)}
+      className={cn("flex items-center shrink-0 group", className)}
       aria-label="Fliesen-Naturstein AMAN – Zur Startseite"
     >
-      <div
-        className={cn(
-          "relative",
-          size === "sm" ? "w-20 h-10" : "w-20 h-10 md:w-48 md:h-20",
-          isLight && "brightness-0 invert",
-        )}
-      >
-        <Image
-          src="/logo-no-background.png"
-          alt="Fliesen-Naturstein AMAN"
-          fill
-          className={cn("object-contain md:scale-[1.5] scale-[2.1]")}
-          priority={priority}
-        />
-      </div>
-      {/* <div
-        className={cn(
-          'hidden sm:block transition-colors duration-300',
-          isLight ? 'text-white' : 'text-aman-charcoal'
-        )}
-      >
-        <p className="font-serif text-lg leading-none tracking-tight">AMAN</p>
-        <p
+      {/* Script wordmark + crisp text tagline */}
+      <span className="flex items-center gap-1 flex-row sm:flex-col">
+        <span className={cn("relative", scriptBox, isLight && "brightness-0 invert")}>
+          <Image
+            src="/aman.webp"
+            alt=""
+            fill
+            sizes="(min-width: 768px) 96px, 80px"
+            className="object-contain"
+            priority={priority}
+          />
+        </span>
+        <span
           className={cn(
-            'text-[10px] uppercase tracking-[0.15em] mt-0.5',
-            isLight ? 'text-white/50' : 'opacity-60'
+            "font-serif font-bold uppercase leading-none whitespace-nowrap",
+            taglineSize,
+            isLight ? "text-white" : "text-aman-charcoal",
           )}
+          style={{ letterSpacing: "0.16em" }}
         >
-          Fliesen · Naturstein
-        </p>
-      </div> */}
+          Fliesen <span className="text-aman-gold">·</span> Naturstein
+        </span>
+      </span>
     </Link>
   );
 }
