@@ -59,3 +59,8 @@ export function mapRange(value: number, inMin: number, inMax: number, outMin: nu
 export function isEmpty(value: string) {
   return value === "" || value === "-" || value === "#";
 }
+
+export function scrollTo(id: string) {
+  const el = document.getElementById(id);
+  if (el) window.scrollTo({ top: el.offsetTop - 85, behavior: "smooth" });
+}
