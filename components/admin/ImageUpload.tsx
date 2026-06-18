@@ -1,11 +1,10 @@
-'use client'
+"use client";
 
-import { useRef, useState } from 'react'
-import Image from 'next/image'
-import { Upload, Loader2, ImageIcon } from 'lucide-react'
-import { uploadImage } from '@/actions/upload'
-import { inputClass } from './fields'
-import { cn } from '@/lib/utils'
+import { useRef, useState } from "react";
+import Image from "next/image";
+import { Upload, Loader2, ImageIcon } from "lucide-react";
+import { inputClass } from "./fields";
+import { cn } from "@/lib/utils";
 
 /**
  * Admin image field: drag-and-drop / click to upload an image, which is stored
@@ -18,30 +17,31 @@ export function ImageUpload({
   value,
   onChange,
 }: {
-  label: string
-  value: string
-  onChange: (url: string) => void
+  label: string;
+  value: string;
+  onChange: (url: string) => void;
 }) {
-  const inputRef = useRef<HTMLInputElement>(null)
-  const [busy, setBusy] = useState(false)
-  const [error, setError] = useState('')
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState("");
 
   const handleFile = async (file: File | null | undefined) => {
-    if (!file) return
-    setBusy(true)
-    setError('')
+    if (!file) return;
+    setBusy(true);
+    setError("");
     try {
-      const data = new FormData()
-      data.append('file', file)
-      const res = await uploadImage(data)
-      if (res.success && res.url) onChange(res.url)
-      else setError(res.message ?? 'Upload fehlgeschlagen.')
+      const data = new FormData();
+      data.append("file", file);
+      const res = await fetch("/api/admin/upload", { method: "POST", body: data });
+      const result = await res.json();
+      if (result.success && result.url) onChange(result.url);
+      else setError(result.message ?? "Upload fehlgeschlagen.");
     } catch {
-      setError('Upload fehlgeschlagen. Bitte erneut versuchen.')
+      setError("Upload fehlgeschlagen. Bitte erneut versuchen.");
     } finally {
-      setBusy(false)
+      setBusy(false);
     }
-  }
+  };
 
   return (
     <div className="space-y-2">
@@ -63,12 +63,12 @@ export function ImageUpload({
         <label
           onDragOver={(e) => e.preventDefault()}
           onDrop={(e) => {
-            e.preventDefault()
-            handleFile(e.dataTransfer.files?.[0])
+            e.preventDefault();
+            handleFile(e.dataTransfer.files?.[0]);
           }}
           className={cn(
-            'flex flex-1 cursor-pointer flex-col items-center justify-center gap-1 rounded-lg border-2 border-dashed px-4 py-5 text-center transition-colors',
-            busy ? 'border-aman-gold/50 bg-aman-gold/5' : 'border-gray-200 hover:border-aman-gold',
+            "flex flex-1 cursor-pointer flex-col items-center justify-center gap-1 rounded-lg border-2 border-dashed px-4 py-5 text-center transition-colors",
+            busy ? "border-aman-gold/50 bg-aman-gold/5" : "border-gray-200 hover:border-aman-gold",
           )}
         >
           {busy ? (
@@ -77,7 +77,7 @@ export function ImageUpload({
             <Upload size={18} className="text-gray-400" />
           )}
           <span className="text-xs text-gray-500">
-            {busy ? 'Wird hochgeladen…' : 'Bild hochladen oder hierher ziehen'}
+            {busy ? "Wird hochgeladen…" : "Bild hochladen oder hierher ziehen"}
           </span>
           <input
             ref={inputRef}
@@ -101,5 +101,5 @@ export function ImageUpload({
 
       {error && <p className="text-xs text-red-500">{error}</p>}
     </div>
-  )
+  );
 }

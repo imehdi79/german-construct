@@ -35,38 +35,3 @@ export const contactSchema = z.object({
 })
 
 export type ContactSchema = z.infer<typeof contactSchema>
-
-export const projectInquirySchema = z.object({
-  vorname: z
-    .string()
-    .min(2, 'Vorname muss mindestens 2 Zeichen haben'),
-  nachname: z
-    .string()
-    .min(2, 'Nachname muss mindestens 2 Zeichen haben'),
-  email: z
-    .string()
-    .email('Bitte geben Sie eine gültige E-Mail-Adresse ein'),
-  telefon: z
-    .string()
-    .optional(),
-  projektTyp: z
-    .string()
-    .min(1, 'Bitte wählen Sie einen Projekttyp aus'),
-  flaeche: z
-    .string()
-    .optional(),
-  zeitraum: z
-    .string()
-    .optional(),
-  nachricht: z
-    .string()
-    .min(10, 'Beschreiben Sie Ihr Projekt kurz (mindestens 10 Zeichen)')
-    .max(2000, 'Nachricht darf maximal 2000 Zeichen haben'),
-  datenschutz: z
-    .boolean()
-    .refine((val) => val === true, {
-      message: 'Sie müssen der Datenschutzerklärung zustimmen',
-    }),
-})
-
-export type ProjectInquirySchema = z.infer<typeof projectInquirySchema>

@@ -1,32 +1,31 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import Link from 'next/link'
-import { motion, AnimatePresence } from 'framer-motion'
-import { MapPin, Clock, Briefcase, ChevronDown, CheckCircle2, ArrowRight } from 'lucide-react'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { SectionTitle } from '@/components/ui/SectionTitle'
-import { Button } from '@/components/ui/Button'
-import { FormInput, FormTextarea, FormSelect, FormCheckbox } from '@/components/ui/FormField'
-import { FileUpload } from '@/components/ui/FileUpload'
-import { jobApplicationSchema, type JobApplicationSchema } from '@/schemas/jobs'
-import { submitJobApplication } from '@/actions/jobs'
-import { projectTypes } from '@/data/jobs'
-import { defaultPages } from '@/data/sections'
-import type { Job, StellenangebotePageCopy } from '@/types'
-import { cn } from '@/lib/utils'
+import { useState } from "react";
+import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
+import { MapPin, Clock, Briefcase, ChevronDown, CheckCircle2, ArrowRight } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { SectionTitle } from "@/components/ui/SectionTitle";
+import { Button } from "@/components/ui/Button";
+import { FormInput, FormTextarea, FormSelect, FormCheckbox } from "@/components/ui/FormField";
+import { FileUpload } from "@/components/ui/FileUpload";
+import { jobApplicationSchema, type JobApplicationSchema } from "@/schemas/jobs";
+import { projectTypes } from "@/data/jobs";
+import { defaultPages } from "@/data/sections";
+import type { Job, StellenangebotePageCopy } from "@/types";
+import { cn } from "@/lib/utils";
 
 function JobCard({
   job,
   onApply,
   copy,
 }: {
-  job: Job
-  onApply: (jobTitle: string) => void
-  copy: StellenangebotePageCopy
+  job: Job;
+  onApply: (jobTitle: string) => void;
+  copy: StellenangebotePageCopy;
 }) {
-  const [expanded, setExpanded] = useState(true)
+  const [expanded, setExpanded] = useState(true);
 
   return (
     <article className="bg-white rounded-2xl border border-aman-border overflow-hidden shadow-soft hover:shadow-card transition-all duration-300 hover:border-aman-gold/30">
@@ -76,10 +75,7 @@ function JobCard({
           aria-expanded={expanded}
         >
           {expanded ? copy.detailsHide : copy.detailsShow}
-          <ChevronDown
-            size={15}
-            className={cn('transition-transform duration-200', expanded && 'rotate-180')}
-          />
+          <ChevronDown size={15} className={cn("transition-transform duration-200", expanded && "rotate-180")} />
         </button>
       </div>
 
@@ -87,7 +83,7 @@ function JobCard({
         {expanded && (
           <motion.div
             initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
+            animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
             className="overflow-hidden"
@@ -122,12 +118,7 @@ function JobCard({
                 </div>
               </div>
               <div className="mt-6 pt-6 border-t border-aman-border">
-                <Button
-                  variant="gold"
-                  size="md"
-                  onClick={() => onApply(job.title)}
-                  icon={<ArrowRight size={15} />}
-                >
+                <Button variant="gold" size="md" onClick={() => onApply(job.title)} icon={<ArrowRight size={15} />}>
                   {copy.applyLabelLong}
                 </Button>
               </div>
@@ -136,21 +127,21 @@ function JobCard({
         )}
       </AnimatePresence>
     </article>
-  )
+  );
 }
 
 export function StellenangeboteClient({
   jobs,
   copy = defaultPages.stellenangebote,
 }: {
-  jobs: Job[]
-  copy?: StellenangebotePageCopy
+  jobs: Job[];
+  copy?: StellenangebotePageCopy;
 }) {
-  const [selectedJob, setSelectedJob] = useState<string>('')
-  const [showForm, setShowForm] = useState(false)
-  const [submitSuccess, setSubmitSuccess] = useState(false)
-  const [submitError, setSubmitError] = useState('')
-  const [files, setFiles] = useState<File[]>([])
+  const [selectedJob, setSelectedJob] = useState<string>("");
+  const [showForm, setShowForm] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState("");
+  const [files, setFiles] = useState<File[]>([]);
 
   const {
     register,
@@ -160,39 +151,42 @@ export function StellenangeboteClient({
   } = useForm<JobApplicationSchema>({
     resolver: zodResolver(jobApplicationSchema),
     defaultValues: { position: selectedJob },
-  })
+  });
 
   const handleApply = (jobTitle: string) => {
-    setSelectedJob(jobTitle)
-    reset({ position: jobTitle })
-    setShowForm(true)
-    setSubmitSuccess(false)
+    setSelectedJob(jobTitle);
+    reset({ position: jobTitle });
+    setShowForm(true);
+    setSubmitSuccess(false);
     setTimeout(() => {
-      document.getElementById('bewerbungsformular')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-    }, 100)
-  }
+      document.getElementById("bewerbungsformular")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 100);
+  };
 
   const onSubmit = async (data: JobApplicationSchema) => {
-    setSubmitError('')
-    const formData = new FormData()
-    formData.append('vorname', data.vorname)
-    formData.append('nachname', data.nachname)
-    formData.append('email', data.email)
-    formData.append('telefon', data.telefon ?? '')
-    formData.append('position', data.position)
-    formData.append('anschreiben', data.anschreiben)
-    formData.append('datenschutz', String(data.datenschutz))
-    for (const file of files) formData.append('files', file)
+    setSubmitError("");
+    const formData = new FormData();
+    formData.append("vorname", data.vorname);
+    formData.append("nachname", data.nachname);
+    formData.append("email", data.email);
+    formData.append("telefon", data.telefon ?? "");
+    formData.append("position", data.position);
+    formData.append("anschreiben", data.anschreiben);
+    formData.append("datenschutz", String(data.datenschutz));
+    for (const file of files) formData.append("files", file);
 
-    const result = await submitJobApplication(formData)
+    // ✅ Call the API route instead of the server action directly
+    const res = await fetch("/api/jobs/apply", { method: "POST", body: formData });
+    const result = await res.json();
+
     if (result.success) {
-      setSubmitSuccess(true)
-      reset()
-      setFiles([])
+      setSubmitSuccess(true);
+      reset();
+      setFiles([]);
     } else {
-      setSubmitError(result.message)
+      setSubmitError(result.message);
     }
-  }
+  };
 
   return (
     <>
@@ -200,15 +194,13 @@ export function StellenangeboteClient({
       <div className="bg-aman-cream pt-28 md:pt-36 pb-14 border-b border-aman-border">
         <div className="container-aman">
           <nav aria-label="Brotkrümel" className="flex items-center gap-2 text-sm text-aman-text-muted mb-5">
-            <Link href="/" className="hover:text-aman-gold transition-colors">Startseite</Link>
+            <Link href="/" className="hover:text-aman-gold transition-colors">
+              Startseite
+            </Link>
             <span>/</span>
             <span className="text-aman-charcoal">{copy.breadcrumb}</span>
           </nav>
-          <SectionTitle
-            eyebrow={copy.eyebrow}
-            title={copy.title}
-            subtitle={copy.subtitle}
-          />
+          <SectionTitle eyebrow={copy.eyebrow} title={copy.title} subtitle={copy.subtitle} />
         </div>
       </div>
 
@@ -223,12 +215,8 @@ export function StellenangeboteClient({
 
           {/* Spontaneous Application */}
           <div className="bg-aman-cream rounded-2xl p-8 md:p-10 border border-aman-border text-center">
-            <h3 className="font-serif text-2xl text-aman-charcoal mb-3">
-              {copy.spontaneousTitle}
-            </h3>
-            <p className="text-aman-text-muted mb-6 max-w-lg mx-auto">
-              {copy.spontaneousText}
-            </p>
+            <h3 className="font-serif text-2xl text-aman-charcoal mb-3">{copy.spontaneousTitle}</h3>
+            <p className="text-aman-text-muted mb-6 max-w-lg mx-auto">{copy.spontaneousText}</p>
             <Button
               variant="primary"
               size="md"
@@ -269,12 +257,8 @@ export function StellenangeboteClient({
                   <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mb-5">
                     <CheckCircle2 size={32} className="text-green-600" />
                   </div>
-                  <h3 className="font-serif text-2xl text-aman-charcoal mb-3">
-                    {copy.successTitle}
-                  </h3>
-                  <p className="text-aman-text-muted max-w-md">
-                    {copy.successText}
-                  </p>
+                  <h3 className="font-serif text-2xl text-aman-charcoal mb-3">{copy.successTitle}</h3>
+                  <p className="text-aman-text-muted max-w-md">{copy.successText}</p>
                 </motion.div>
               ) : (
                 <form
@@ -288,14 +272,14 @@ export function StellenangeboteClient({
                       required
                       autoComplete="given-name"
                       error={errors.vorname?.message}
-                      {...register('vorname')}
+                      {...register("vorname")}
                     />
                     <FormInput
                       label="Nachname"
                       required
                       autoComplete="family-name"
                       error={errors.nachname?.message}
-                      {...register('nachname')}
+                      {...register("nachname")}
                     />
                   </div>
 
@@ -305,7 +289,7 @@ export function StellenangeboteClient({
                     required
                     autoComplete="email"
                     error={errors.email?.message}
-                    {...register('email')}
+                    {...register("email")}
                   />
 
                   <FormInput
@@ -313,7 +297,7 @@ export function StellenangeboteClient({
                     type="tel"
                     autoComplete="tel"
                     error={errors.telefon?.message}
-                    {...register('telefon')}
+                    {...register("telefon")}
                   />
 
                   <FormSelect
@@ -325,7 +309,7 @@ export function StellenangeboteClient({
                     ]}
                     placeholder={copy.positionPlaceholder}
                     error={errors.position?.message}
-                    {...register('position')}
+                    {...register("position")}
                   />
 
                   <FormTextarea
@@ -335,7 +319,7 @@ export function StellenangeboteClient({
                     placeholder={copy.coverLetterPlaceholder}
                     hint={copy.coverLetterHint}
                     error={errors.anschreiben?.message}
-                    {...register('anschreiben')}
+                    {...register("anschreiben")}
                   />
 
                   <FileUpload
@@ -352,12 +336,11 @@ export function StellenangeboteClient({
                         <Link href="/datenschutz" className="text-aman-gold underline" target="_blank">
                           {copy.consent.linkText}
                         </Link>
-                        {copy.consent.suffix}{' '}
-                        <span className="text-aman-gold">*</span>
+                        {copy.consent.suffix} <span className="text-aman-gold">*</span>
                       </>
                     }
                     error={errors.datenschutz?.message}
-                    {...register('datenschutz')}
+                    {...register("datenschutz")}
                   />
 
                   {submitError && (
@@ -376,12 +359,7 @@ export function StellenangeboteClient({
                     >
                       {isSubmitting ? copy.submittingLabel : copy.submitLabel}
                     </Button>
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      size="lg"
-                      onClick={() => setShowForm(false)}
-                    >
+                    <Button type="button" variant="ghost" size="lg" onClick={() => setShowForm(false)}>
                       {copy.cancelLabel}
                     </Button>
                   </div>
@@ -392,5 +370,5 @@ export function StellenangeboteClient({
         )}
       </AnimatePresence>
     </>
-  )
+  );
 }

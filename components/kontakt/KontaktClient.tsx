@@ -12,7 +12,6 @@ import { Button } from "@/components/ui/Button";
 import { FormInput, FormTextarea, FormSelect, FormCheckbox } from "@/components/ui/FormField";
 import { FileUpload } from "@/components/ui/FileUpload";
 import { contactSchema, type ContactSchema } from "@/schemas/contact";
-import { submitContact } from "@/actions/contact";
 import { siteConfig } from "@/config/site";
 import { defaultPages } from "@/data/sections";
 import type { SiteContent } from "@/lib/content";
@@ -53,7 +52,9 @@ export function KontaktClient({
     formData.append("datenschutz", String(data.datenschutz));
     for (const file of files) formData.append("files", file);
 
-    const result = await submitContact(formData);
+    const res = await fetch("/api/contact", { method: "POST", body: formData });
+    const result = await res.json();
+
     if (result.success) {
       setSubmitSuccess(true);
       reset();

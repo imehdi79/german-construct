@@ -8,7 +8,6 @@ import { SectionTitle } from "@/components/ui/SectionTitle";
 import { FormBuilder } from "@/components/Form-Builder/FormBuilder";
 import { formSchemas } from "@/components/Form-Builder/schemas";
 import type { Step } from "@/components/Form-Builder/types";
-import { submitPlannerInquiry } from "@/actions/contact";
 import { plannerCards as defaultCards } from "@/data/plannerCards";
 import { defaultSections } from "@/data/sections";
 import { resolvePlannerIcon } from "@/lib/plannerIcons";
@@ -216,12 +215,13 @@ export function ProjektplanerSection({
                     onClose={() => setSelectedCard(null)}
                     onSubmit={(values, files) => {
                       const formData = new FormData();
+                      formData.append("_action", "planner");
                       formData.append("projektTyp", selected.title);
                       formData.append("values", JSON.stringify(values));
                       for (const list of Object.values(files ?? {})) {
                         for (const file of list) formData.append("files", file);
                       }
-                      return submitPlannerInquiry(formData);
+                      return fetch("/api/contact", { method: "POST", body: formData }).then((r) => r.json());
                     }}
                   />
                 </motion.div>
