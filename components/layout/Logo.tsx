@@ -31,7 +31,7 @@ export function Logo({ variant = "dark", size = "md", className, priority = fals
       aria-label="Fliesen-Naturstein AMAN – Zur Startseite"
     >
       {/* Script wordmark + crisp text tagline */}
-      <span className="flex items-center gap-1 flex-row sm:flex-col">
+      <span className="flex items-center gap-1 flex-col">
         <span className={cn("relative", scriptBox, isLight && "brightness-0 invert")}>
           <Image
             src="/aman.webp"
@@ -50,7 +50,7 @@ export function Logo({ variant = "dark", size = "md", className, priority = fals
           )}
           style={{ letterSpacing: "0.16em" }}
         >
-          Fliesen <span className="text-aman-gold">·</span> Naturstein
+          Fliesen AMAN
         </span>
       </span>
     </Link>
