@@ -14,12 +14,6 @@ export const stats: Stat[] = [
     description: 'Auf unsere Verlege- und Verfugungsarbeiten',
   },
   {
-    value: 24,
-    suffix: 'h',
-    label: 'Schnelle Rückmeldung',
-    description: 'Antwort auf Ihre Anfrage werktags',
-  },
-  {
     value: 100,
     suffix: '%',
     label: 'Meisterqualität',

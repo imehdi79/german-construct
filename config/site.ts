@@ -35,7 +35,6 @@ export const siteConfig = {
   stats: {
     warranty: 5,
     fixedPrice: 100,
-    responseTime: 24,
     quality: 100,
   },
 

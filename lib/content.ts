@@ -91,7 +91,6 @@ export const defaultSiteContent: SiteContent = {
   stats: [
     { value: 100, suffix: '%', label: 'Festpreisgarantie', description: 'Verbindliche Angebote ohne versteckte Kosten' },
     { value: 5, suffix: ' Jahre', label: 'Gewährleistung', description: 'Auf unsere Verlege- und Verfugungsarbeiten' },
-    { value: 24, suffix: 'h', label: 'Schnelle Rückmeldung', description: 'Antwort auf Ihre Anfrage werktags' },
     { value: 100, suffix: '%', label: 'Meisterqualität', description: 'Jedes Projekt vom Meister abgenommen' },
   ],
   nav: defaultNav,

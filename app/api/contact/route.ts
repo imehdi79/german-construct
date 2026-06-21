@@ -77,14 +77,12 @@ async function handleContact(formData: FormData) {
       subject: "Wir haben Ihre Nachricht erhalten",
       text:
         `Hallo ${fullName},\n\n` +
-        "vielen Dank für Ihre Nachricht. Wir haben Ihre Anfrage erhalten und melden uns " +
-        "innerhalb von 24 Stunden bei Ihnen.\n\n" +
+        "vielen Dank für Ihre Nachricht. Wir haben Ihre Anfrage erhalten.\n\n" +
         `Ihre Angaben zur Übersicht:\n\n${text}\n\n` +
         "Mit freundlichen Grüßen\nIhr Team von Fliesen & Naturstein Aman",
       html:
         `<p>Hallo ${escapeHtml(fullName)},</p>` +
-        "<p>vielen Dank für Ihre Nachricht. Wir haben Ihre Anfrage erhalten und melden uns " +
-        "innerhalb von 24 Stunden bei Ihnen.</p>" +
+        "<p>vielen Dank für Ihre Nachricht. Wir haben Ihre Anfrage erhalten.</p>" +
         `<p><strong>Ihre Angaben zur Übersicht:</strong></p>${html}` +
         "<p>Mit freundlichen Grüßen<br/>Ihr Team von Fliesen &amp; Naturstein Aman</p>",
     });
@@ -94,7 +92,7 @@ async function handleContact(formData: FormData) {
 
   return NextResponse.json({
     success: true,
-    message: "Vielen Dank für Ihre Nachricht! Wir melden uns innerhalb von 24 Stunden bei Ihnen.",
+    message: "Vielen Dank für Ihre Nachricht!",
   });
 }
 
@@ -164,6 +162,6 @@ async function handlePlanner(formData: FormData) {
 
   return NextResponse.json({
     success: true,
-    message: "Vielen Dank! Wir melden uns innerhalb von 24 Stunden mit Ihrem unverbindlichen Angebot.",
+    message: "Vielen Dank! Wir melden uns mit Ihrem unverbindlichen Angebot.",
   });
 }

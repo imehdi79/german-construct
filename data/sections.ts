@@ -117,7 +117,7 @@ export const defaultSections: SectionsContent = {
     eyebrow: 'Ihr Projekt beginnt hier',
     title: 'Was dürfen wir für Sie planen?',
     subtitle:
-      'Wählen Sie Ihr Projektvorhaben und erhalten Sie innerhalb von 24 Stunden ein unverbindliches Angebot von uns.',
+      'Wählen Sie Ihr Projektvorhaben und erhalten Sie ein unverbindliches Angebot von uns.',
     emptyTitle: 'Wählen Sie Ihr Projektvorhaben',
     emptySubtitle:
       'Tippen Sie auf eine Karte und erhalten Sie Schritt für Schritt Ihr unverbindliches Angebot.',
@@ -179,7 +179,7 @@ export const defaultPages: PagesContent = {
     eyebrow: 'Sprechen Sie uns an',
     title: 'Kontaktieren Sie uns',
     subtitle:
-      'Wir freuen uns auf Ihre Anfrage und melden uns innerhalb von 24 Stunden bei Ihnen.',
+      'Wir freuen uns auf Ihre Anfrage.',
     formHeading: 'Schreiben Sie uns',
     sidebarHeading: 'Kontaktdaten',
     betreffPlaceholder: 'Bitte wählen Sie einen Betreff',
@@ -197,7 +197,7 @@ export const defaultPages: PagesContent = {
     submittingLabel: 'Wird gesendet…',
     successTitle: 'Nachricht gesendet!',
     successText:
-      'Vielen Dank für Ihre Nachricht! Wir melden uns innerhalb von 24 Stunden bei Ihnen zurück.',
+      'Vielen Dank für Ihre Nachricht.',
     successButton: 'Neue Nachricht senden',
     consent: {
       prefix: 'Ich habe die ',
@@ -261,9 +261,8 @@ export const defaultPages: PagesContent = {
     eyebrow: 'Ihr Projekt, unser Handwerk',
     title: 'Kostenloses Angebot anfragen',
     subtitle:
-      'Wählen Sie Ihr Projektvorhaben und schildern Sie uns kurz Ihre Anforderungen. Wir melden uns innerhalb von 24 Stunden mit einem unverbindlichen Angebot.',
+      'Wählen Sie Ihr Projektvorhaben und schildern Sie uns kurz Ihre Anforderungen. Wir melden uns mit einem unverbindlichen Angebot.',
     infoStrip: [
-      { value: '24h', label: 'Antwortzeit', description: 'Wir melden uns innerhalb eines Werktages' },
       { value: '100%', label: 'Kostenlos', description: 'Unverbindliches Angebot ohne versteckte Kosten' },
       { value: 'Meister', label: 'Geführt vom Fachmann', description: 'Jedes Projekt wird vom Handwerksmeister begleitet' },
     ],
@@ -281,7 +280,7 @@ export const defaultSeo: SeoContent = {
     projektplaner: {
       title: 'Projektplaner',
       description:
-        'Planen Sie Ihr Fliesen- oder Natursteinprojekt online und erhalten Sie innerhalb von 24 Stunden ein kostenloses, unverbindliches Angebot.',
+        'Planen Sie Ihr Fliesen- oder Natursteinprojekt online und erhalten Sie ein kostenloses, unverbindliches Angebot.',
     },
     leistungen: {
       title: 'Leistungen',
