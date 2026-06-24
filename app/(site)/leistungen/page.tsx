@@ -14,6 +14,8 @@ export default async function LeistungenPage() {
   const [services, site] = await Promise.all([getServices(), getSiteContent()])
   const copy = site.pages.leistungen
 
+  // TEMP (test): structured data is built but not injected while SEO is off.
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
@@ -32,10 +34,11 @@ export default async function LeistungenPage() {
 
   return (
     <>
+      {/* TEMP (test): JSON-LD structured data disabled while SEO is off.
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      /> */}
 
       {/* Page Header */}
       <div className="bg-aman-cream pt-28 md:pt-36 pb-14 border-b border-aman-border">

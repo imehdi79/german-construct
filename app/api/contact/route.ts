@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { contactSchema } from "@/schemas/contact";
 import type { ContactSchema } from "@/schemas/contact";
 import { sendMail, escapeHtml, renderRows, collectAttachments, NOTIFY_TO } from "@/lib/email";
+import { TEST_MODE, testModeDisabledResponse } from "@/lib/test-mode";
 import type { FormValues } from "@/components/Form-Builder/types";
 
 function skippedNote(skipped: string[]): string {
@@ -11,6 +12,9 @@ function skippedNote(skipped: string[]): string {
 }
 
 export async function POST(req: NextRequest) {
+  // TEMP (test): no real mail while SITE_TEST_MODE is on.
+  if (TEST_MODE) return testModeDisabledResponse();
+
   const formData = await req.formData();
   const action = String(formData.get("_action") ?? "");
 

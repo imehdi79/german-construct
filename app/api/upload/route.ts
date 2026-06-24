@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { promises as fs } from 'fs'
 import path from 'path'
 import { isAuthenticated } from '@/lib/auth'
+import { TEST_MODE, testModeDisabledResponse } from '@/lib/test-mode'
 
 const UPLOAD_DIR = path.join(process.cwd(), 'public', 'uploads')
 const MAX_BYTES = 8 * 1024 * 1024
@@ -15,6 +16,9 @@ const ALLOWED_EXT: Record<string, string> = {
 }
 
 export async function POST(req: NextRequest) {
+  // TEMP (test): disable uploads while SITE_TEST_MODE is on.
+  if (TEST_MODE) return testModeDisabledResponse();
+
   if (!(await isAuthenticated())) {
     return NextResponse.json(
       { success: false, message: 'Nicht autorisiert. Bitte erneut anmelden.' },

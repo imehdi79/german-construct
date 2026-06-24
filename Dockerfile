@@ -11,6 +11,12 @@ RUN bun install --frozen-lockfile
 # Build the Next.js app (produces .next/standalone via output: 'standalone').
 COPY . .
 ENV NEXT_TELEMETRY_DISABLED=1
+# TEMP (test): staging switch — must be present at BUILD time so statically
+# prerendered pages pick up the placeholdered contact info. Defaults off so it
+# never affects a normal production build. (API-route gating is runtime-only and
+# does not need this.)
+ARG SITE_TEST_MODE=false
+ENV SITE_TEST_MODE=$SITE_TEST_MODE
 RUN bun run build
 
 # ---- Runner ----

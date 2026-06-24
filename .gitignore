@@ -43,11 +43,11 @@ next-env.d.ts
 
 # content store (runtime "database"; seeded from in-repo defaults).
 # Not tracked so deploys never overwrite production's admin-edited content.
-/content/*.json
+#/content/*.json
 /content/ba/*.json
 
 # content backups created by deploy.sh
-/content-backups/
+#/content-backups/
 
 # admin-uploaded images (runtime; persisted via the aman-uploads volume).
 /public/uploads/

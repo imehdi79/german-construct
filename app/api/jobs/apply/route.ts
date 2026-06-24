@@ -2,8 +2,12 @@ import { NextRequest, NextResponse } from "next/server";
 import { jobApplicationSchema } from "@/schemas/jobs";
 import type { JobApplicationSchema } from "@/schemas/jobs";
 import { sendMail, escapeHtml, renderRows, collectAttachments, NOTIFY_TO } from "@/lib/email";
+import { TEST_MODE, testModeDisabledResponse } from "@/lib/test-mode";
 
 export async function POST(req: NextRequest) {
+  // TEMP (test): no real mail while SITE_TEST_MODE is on.
+  if (TEST_MODE) return testModeDisabledResponse();
+
   const formData = await req.formData();
 
   const str = (k: string) => String(formData.get(k) ?? "");

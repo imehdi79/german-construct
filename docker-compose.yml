@@ -1,6 +1,13 @@
 services:
   nextjs:
-    build: .
+    build:
+      context: .
+      args:
+        # TEMP (test): pass SITE_TEST_MODE into the build so static pages get
+        # placeholdered contact info. Defaults off. Set it in the host env (or
+        # compose .env) to "true" for a test build. Runtime gating still comes
+        # from .env.local via env_file below.
+        SITE_TEST_MODE: ${SITE_TEST_MODE:-true}
     container_name: aman-nextjs
     restart: unless-stopped
     env_file:

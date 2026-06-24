@@ -17,6 +17,7 @@ import {
   defaultSeo,
 } from '@/data/sections'
 import { siteConfig } from '@/config/site'
+import { TEST_MODE, PLACEHOLDER_CONTACT } from '@/lib/test-mode'
 import type {
   Service,
   Job,
@@ -174,7 +175,14 @@ async function writeJson<T>(file: string, data: T): Promise<void> {
 
 // ─── Public getters (used by pages/sections) ─────────────────────────────────
 
-export const getSiteContent = () => readMerged<SiteContent>('site.json', defaultSiteContent)
+export const getSiteContent = async (): Promise<SiteContent> => {
+  const content = await readMerged<SiteContent>('site.json', defaultSiteContent)
+  // TEMP (test): mask real phone numbers and email with placeholders while
+  // SITE_TEST_MODE is on. Single chokepoint — covers header, footer, top bar,
+  // contact page and CTA, which all read `contact` from here.
+  if (!TEST_MODE) return content
+  return { ...content, contact: { ...content.contact, ...PLACEHOLDER_CONTACT } }
+}
 export const getServices = () => readJson<Service[]>('services.json', seedServices)
 export const getJobs = () => readJson<Job[]>('jobs.json', seedJobs)
 export const getGallery = () => readJson<GalleryItem[]>('gallery.json', seedGallery)

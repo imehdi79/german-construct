@@ -33,6 +33,8 @@ export default async function HomePage() {
 
   const { brand, contact, social, sections } = site
 
+  // TEMP (test): structured data is built but not injected while SEO is off.
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const jsonLd = {
     '@context': 'https://schema.org',
     '@graph': [
@@ -86,10 +88,11 @@ export default async function HomePage() {
 
   return (
     <>
+      {/* TEMP (test): JSON-LD structured data disabled while SEO is off.
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      /> */}
       <HeroSection hero={site.hero} trustIndicators={site.hero.trustIndicators} />
       <ProjektplanerSection
         schemas={formSchemas}

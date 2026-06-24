@@ -52,11 +52,20 @@ export async function generateMetadata(): Promise<Metadata> {
       description: brand.description,
       // twitter:image is provided by app/twitter-image.tsx
     },
+    // TEMP (test): force the entire site to noindex/nofollow so search engines
+    // never index it — must not run on production either. Restore the indexable
+    // rules below when going live.
     robots: {
-      index: true,
-      follow: true,
-      googleBot: { index: true, follow: true },
+      index: false,
+      follow: false,
+      nocache: true,
+      googleBot: { index: false, follow: false },
     },
+    // robots: {
+    //   index: true,
+    //   follow: true,
+    //   googleBot: { index: true, follow: true },
+    // },
     icons: {
       icon: '/favicon.ico',
       apple: '/apple-touch-icon.png',

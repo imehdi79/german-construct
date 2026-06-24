@@ -58,9 +58,13 @@ export async function createMetadata({
     alternates: {
       canonical: url,
     },
-    robots: noIndex
-      ? { index: false, follow: false }
-      : { index: true, follow: true, googleBot: { index: true, follow: true } },
+    // TEMP (test): force every page to noindex/nofollow regardless of the
+    // `noIndex` arg so search engines never index the site — must not run on
+    // production either. Restore the conditional below when re-enabling SEO.
+    robots: { index: false, follow: false, googleBot: { index: false, follow: false } },
+    // robots: noIndex
+    //   ? { index: false, follow: false }
+    //   : { index: true, follow: true, googleBot: { index: true, follow: true } },
     openGraph: {
       type: 'website',
       locale: siteConfig.locale,
