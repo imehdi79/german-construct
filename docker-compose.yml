@@ -32,11 +32,11 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=web"
-      - "traefik.http.routers.editor-backend.rule=Host(`aman.mehdify.tech`)"
-      - "traefik.http.routers.editor-backend.entrypoints=websecure"
-      - "traefik.http.routers.editor-backend.tls=true"
-      - "traefik.http.routers.editor-backend.tls.certresolver=le"
-      - "traefik.http.services.editor-backend.loadbalancer.server.port=3000"
+      - "traefik.http.routers.aman-nextjs.rule=Host(`aman.mehdify.tech`)"
+      - "traefik.http.routers.aman-nextjs.entrypoints=websecure"
+      - "traefik.http.routers.aman-nextjs.tls=true"
+      - "traefik.http.routers.aman-nextjs.tls.certresolver=le"
+      - "traefik.http.services.aman-nextjs.loadbalancer.server.port=3000"
 
 volumes:
   aman-content:
@@ -45,4 +45,4 @@ volumes:
 networks:
   traefik:
     external: true
-    name: traefik
+    name: web
