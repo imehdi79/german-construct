@@ -31,21 +31,12 @@ services:
 
     labels:
       - "traefik.enable=true"
-      - "traefik.docker.network=traefik"
-
-      # HTTPS router (serves the app)
-      - "traefik.http.routers.aman.rule=Host(`fliesen-aman.de`) || Host(`www.fliesen-aman.de`)"
-      - "traefik.http.routers.aman.entrypoints=websecure"
-      - "traefik.http.routers.aman.tls.certresolver=letsencrypt"
-      - "traefik.http.routers.aman.service=aman"
-      - "traefik.http.services.aman.loadbalancer.server.port=3000"
-
-      # HTTP router → permanent redirect to HTTPS
-      - "traefik.http.routers.aman-web.rule=Host(`fliesen-aman.de`) || Host(`www.fliesen-aman.de`)"
-      - "traefik.http.routers.aman-web.entrypoints=web"
-      - "traefik.http.routers.aman-web.middlewares=aman-https-redirect"
-      - "traefik.http.middlewares.aman-https-redirect.redirectscheme.scheme=https"
-      - "traefik.http.middlewares.aman-https-redirect.redirectscheme.permanent=true"
+      - "traefik.docker.network=web"
+      - "traefik.http.routers.editor-backend.rule=Host(`aman.mehdify.tech`)"
+      - "traefik.http.routers.editor-backend.entrypoints=websecure"
+      - "traefik.http.routers.editor-backend.tls=true"
+      - "traefik.http.routers.editor-backend.tls.certresolver=le"
+      - "traefik.http.services.editor-backend.loadbalancer.server.port=3000"
 
 volumes:
   aman-content:
