@@ -19,6 +19,10 @@ export const siteConfig = {
       countryCode: 'DE',
       region: 'Bayern',
     },
+    geo: {
+      latitude: 48.3938,
+      longitude: 10.0094,
+    },
   },
 
   openingHours: {

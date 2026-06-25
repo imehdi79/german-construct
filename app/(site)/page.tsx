@@ -47,7 +47,11 @@ export default async function HomePage() {
           addressCountry: siteConfig.contact.address.countryCode,
           addressRegion: contact.address.region,
         },
-        geo: { "@type": "GeoCoordinates", latitude: 50.1109, longitude: 8.6821 },
+        geo: {
+          "@type": "GeoCoordinates",
+          latitude: siteConfig.contact.geo.latitude,
+          longitude: siteConfig.contact.geo.longitude,
+        },
         openingHoursSpecification: [
           {
             "@type": "OpeningHoursSpecification",

@@ -65,8 +65,7 @@ export function KontaktClient({
   };
 
   const addressValue = `${contact.address.street}, ${contact.address.zip} ${contact.address.city}`;
-  // const mapsHref = `https://maps.google.com/?q=${encodeURIComponent(addressValue)}`;
-  const mapsHref = "";
+  const mapsHref = `https://maps.google.com/?q=${encodeURIComponent(addressValue)}`;
 
   const contactInfo = [
     {
