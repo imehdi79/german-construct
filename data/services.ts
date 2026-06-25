@@ -51,34 +51,18 @@ export const services: Service[] = [
   },
   {
     "id": "sanierungen",
-    "title": "Sanierungen",
-    "shortDescription": "Vollständige Badrenovierung und Sanierung von Boden- und Wandflächen.",
-    "description": "Ob Badsanierung, Bodenerneuerung oder die vollständige Renovierung von Fliesenflächen – wir übernehmen das gesamte Projekt aus einer Hand. Von der Demontage der alten Fliesen über die Untergrundvorbereitung bis zur fachmännischen Neuverlegung und abschließenden Verfugung stehen wir als zuverlässiger Partner an Ihrer Seite.",
+    "title": "Fliesensanierung & Renovierung",
+    "shortDescription": "Erneuerung und Renovierung von Fliesen-, Platten- und Natursteinflächen.",
+    "description": "Sie möchten alte Fliesen- oder Natursteinflächen erneuern? Wir demontieren den vorhandenen Belag fachgerecht, bereiten den Untergrund vor und verlegen neue Fliesen, Platten oder Naturstein – inklusive sauberer Verfugung und Silikonarbeiten. So erhalten Ihre Boden- und Wandflächen ein frisches, langlebiges Erscheinungsbild.",
     "icon": "construction",
     "features": [
-      "Komplette Badsanierung",
+      "Erneuerung von Fliesen- & Natursteinflächen",
       "Fliesendemontage & Entsorgung",
       "Untergrundvorbereitung",
-      "Abdichtung im Nassbereich",
-      "Altbausanierung & Denkmalschutz",
-      "Bestandserhalt & Teilsanierung"
+      "Verbundabdichtung im Nassbereich",
+      "Fliesenarbeiten in Alt- & Bestandsbauten",
+      "Teilerneuerung einzelner Flächen"
     ],
     "href": "/leistungen#sanierungen"
-  },
-  {
-    "id": "terrassen",
-    "title": "Terrassen & Außenbereiche",
-    "shortDescription": "Frostsichere Außenfliesen und Natursteinplatten für Terrassen und Wege.",
-    "description": "Terrassen und Außenbereiche brauchen frostsichere, rutschhemmende Materialien, die auch hohen Belastungen standhalten. Wir verlegen Feinsteinzeug, Natursteinplatten und Terrassendielen fachgerecht auf entsprechendem Untergrund und sorgen für eine ordnungsgemäße Entwässerung durch präzise Gefälleplanung.",
-    "icon": "sun",
-    "features": [
-      "Feinsteinzeug & Terrassenplatten",
-      "Naturstein-Terrassen",
-      "Frostsichere Verlegung",
-      "Rutschhemmende Oberflächen (R11+)",
-      "Gehwege & Einfahrten",
-      "Pool- & Saunabereiche"
-    ],
-    "href": "/leistungen#terrassen"
   }
 ]

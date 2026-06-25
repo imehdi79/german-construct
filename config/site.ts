@@ -3,7 +3,7 @@ export const siteConfig = {
   shortName: 'AMAN',
   tagline: 'Ihr Fachbetrieb für Fliesen-, Platten- und Natursteinarbeiten',
   description:
-    'Fliesen-Naturstein AMAN – Ihr Meisterbetrieb für hochwertige Fliesen-, Platten- und Natursteinarbeiten in Neu-Ulm, Ulm und Umgebung. Präzision, Qualität und persönliche Betreuung zu fairen Festpreisen.',
+    'Fliesen-Naturstein AMAN – Ihr Fachbetrieb für hochwertige Fliesen-, Platten- und Natursteinarbeiten in Neu-Ulm, Ulm und Umgebung. Präzision, Qualität und persönliche Betreuung zu fairen Festpreisen.',
   url: 'https://fliesen-aman.de',
   locale: 'de_DE',
 
@@ -45,11 +45,11 @@ export const siteConfig = {
       'Naturstein Ulm',
       'Fliesenleger Ulm',
       'Natursteinarbeiten',
-      'Estricharbeiten Neu-Ulm',
+      'Mosaikleger Neu-Ulm',
       'Badezimmer Fliesen Ulm',
-      'Terrassenplatten Neu-Ulm',
+      'Plattenleger Neu-Ulm',
       'Verfugungsarbeiten',
-      'Sanierung Neu-Ulm',
+      'Fliesensanierung Neu-Ulm',
       'Fachbetrieb Fliesen Bayern',
     ],
   },

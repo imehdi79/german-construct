@@ -11,10 +11,8 @@ export const footerLinks = {
   services: [
     { label: 'Fliesenarbeiten', href: '/leistungen#fliesenarbeiten' },
     { label: 'Natursteinarbeiten', href: '/leistungen#natursteinarbeiten' },
-    { label: 'Estricharbeiten', href: '/leistungen#estricharbeiten' },
     { label: 'Verfugungen', href: '/leistungen#verfugungen' },
-    { label: 'Sanierungen', href: '/leistungen#sanierungen' },
-    { label: 'Terrassen', href: '/leistungen#terrassen' },
+    { label: 'Fliesensanierung', href: '/leistungen#sanierungen' },
   ],
   company: [
     { label: 'Startseite', href: '/' },

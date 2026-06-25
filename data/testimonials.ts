@@ -6,8 +6,8 @@ export const testimonials: Testimonial[] = [
     name: 'Thomas Bergmann',
     location: 'Neu-Ulm',
     rating: 5,
-    text: 'Absolut professionelle Arbeit! Das Team von AMAN hat unser Badezimmer von Grund auf saniert und mit hochwertigen Marmorfliesen ausgestattet. Das Ergebnis übertrifft unsere Erwartungen bei Weitem. Sauber, pünktlich und zu einem fairen Preis.',
-    project: 'Badsanierung mit Marmorfliesen',
+    text: 'Absolut professionelle Arbeit! Das Team von AMAN hat unsere Wand- und Bodenflächen im Bad mit hochwertigen Marmorfliesen neu verlegt. Das Ergebnis übertrifft unsere Erwartungen bei Weitem. Sauber, pünktlich und zu einem fairen Preis.',
+    project: 'Marmorfliesen im Bad',
     date: '2024-11',
   },
   {
@@ -24,8 +24,8 @@ export const testimonials: Testimonial[] = [
     name: 'Klaus Hartmann',
     location: 'Ulm',
     rating: 5,
-    text: 'Für unser Mehrfamilienhaus haben wir einen neuen Estrich benötigt. AMAN hat die Arbeit termingerecht und in einwandfreier Qualität ausgeführt. Besonders schätze ich die kompetente Beratung im Vorfeld – man merkt, dass das echte Fachleute sind.',
-    project: 'Estricharbeiten im Mehrfamilienhaus',
+    text: 'Für unser Mehrfamilienhaus haben wir neue Bodenfliesen benötigt. AMAN hat die Arbeit termingerecht und in einwandfreier Qualität ausgeführt. Besonders schätze ich die kompetente Beratung im Vorfeld – man merkt, dass das echte Fachleute sind.',
+    project: 'Bodenfliesen im Mehrfamilienhaus',
     date: '2024-10',
   },
   {
@@ -42,8 +42,8 @@ export const testimonials: Testimonial[] = [
     name: 'Michael Wagner',
     location: 'Günzburg',
     rating: 5,
-    text: 'Ich habe AMAN für die komplette Renovierung meines Badezimmers engagiert. Von der Planung bis zur Fertigstellung war alles perfekt organisiert. Die Handwerker waren pünktlich, sauber und äußerst kompetent. Ich bin restlos begeistert.',
-    project: 'Komplette Badrenovierung',
+    text: 'Ich habe AMAN für die Neuverlegung der Fliesen in meinem Badezimmer engagiert. Von der Planung bis zur Fertigstellung war alles perfekt organisiert. Die Handwerker waren pünktlich, sauber und äußerst kompetent. Ich bin restlos begeistert.',
+    project: 'Neue Badezimmerfliesen',
     date: '2024-07',
   },
   {

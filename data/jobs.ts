@@ -29,7 +29,6 @@ export const jobs: Job[] = [
 
 export const projectTypes = [
   { value: 'fliesenleger', label: 'Fliesenleger / Fliesenlegerin' },
-  { value: 'estrichleger', label: 'Estrichleger / Estrichlegerin' },
   { value: 'ausbildung', label: 'Ausbildungsplatz' },
   { value: 'praktikum', label: 'Praktikum' },
   { value: 'sonstiges', label: 'Sonstige Position' },

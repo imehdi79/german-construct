@@ -63,8 +63,8 @@ export const siteContent: SiteContent = {
     {
       "value": 100,
       "suffix": "%",
-      "label": "Meisterqualität",
-      "description": "Jedes Projekt vom Meister abgenommen"
+      "label": "Präzision",
+      "description": "Jedes Projekt fachgerecht und sorgfältig ausgeführt"
     }
   ],
   "nav": {
@@ -129,7 +129,7 @@ export const siteContent: SiteContent = {
     },
     "leistungenIntro": {
       "eyebrow": "Unser Leistungsportfolio",
-      "title": "Alles aus einer Hand",
+      "title": "Fliesen & Naturstein aus einer Hand",
       "subtitle": "Von der Planung bis zur Fertigstellung – wir decken das gesamte Spektrum des Fliesen- und Natursteinhandwerks ab.",
       "ctaLabel": "Alle Leistungen"
     },
@@ -202,7 +202,7 @@ export const siteContent: SiteContent = {
     }
   },
   "footer": {
-    "description": "Ihr Fachbetrieb für Fliesen-, Platten- und Natursteinarbeiten in Frankfurt und Umgebung. Frisch gegründeter Meisterbetrieb mit Qualität und Handwerkskunst zu fairen Festpreisen.",
+    "description": "Ihr Fachbetrieb für Fliesen-, Platten- und Natursteinarbeiten in Neu-Ulm, Ulm und Umgebung. Frisch gegründeter Handwerksbetrieb mit Qualität und Handwerkskunst zu fairen Festpreisen.",
     "servicesTitle": "Leistungen",
     "companyTitle": "Unternehmen",
     "contactTitle": "Kontakt",
@@ -221,12 +221,8 @@ export const siteContent: SiteContent = {
         "href": "/leistungen#verfugungen"
       },
       {
-        "label": "Sanierungen",
+        "label": "Fliesensanierung",
         "href": "/leistungen#sanierungen"
-      },
-      {
-        "label": "Terrassen",
-        "href": "/leistungen#terrassen"
       }
     ],
     "companyLinks": [
@@ -270,7 +266,7 @@ export const siteContent: SiteContent = {
     "leistungen": {
       "breadcrumb": "Leistungen",
       "eyebrow": "Unsere Expertise",
-      "title": "Alles aus einer Hand",
+      "title": "Fliesen & Naturstein aus einer Hand",
       "subtitle": "Von der Untergrundvorbereitung bis zur finalen Verfugung – wir bieten das gesamte Spektrum des Fliesen- und Natursteinhandwerks.",
       "itemLabelPrefix": "Leistung",
       "serviceCtaLabel": "Jetzt anfragen",
@@ -305,20 +301,12 @@ export const siteContent: SiteContent = {
           "label": "Natursteinarbeiten"
         },
         {
-          "value": "estricharbeiten",
-          "label": "Estricharbeiten"
-        },
-        {
           "value": "verfugungen",
-          "label": "Verfugungsarbeiten"
+          "label": "Verfugung & Silikonarbeiten"
         },
         {
           "value": "sanierung",
-          "label": "Sanierungsarbeiten"
-        },
-        {
-          "value": "terrasse",
-          "label": "Terrassen & Außenbereiche"
+          "label": "Fliesensanierung / Renovierung"
         },
         {
           "value": "kostenvoranschlag",
@@ -403,10 +391,10 @@ export const siteContent: SiteContent = {
       "Naturstein Neu-Ulm",
       "Badezimmer fliesen Ulm",
       "Badezimmer fliesen Neu-Ulm",
-      "Terrassenplatten Ulm",
-      "Terrassenplatten Neu-Ulm",
-      "Sanierung Ulm",
-      "Sanierung Neu-UlmFliesenleger",
+      "Mosaikleger Ulm",
+      "Plattenleger Neu-Ulm",
+      "Fliesensanierung Ulm",
+      "Silikon- & Verfugungsarbeiten Neu-Ulm",
       "Natursteinarbeiten",
       "Verfugungsarbeiten",
       "Fachbetrieb Fliesen Donau-Iller (oder: Fachbetrieb Fliesen Alb-Donau)",
@@ -424,11 +412,11 @@ export const siteContent: SiteContent = {
       },
       "leistungen": {
         "title": "Leistungen",
-        "description": "Unsere Leistungen: Fliesenarbeiten, Natursteinarbeiten, Estricharbeiten, Verfugungen, Sanierungen und Terrassengestaltung in Neu-Ulm, Ulm und Umgebung."
+        "description": "Unsere Leistungen: Fliesenarbeiten, Natursteinarbeiten, Verfugung & Silikonarbeiten sowie Fliesensanierung in Neu-Ulm, Ulm und Umgebung."
       },
       "galerie": {
         "title": "Galerie",
-        "description": "Projektgalerie von Fliesen-Naturstein  Aman abgeschlossene Fliesen-, Naturstein- und Terrassenprojekte in Neu-Ulm, Ulm – und Umgebung."
+        "description": "Projektgalerie von Fliesen-Naturstein Aman – abgeschlossene Fliesen- und Natursteinprojekte in Neu-Ulm, Ulm und Umgebung."
       },
       "kontakt": {
         "title": "Kontakt",
@@ -436,7 +424,7 @@ export const siteContent: SiteContent = {
       },
       "stellenangebote": {
         "title": "Stellenangebote",
-        "description": "Karriere bei Fliesen-Naturstein Aman – aktuelle Stellenangebote für Fliesenleger, Estrichleger und Auszubildende in Neu-Ulm, Ulm und Umgebung."
+        "description": "Karriere bei Fliesen-Naturstein Aman – aktuelle Stellenangebote für Fliesenleger und Auszubildende in Neu-Ulm, Ulm und Umgebung."
       }
     }
   }

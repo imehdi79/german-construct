@@ -15,7 +15,7 @@ ENV NEXT_TELEMETRY_DISABLED=1
 # prerendered pages pick up the placeholdered contact info. Defaults off so it
 # never affects a normal production build. (API-route gating is runtime-only and
 # does not need this.)
-ARG SITE_TEST_MODE=true
+ARG SITE_TEST_MODE=false
 ENV SITE_TEST_MODE=$SITE_TEST_MODE
 RUN bun run build
 

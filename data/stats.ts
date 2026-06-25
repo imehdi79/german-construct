@@ -16,8 +16,8 @@ export const stats: Stat[] = [
   {
     value: 100,
     suffix: '%',
-    label: 'Meisterqualität',
-    description: 'Jedes Projekt vom Meister abgenommen',
+    label: 'Präzision',
+    description: 'Jedes Projekt fachgerecht und sorgfältig ausgeführt',
   },
 ]
 

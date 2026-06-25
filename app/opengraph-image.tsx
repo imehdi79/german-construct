@@ -48,7 +48,7 @@ async function loadGoogleFont(
 }
 
 export default async function Image() {
-  const eyebrow = TEST_MODE ? 'Meisterbetrieb · Musterstadt' : 'Meisterbetrieb · Neu-Ulm'
+  const eyebrow = TEST_MODE ? 'Fliesen & Naturstein · Musterstadt' : 'Fliesen & Naturstein · Neu-Ulm'
   const headline = TEST_MODE ? 'Muster' : 'Fliesen-Naturstein'
   const wordmark = TEST_MODE ? 'MUSTER' : 'AMAN'
   const services = 'Fliesen · Platten · Naturstein'
