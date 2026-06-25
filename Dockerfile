@@ -34,8 +34,6 @@ ENV HOSTNAME=0.0.0.0
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
 COPY --from=builder /app/public ./public
-# Seed editable content; persisted at runtime via the aman-content volume.
-COPY --from=builder /app/content ./content
 
 EXPOSE 3000
 

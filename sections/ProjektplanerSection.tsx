@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ClipboardList, CheckCircle2, ArrowLeft, ArrowUp } from "lucide-react";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import { FormBuilder } from "@/components/Form-Builder/FormBuilder";
-import { formSchemas } from "@/components/Form-Builder/schemas";
+import { formSchemas } from "@/data/formSchemas";
 import type { Step } from "@/components/Form-Builder/types";
 import { plannerCards as defaultCards } from "@/data/plannerCards";
 import { defaultSections } from "@/data/sections";

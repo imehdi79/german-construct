@@ -1,4 +1,7 @@
-{
+import type { FormSchemasContent } from '@/types'
+
+/** Hardcoded project-planner form schemas, keyed by planner-card id. */
+export const formSchemas: FormSchemasContent = {
   "Fliesenarbeiten": [
     {
       "id": "fb-mqc5ivua-tcta",

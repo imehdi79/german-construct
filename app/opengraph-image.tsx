@@ -2,8 +2,11 @@ import { ImageResponse } from 'next/og'
 import { readFile } from 'node:fs/promises'
 import { join } from 'node:path'
 import { siteConfig } from '@/config/site'
+import { TEST_MODE } from '@/lib/test-mode'
 
-export const alt = `${siteConfig.name} – ${siteConfig.tagline}`
+export const alt = TEST_MODE
+  ? 'Musterbetrieb'
+  : `${siteConfig.name} – ${siteConfig.tagline}`
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 
@@ -45,11 +48,11 @@ async function loadGoogleFont(
 }
 
 export default async function Image() {
-  const eyebrow = 'Meisterbetrieb · Neu-Ulm'
-  const headline = 'Fliesen-Naturstein'
-  const wordmark = 'AMAN'
+  const eyebrow = TEST_MODE ? 'Meisterbetrieb · Musterstadt' : 'Meisterbetrieb · Neu-Ulm'
+  const headline = TEST_MODE ? 'Muster' : 'Fliesen-Naturstein'
+  const wordmark = TEST_MODE ? 'MUSTER' : 'AMAN'
   const services = 'Fliesen · Platten · Naturstein'
-  const domain = 'fliesen-aman.de'
+  const domain = TEST_MODE ? 'example.com' : 'fliesen-aman.de'
   const glyphs = `${eyebrow}${headline}${wordmark}${services}${domain}`
 
   const [bgData, playfair, playfairBold, inter] = await Promise.all([

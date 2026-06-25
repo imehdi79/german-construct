@@ -14,11 +14,6 @@ services:
       - .env.local
     environment:
       - NODE_ENV=production
-    volumes:
-      # Persist admin-edited content (lib/content.ts writes to /app/content).
-      - aman-content:/app/content
-      # Persist admin-uploaded images (actions/upload.ts writes to /app/public/uploads).
-      - aman-uploads:/app/public/uploads
     networks:
       - traefik
 
@@ -37,10 +32,6 @@ services:
       - "traefik.http.routers.aman-nextjs.tls=true"
       - "traefik.http.routers.aman-nextjs.tls.certresolver=le"
       - "traefik.http.services.aman-nextjs.loadbalancer.server.port=3000"
-
-volumes:
-  aman-content:
-  aman-uploads:
 
 networks:
   traefik:

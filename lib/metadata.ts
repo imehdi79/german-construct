@@ -1,6 +1,10 @@
 import type { Metadata } from 'next'
 import { siteConfig } from '@/config/site'
 import { getSiteContent } from '@/lib/content'
+import { TEST_MODE } from '@/lib/test-mode'
+
+// TEMP (test): hide the real domain from canonical/OG metadata while anonymised.
+const BASE_URL = TEST_MODE ? 'https://example.com' : siteConfig.url
 
 interface PageMetadataOptions {
   /** Look up title/description from the editable `seo.perPage[pageKey]`. */
@@ -38,7 +42,7 @@ export async function createMetadata({
 
   const metaDescription =
     description ?? perPage?.description ?? brand.description
-  const url = `${siteConfig.url}${path}`
+  const url = `${BASE_URL}${path}`
   // When no explicit image is given, omit it so the generated
   // app/opengraph-image.tsx (and twitter-image.tsx) convention is used.
   const ogImages = image
@@ -54,7 +58,7 @@ export async function createMetadata({
     authors: [{ name: brand.name }],
     creator: brand.name,
     publisher: brand.name,
-    metadataBase: new URL(siteConfig.url),
+    metadataBase: new URL(BASE_URL),
     alternates: {
       canonical: url,
     },

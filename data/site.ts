@@ -1,4 +1,7 @@
-{
+import type { SiteContent } from '@/types'
+
+/** The full, hardcoded site content (single source for all site copy). */
+export const siteContent: SiteContent = {
   "brand": {
     "name": "Fliesen-Naturstein Aman",
     "shortName": "Aman",
@@ -256,10 +259,6 @@
       {
         "label": "Datenschutz",
         "href": "/datenschutz"
-      },
-      {
-        "label": "AGB",
-        "href": "/agb"
       },
       {
         "label": "Nutzungsbedingungen",

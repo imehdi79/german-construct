@@ -14,7 +14,7 @@ export function LegalPageView({
   page: LegalPage
   /** Cross-links to the other legal pages. */
   links: LinkItem[]
-  /** Append a "Stand: <month year>" line (used by Datenschutz/AGB/Nutzungsbedingungen). */
+  /** Append a "Stand: <month year>" line (used by Datenschutz/Nutzungsbedingungen). */
   showStand?: boolean
 }) {
   const stand = new Date().toLocaleDateString('de-DE', { month: 'long', year: 'numeric' })

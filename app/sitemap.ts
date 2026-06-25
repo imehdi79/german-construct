@@ -18,7 +18,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   //   { url: `${base}/stellenangebote`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.6 },
   //   { url: `${base}/impressum`, lastModified: new Date(), changeFrequency: 'yearly', priority: 0.2 },
   //   { url: `${base}/datenschutz`, lastModified: new Date(), changeFrequency: 'yearly', priority: 0.2 },
-  //   { url: `${base}/agb`, lastModified: new Date(), changeFrequency: 'yearly', priority: 0.2 },
   //   { url: `${base}/nutzungsbedingungen`, lastModified: new Date(), changeFrequency: 'yearly', priority: 0.2 },
   // ]
   //

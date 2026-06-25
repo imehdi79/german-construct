@@ -44,14 +44,13 @@ export interface Testimonial {
 
 // ─── Job Types ────────────────────────────────────────────────────────────────
 
-export type JobType = 'Vollzeit' | 'Teilzeit' | 'Ausbildung' | 'Praktikum'
-export type JobLevel = 'Junior' | 'Senior' | 'Meister' | 'Alle Level'
-
 export interface Job {
   id: string
   title: string
-  type: JobType
-  level: JobLevel
+  /** Free-text employment type, e.g. "Vollzeit" or "Vollzeit / Teilzeit". */
+  type: string
+  /** Free-text seniority level; may be empty. */
+  level: string
   location: string
   description: string
   requirements: string[]
@@ -350,12 +349,11 @@ export interface SeoContent {
   perPage: Record<string, { title: string; description: string }>
 }
 
-// ─── Legal pages (Impressum, Datenschutz, AGB, Nutzungsbedingungen) ───────────
+// ─── Legal pages (Impressum, Datenschutz, Nutzungsbedingungen) ────────────────
 
 export type LegalKey =
   | 'impressum'
   | 'datenschutz'
-  | 'agb'
   | 'nutzungsbedingungen'
 
 export interface LegalBlock {
@@ -373,3 +371,30 @@ export interface LegalPage {
 }
 
 export type LegalContent = Record<LegalKey, LegalPage>
+
+// ─── Aggregate site content ──────────────────────────────────────────────────
+
+import type { Step } from '@/components/Form-Builder/types'
+
+export interface SiteContent {
+  brand: BrandContent
+  descriptionShort: string
+  contact: {
+    phone: string
+    mobile: string
+    email: string
+    address: { street: string; zip: string; city: string; region: string; country: string }
+  }
+  openingHours: { weekdays: string; saturday: string; sunday: string }
+  social: { instagram: string; facebook: string }
+  hero: HeroCopy
+  stats: { value: number; suffix: string; label: string; description: string }[]
+  nav: NavContent
+  sections: SectionsContent
+  footer: FooterContent
+  pages: PagesContent
+  seo: SeoContent
+}
+
+/** Project-planner form schemas, keyed by planner-card id. */
+export type FormSchemasContent = Record<string, Step[]>
