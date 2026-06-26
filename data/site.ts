@@ -101,7 +101,7 @@ export const siteContent: SiteContent = {
     "warumAman": {
       "eyebrow": "Warum AMAN",
       "title": "Ihr verlässlicher Partner im Handwerk",
-      "subtitle": "Wir verbinden traditionelles Handwerk mit modernen Techniken – für Ergebnisse, die dauerhaft begeistern.",
+      "subtitle": "Ihre Vorstellungen perfekt umgesetzt: Mit solidem Fachwissen und zeitgemäßen Techniken entstehen Ergebnisse, die dauerhaft begeistern.",
       "imageAlt": "AMAN Handwerker bei der Arbeit – Präzision und Qualität",
       "image": "/about-craftsman.jpg",
       "reasons": [
