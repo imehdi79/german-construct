@@ -99,7 +99,7 @@ export const siteContent: SiteContent = {
   },
   "sections": {
     "warumAman": {
-      "eyebrow": "Warum AMAN Test",
+      "eyebrow": "Warum AMAN",
       "title": "Ihr verlässlicher Partner im Handwerk",
       "subtitle": "Ihre Vorstellungen perfekt umgesetzt: Mit solidem Fachwissen und zeitgemäßen Techniken entstehen Ergebnisse, die dauerhaft begeistern.",
       "imageAlt": "AMAN Handwerker bei der Arbeit – Präzision und Qualität",
@@ -184,7 +184,7 @@ export const siteContent: SiteContent = {
     },
     "projektplaner": {
       "eyebrow": "Ihr Projekt beginnt hier",
-      "title": "In wenigen Klicks zu Ihrem Angebot!",
+      "title": "In wenigen Klicks zu Ihrem Angebot! Salam",
       "subtitle": "Wählen Sie einfach Ihr Vorhaben aus, beantworten Sie die Fragen zu Ihrem Objekt und erhalten Sie schnellstmöglich Ihr unverbindliches Angebot.",
       "emptyTitle": "Wählen Sie Ihr Projektvorhaben",
       "emptySubtitle": "Tippen Sie auf eine Karte und erhalten Sie Schritt für Schritt Ihr unverbindliches Angebot.",
