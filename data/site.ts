@@ -130,7 +130,7 @@ export const siteContent: SiteContent = {
     "leistungenIntro": {
       "eyebrow": "Unser Leistungsportfolio",
       "title": "Ihr Fachbetrieb für professionelle Fliesenverlegung",
-      "subtitle": "Wir verlegen Fliesen aller Art mit höchster Präzision und handwerklicher Sorgfalt. Ob moderne, großformatige Bodenfliesen, filigrane Mosaike oder elegante Wandbeläge – unser Fachbetrieb beherrscht jede Technik. Wir arbeiten mit modernsten Werkzeugen und verwenden ausschließlich qualitativ hochwertige Materialien für ein dauerhaftes und perfektes Ergebnis.",
+      "subtitle": "Jedes Projekt ist einzigartig – deshalb setzen wir Ihre Wünsche mit Fachverstand, moderner Ausrüstung und absoluter Sauberkeit um. Von der sorgfältigen Planung der Verlegemuster bis zum sauberen Abschluss sorgen wir dafür, dass Ihre neuen Wand- und Bodenbeläge optisch und qualitativ restlos überzeugen.",
       "ctaLabel": "Alle Leistungen"
     },
     "galerieIntro": {
