@@ -129,8 +129,8 @@ export const siteContent: SiteContent = {
     },
     "leistungenIntro": {
       "eyebrow": "Unser Leistungsportfolio",
-      "title": "Fliesen & Naturstein aus einer Hand",
-      "subtitle": "Von der Planung bis zur Fertigstellung – wir decken das gesamte Spektrum des Fliesen- und Natursteinhandwerks ab.",
+      "title": "Ihr Fachbetrieb für professionelle Fliesenverlegung",
+      "subtitle": "Wir verlegen Fliesen aller Art mit höchster Präzision und handwerklicher Sorgfalt. Ob moderne, großformatige Bodenfliesen, filigrane Mosaike oder elegante Wandbeläge – unser Fachbetrieb beherrscht jede Technik. Wir arbeiten mit modernsten Werkzeugen und verwenden ausschließlich qualitativ hochwertige Materialien für ein dauerhaftes und perfektes Ergebnis.",
       "ctaLabel": "Alle Leistungen"
     },
     "galerieIntro": {
@@ -266,8 +266,8 @@ export const siteContent: SiteContent = {
     "leistungen": {
       "breadcrumb": "Leistungen",
       "eyebrow": "Unsere Expertise",
-      "title": "Fliesen & Naturstein aus einer Hand",
-      "subtitle": "Von der Untergrundvorbereitung bis zur finalen Verfugung – wir bieten das gesamte Spektrum des Fliesen- und Natursteinhandwerks.",
+      "title": "Ihr Fachbetrieb für professionelle Fliesenverlegung",
+      "subtitle": "Wir verlegen Fliesen aller Art mit höchster Präzision und handwerklicher Sorgfalt. Ob moderne, großformatige Bodenfliesen, filigrane Mosaike oder elegante Wandbeläge – unser Fachbetrieb beherrscht jede Technik. Wir arbeiten mit modernsten Werkzeugen und verwenden ausschließlich qualitativ hochwertige Materialien für ein dauerhaftes und perfektes Ergebnis.",
       "itemLabelPrefix": "Leistung",
       "serviceCtaLabel": "Jetzt anfragen",
       "bottomTitle": "Ihr Projekt ist nicht dabei?",
