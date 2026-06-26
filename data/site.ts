@@ -198,7 +198,7 @@ export const siteContent: SiteContent = {
       title: "In wenigen Klicks zu Ihrem Angebot!",
       subtitle:
         "Wählen Sie einfach Ihr Vorhaben aus, beantworten Sie die Fragen zu Ihrem Objekt und erhalten Sie schnellstmöglich Ihr unverbindliches Angebot.",
-      emptyTitle: "Wählen Sie Ihr Projektvorhaben alla",
+      emptyTitle: "Wählen Sie Ihr Projektvorhaben",
       emptySubtitle:
         "Tippen Sie auf eine Karte und erhalten Sie Schritt für Schritt Ihr unverbindliches Angebot.",
       benefits: [
